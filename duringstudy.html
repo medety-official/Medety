@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ja" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.112.5">
+    <title>Medety</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <link rel="icon" href="logo2.jpeg">
+
+<link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+    </style>
+    <style>
+    /* カード全体：Bootstrapのcardデザインに統合 */
+      .study-card {
+          width: 95%;
+          max-width: 650px;
+          height: 75vh;
+          margin: 20px auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #ffffff; /* 白背景に */
+          border-radius: 1.25rem; /* Bootstrapの rounded-4 相当 */
+          border: none;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* 柔らかい影 */
+          overflow: hidden;
+      }
+
+      /* 問題エリア：境界線を薄く、余白をゆったり */
+      .question-section {
+          width: 100%;
+          height: 45%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border-bottom: 1px solid #edf2f7;
+          padding: 40px 20px;
+          box-sizing: border-box;
+      }
+
+      #setTitle {
+          font-size: 0.9rem;
+          color: #6c757d;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
+      }
+
+      #question {
+          font-size: 2.2rem; /* 少し大きく */
+          font-weight: 800;
+          color: #2d3748;
+          margin: auto 0;
+      }
+
+      #hint {
+          font-size: 0.95rem;
+          color: #a0aec0;
+          background: #f8fafc;
+          padding: 8px 16px;
+          border-radius: 20px;
+          min-height: 1.5rem;
+      }
+
+      /* 回答エリア */
+      .answer-section {
+          width: 100%;
+          height: 35%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #ffffff;
+      }
+
+      #answer {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #0d6efd; /* Bootstrap Primary */
+      }
+
+      /* ボタンエリア：下部に固定 */
+      .button-container {
+          width: 100%;
+          height: 20%;
+          padding: 0 30px;
+          display: flex;
+          align-items: center;
+          background-color: #f8fafc; /* ボタンエリアだけ薄く色付け */
+          box-sizing: border-box;
+      }
+
+      .basic-button {
+          display: flex;
+          gap: 12px;
+          flex: 1;
+          justify-content: center;
+      }
+
+      /* ボタン自体の装飾（Bootstrapのボタン風に上書き） */
+      .button-container button {
+          border: none;
+          padding: 12px 24px;
+          border-radius: 50px; /* 角丸ボタン */
+          font-weight: bold;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+
+      /* 答えを表示：Primary色 */
+      .answer-button button {
+          background-color: #0d6efd;
+          color: white;
+      }
+
+      /* 次の問題へ：Success / Danger色 */
+      .next-question-button {
+          display: none; /* JSで制御されているはずなのでそのまま */
+          gap: 15px;
+      }
+      .next-question-button button:first-child { background-color: #dc3545; color: white; } /* 覚えてない */
+      .next-question-button button:last-child { background-color: #198754; color: white; }  /* 覚えた */
+
+      /* 💡ボタン：丸いアウトライン */
+      .hint-button button {
+          width: 45px;
+          height: 45px;
+          padding: 0 !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: white;
+          border: 2px solid #e2e8f0 !important;
+          font-size: 1.2rem;
+      }
+
+      .button-container button:hover {
+          transform: translateY(-2px);
+          opacity: 0.9;
+      }
+  </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="sidebars.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="study" viewBox="0 0 16 16">
+        <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+        <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      <symbol id="setting" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+      </symbol>
+    </svg>
+    <div class="d-flex flex-nowrap">
+      <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
+        <h1 class="visually-hidden">Sidebars examples</h1>
+        <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
+          <a href="index.html" class="d-flex align-items-center justify-content-center py-2 mb-1 link-body-emphasis text-decoration-none" title="Medetyホーム">
+            <img src="logo.png" alt="Medety Logo" width="48" height="48">
+          </a>
+          <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+              <a href="study.html" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="学ぶ" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#study"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0" title="設定" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#setting"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </aside>
+
+      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+        
+        <header class="d-flex align-items-center justify-content-between p-3 bg-white border-bottom shadow-sm" style="flex-shrink: 0; position: relative;">
+          <h2 class="h5 mb-0 fw-bold">📖 学ぶ / 学習中</h2>
+
+          <div class="text-muted small fw-bold">
+            残り <span id="remainingCount">0</span> 問
+          </div>
+
+          <!--プログレスバー-->
+          <div class="progress" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; border-radius: 0;">
+            <div id="studyProgress" class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+
+        </header>
+
+        <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: #f8f9fa;">
+
+          <h2 id="setTitle"></h2>
+          <div class="study-card">
+              <div class="question-section">
+                  <p id = "question"></p>
+                  <p id = "hint"></p>
+              </div>
+
+              <div class="answer-section">
+                  <p id = "answer"></p>
+              </div>
+
+              <div class="button-container">
+                  <div class="basic-button">
+                      <div class="answer-button">
+                          <button onclick="showAnswer()">答えを表示</button>
+                      </div>
+
+                      <div class="next-question-button">
+                          <button onclick="nextQuestion(false)">覚えていない...</button>
+                          <button onclick="nextQuestion(true)">覚えた！</button>
+                      </div>
+                  </div>
+
+                  <div class="hint-button">
+                      <button onclick="showHint()">💡</button>
+                  </div>
+              </div>
+
+
+          </div>
+
+          <div id="loading" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; display:flex; align-items:center; justify-content:center; z-index:1000;">
+              <div class="loader">Medety データを同期中...</div>
+          </div>
+          
+          <script>
+              const params = new URLSearchParams(window.location.search);
+              const setName = params.get("set");   // cardiなど選んだ学習セットを読み込む
+              document.getElementById("setTitle").textContent = setName; //setTitleにsetNameを代入する
+              const studyMode = params.get("way"); 
+              const studyLanguage = params.get("language"); 
+              const studyOrder = params.get("order"); 
+          </script>
+
+          <!--必ず　出題データ→進行スクリプトの順に読み込ませる！-->
+          <script src="api.js"></script> 
+          <script src="quiz.js"></script> 
+
+          <script>
+              initMedety();
+          </script>
+        
+      </main>
+    </div>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="sidebars.js"></script>
+  </body>
+</html>
