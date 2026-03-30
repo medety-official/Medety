@@ -58,10 +58,14 @@
     
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+      </symbol>
       <symbol id="study" viewBox="0 0 16 16">
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
@@ -73,18 +77,20 @@
     <div class="d-flex flex-nowrap">
       <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
         <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
-          <a href="index.html" class="d-flex align-items-center justify-content-center py-2 mb-1 link-body-emphasis text-decoration-none" title="Medetyホーム">
-            <img src="logo.png" alt="Medety Logo" width="48" height="48">
-          </a>
           <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li class="nav-item">
-              <a href="study.html" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="学ぶ" data-bs-toggle="tooltip" data-bs-placement="right">
-                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#study"/></svg>
+              <a href="index.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
               </a>
             </li>
-            <li>
-              <a href="setting.html" class="nav-link active py-3 border-bottom rounded-0" title="設定" data-bs-toggle="tooltip" data-bs-placement="right">
-                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#setting"/></svg>
+            <li class="nav-item">
+              <a href="study.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="setting.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Setting"><use xlink:href="#setting"/></svg>
               </a>
             </li>
           </ul>
@@ -93,46 +99,44 @@
       </aside>
 
       <main class="flex-grow-1" style="overflow-y: auto;">
-        <header class="d-flex align-items-center justify-content-between p-3 mb-0 bg-white border-bottom sticky-top">
-          <h2 class="h5 mb-0 fw-bold">⚙️ 設定 </h2>
-        </header>
-
         <div class = "p-4 d-flex flex-column" style="min-height: calc(100vh - 80px);">
           <div class="mt-1">
-            <p class="text-muted small fw-bold mb-2">ℹ️ Medetyについて</p>
             <div class="d-grid gap-2">
               <a href="https://note.com/medety_official" target="_blank" rel="noopener noreferrer"
-                class="btn btn-outline-primary border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center">
+                class="btn btn-outline-primary border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center" style="background-color: #ffffff;">
                 <span class="fs-4 me-2">📝</span> 使い方・開発ブログ (note)
               </a>
 
               <a href="https://x.com/MedetyOfficial" target="_blank" rel="noopener noreferrer"
                 class="btn border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                style="color: #e74c3c; border-color: #e74c3c; background-color: transparent; transition: all 0.3s;"
-                onmouseover="this.style.backgroundColor='#e74c3c'; this.style.color='white';" 
-                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#e74c3c';">
+                style="color: #8a6b63; border-color: #8a6b63; background-color: #ffffff; transition: all 0.3s;"
+                onmouseover="this.style.backgroundColor='#8a6b63'; this.style.color='white';" 
+                onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#8a6b63';">
                 <span class="fs-4 me-2">📢</span> 最新情報 (X)
               </a>
 
               <a href="https://forms.gle/ZCCdRVZefM8TzMkt9" target="_blank" rel="noopener noreferrer"
                 class="btn btn-outline-info border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                onmouseover="this.style.color='white'" 
-                onmouseout="this.style.color='#0dcaf0'">
+                style="color: #f0a1a8; border-color: #f0a1a8; background-color: #ffffff; transition: all 0.3s;"
+                onmouseover="this.style.backgroundColor='#f0a1a8'; this.style.color='white';" 
+                onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#f0a1a8';">
                 <span class="fs-4 me-2">🌱</span> サービス向上のためのアンケート
               </a>
 
-              <button type="button"
+              <a href="terms.html"
                 class="btn btn-outline-secondary border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                onclick="location.href='terms.html'">
+                style="color: #4a4543; border-color: #4a4543; background-color: #ffffff; transition: all 0.3s;"
+                onmouseover="this.style.backgroundColor='#4a4543'; this.style.color='white';" 
+                onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#4a4543';">
                 <span class="fs-4 me-2">⚖️</span> 利用規約・免責事項
-              </button>
+              </a>
 
 
             </div>
           </div>
 
           <div class="text-center mt-auto mb-4 text-secondary" style="font-size: 0.8rem;">
-            Version 1.0.5<br>
+            Version v2.0.0<br>
             © 2026 Medety
           </div>
 

@@ -1,0 +1,249 @@
+
+/* 全体の背景：練り色*/
+/* 真っ白じゃない、温かみのあるバニラアイスのような色 */
+body, main {
+    background-color: #fcfaf2 !important; 
+    color: #4a4543 !important; /* 墨色：真っ黒じゃない優しい茶鼠 */
+}
+
+/* サイドバー：淡い若草色のニュアンス */
+aside, .bg-body-tertiary {
+    background-color: #f1f3eb !important; 
+    border-right: 1px solid #e2e4db !important;
+}
+
+/* ヘッダー：清潔感のある明るいベージュ */
+header {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e4db !important;
+    color: #4a4543 !important;
+}
+
+/* カルーセル：ロゴの色を「パステル和菓子」に */
+/* 成功（黄緑）：萌黄色（もえぎいろ） */
+.carousel-item.bg-success { background-color: #d1e5c3 !important; color: #4a4543 !important; }
+/* 情報（オレンジ）：薄柿（うすがき） */
+.carousel-item.bg-info { background-color: #f9d8b8 !important; color: #4a4543 !important; }
+/* ブログ（青）：露草色（つゆくさいろ） */
+.carousel-item.bg-primary { background-color: #c9d9e8 !important; color: #4a4543 !important; }
+
+/* 下部のボタン：ロゴのオレンジを「飴細工」のように使う */
+.btn-outline-primary {
+    background-color: #ffffff !important;
+    border-color: #f2c091 !important; /* ロゴのオレンジ */
+    color: #f2c091 !important;
+    border-width: 2px !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #f2c091 !important;
+    color: #ffffff !important;
+}
+
+/* アイコンの色をロゴの緑に寄せる */
+.nav-link svg {
+    fill: #8db57a;
+}
+
+
+
+
+
+/* --- 全体共通の設定 --- */
+.nav-link { color: #4a4543; }
+
+/* --- PCの時だけ（画面幅が 768px 以上の時） --- */
+@media (min-width: 768px) {
+.fixed-bottom {
+    display: none; /* スマホ用フッターを隠す */
+}
+aside {
+    display: flex; /* PC用サイドバーを出す */
+}
+}
+
+/* --- スマホの時だけ（画面幅が 767px 以下の時） --- */
+@media (max-width: 768px) {
+aside {
+    display: none; /* PC用サイドバーを隠す */
+}
+.fixed-bottom {
+    display: flex; /* スマホ用フッターを出す */
+}
+}
+
+
+
+
+/* --- ナビゲーション全体の基本設定 --- */
+.nav-link {
+    color: #8db57a !important; 
+    transition: all 0.3s ease; /* 色の変化を滑らかに（心地よさの追求） */
+}
+
+.nav-link svg {
+    fill: #8db57a; /* SVGの中身も若草色に */
+}
+
+/* --- アクティブ（今いるページ）の設定 --- */
+.nav-link.active {
+    background-color: transparent !important; /* 背景の青い色を消す */
+    color: #f2c091 !important; 
+}
+
+.nav-link.active svg {
+    fill: #f2c091 !important; 
+}
+
+/* --- ホバー（指やマウスが触れた時）の設定 --- */
+.nav-link:hover {
+    color: #f2c091 !important;
+    opacity: 0.8;
+}
+
+
+
+
+/* --- タブボタン（語源そのもの、など）専用のスタイル --- */
+#pills-tab .nav-link {
+    background-color: transparent !important;
+    color: #f2c091 !important; 
+    border: 1px solid #f2c091 !important; 
+    margin-bottom: 5px;
+}
+
+/* --- タブボタンがアクティブな時（塗りつぶす！） --- */
+#pills-tab .nav-link.active {
+    background-color: #8db57a !important; 
+    color: #ffffff !important; /* 文字は白抜きにして読みやすく */
+    border-color: #8db57a !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ほんの少し影をつけて「ボタン感」を出す */
+}
+
+
+
+/* --- 設定ボタンの基本スタイル（未選択時） --- */
+.select-group .btn-outline-primary {
+    background-color: #ffffff !important; /* 白（ミルク色）背景 */
+    color: #f2c091 !important;            
+    border: 2px solid #f2c091 !important; 
+    transition: all 0.2s ease;
+}
+
+/* --- 選択された時のスタイル（JSで active や active-mode が付いた時） --- */
+/* Bootstrapの標準activeクラスと、あなたのactive-modeクラス両方に対応させます */
+.select-group .btn-outline-primary.active,
+.select-group .btn-outline-primary.active-mode {
+    background-color: #8db57a !important; 
+    color: #ffffff !important;            /* 文字は白抜き */
+    border-color: #8db57a !important;     
+}
+
+
+
+/* --- 学習スタートボタン（メインアクション） --- */
+.btn-primary.w-100.rounded-pill {
+    background-color: #8db57a !important; /* ロゴの若草色 */
+    border: none !important;
+    color: #ffffff !important;           /* 文字は清潔感のある白 */
+    font-size: 1.1rem;                   /* 少し大きくして押しやすく */
+    letter-spacing: 0.05rem;             /* 文字の間隔を少し開けて読みやすく */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(141, 181, 122, 0.3) !important; /* 若草色の影 */
+}
+
+/* --- ホバー・クリック時の演出（生き生きとした反応） --- */
+.btn-primary.w-100.rounded-pill:hover {
+    background-color: #7da36a !important; /* 少し濃い緑 */
+    transform: translateY(-2px);           /* 軽く浮き上がる（「押せる！」感） */
+}
+
+.btn-primary.w-100.rounded-pill:active {
+    transform: translateY(0);              /* 押した時に沈む */
+}
+
+
+/* --- 1. アコーディオンの外枠（アイテム全体） --- */
+.accordion-item {
+    background-color: #f1f3eb !important; /* 背景：サイドバーと同じ淡い若草色 */
+    border: none !important;              /* 枠線を消してスッキリ */
+    border-radius: 1rem !important;      /* 角を丸く */
+    overflow: hidden;                     /* 角丸を中身にも適用 */
+}
+
+/* --- 2. アコーディオンのボタン部分（基本 ＆ 開いている時 共通） --- */
+.accordion-button {
+    color: #4a4543 !important;           /* 文字：優しい墨色 */
+}
+
+/* --- 3. 開いている（collapsedでない）時の文字色と影の抑制 --- */
+.accordion-button:not(.collapsed) {
+    box-shadow: none !important;          /* 青い影を完全に封印 */
+}
+
+/* --- 4. フォーカス時（押した瞬間）の水色の影を消す --- */
+.accordion-button:focus {
+    box-shadow: none !important;          /* 水色の光を消す */
+    border-color: transparent !important; /* 境界線も目立たせない */
+}
+
+/* --- 5. アコーディオンの中身（ボディ） --- */
+.accordion-body {
+    background-color: #f1f3eb !important; /* 背景：サイドバーと同じ色 */
+    border-top: 1px solid #e2e4db !important; /* 境目に薄い線を引く */
+    color: #4a4543 !important;
+}
+
+/* --- 6. 右側の矢印アイコンを若草色に馴染ませる --- */
+.accordion-button::after {
+    filter: opacity(0.5); /* 矢印を少し控えめにする */
+}
+
+
+/* --- プログレスバーの土台（未達成部分） --- */
+.progress {
+    background-color: #f1f3eb !important; /* サイドバーと同じ淡い若草色 */
+    height: 12px !important;              /* 少し太めにして視認性をアップ */
+    border-radius: 10px !important;       /* ころんとした丸み */
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); /* わずかな奥行き */
+}
+
+/* --- 進捗部分（達成部分）：若草色 --- */
+.progress-bar {
+    background-color: #8db57a !important; /* ロゴのメインカラー */
+    transition: width 0.6s ease;           /* 伸びる時の動きを滑らかに */
+}
+
+/* --- オプション：ストライプを消してスッキリさせる場合 --- */
+.progress-bar-striped {
+    background-image: none !important;
+}
+
+
+/* --- 全ての btn-primary を若草色に統一 --- */
+.btn-primary {
+    background-color: #8db57a !important; /* ロゴの若草色 */
+    border: none !important;              /* 枠線なしでスッキリ */
+    color: #ffffff !important;            /* 文字は白 */
+    box-shadow: 0 4px 10px rgba(141, 181, 122, 0.3) !important; /* 若草色の柔らかな影 */
+    transition: all 0.2s ease;            /* 動きを滑らかに */
+}
+
+/* --- ホバー（触れた時） --- */
+.btn-primary:hover {
+    background-color: #7da36a !important; /* 少し濃い緑 */
+    transform: translateY(-2px);           /* 軽く浮き上がる */
+    box-shadow: 0 6px 15px rgba(141, 181, 122, 0.4) !important;
+}
+
+/* --- アクティブ（押した瞬間） --- */
+.btn-primary:active {
+    background-color: #6d935a !important;
+    transform: translateY(0);              /* 押し込まれる感触 */
+}
+
+/* --- フォーカス（選択中）の青い輪を消す --- */
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(141, 181, 122, 0.25) !important; /* 若草色の光輪 */
+}

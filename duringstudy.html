@@ -100,8 +100,8 @@
 
       #hint {
           font-size: 0.95rem;
-          color: #a0aec0;
-          background: #f8fafc;
+          color: #4a4543;
+          background: #f1f3eb;
           padding: 8px 16px;
           border-radius: 20px;
           min-height: 1.5rem;
@@ -120,7 +120,7 @@
       #answer {
           font-size: 1.8rem;
           font-weight: bold;
-          color: #0d6efd; /* Bootstrap Primary */
+          color: #8db57a; /* Bootstrap Primary */
       }
 
       /* ボタンエリア：下部に固定 */
@@ -130,7 +130,7 @@
           padding: 0 30px;
           display: flex;
           align-items: center;
-          background-color: #f8fafc; /* ボタンエリアだけ薄く色付け */
+          background-color: #f1f3eb; /* ボタンエリアだけ薄く色付け */
           box-sizing: border-box;
       }
 
@@ -154,7 +154,7 @@
 
       /* 答えを表示：Primary色 */
       .answer-button button {
-          background-color: #0d6efd;
+          background-color: #f2c091;
           color: white;
       }
 
@@ -163,8 +163,8 @@
           display: none; /* JSで制御されているはずなのでそのまま */
           gap: 15px;
       }
-      .next-question-button button:first-child { background-color: #dc3545; color: white; } /* 覚えてない */
-      .next-question-button button:last-child { background-color: #198754; color: white; }  /* 覚えた */
+      .next-question-button button:first-child { background-color: #8a6b63; color: white; } /* 覚えてない */
+      .next-question-button button:last-child { background-color: #7da36a; color: white; }  /* 覚えた */
 
       /* 💡ボタン：丸いアウトライン */
       .hint-button button {
@@ -188,10 +188,14 @@
     
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+      </symbol>
       <symbol id="study" viewBox="0 0 16 16">
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
@@ -203,18 +207,20 @@
     <div class="d-flex flex-nowrap">
       <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
         <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
-          <a href="index.html" class="d-flex align-items-center justify-content-center py-2 mb-1 link-body-emphasis text-decoration-none" title="Medetyホーム">
-            <img src="logo.png" alt="Medety Logo" width="48" height="48">
-          </a>
           <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li class="nav-item">
-              <a href="study.html" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="学ぶ" data-bs-toggle="tooltip" data-bs-placement="right">
-                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#study"/></svg>
+              <a href="index.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="study.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
               </a>
             </li>
             <li>
-              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0" title="設定" data-bs-toggle="tooltip" data-bs-placement="right">
-                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#setting"/></svg>
+              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0" >
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Setting"><use xlink:href="#setting"/></svg>
               </a>
             </li>
           </ul>
@@ -224,21 +230,15 @@
 
       <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
         
-        <header class="d-flex align-items-center justify-content-between p-3 bg-white border-bottom shadow-sm" style="flex-shrink: 0; position: relative;">
-          <h2 class="h5 mb-0 fw-bold">📖 学ぶ / 学習中</h2>
-
-          <div class="text-muted small fw-bold">
-            残り <span id="remainingCount">0</span> 問
-          </div>
-
+        <header class="d-flex align-items-center justify-content-between my-1 bg-white border-bottom shadow-sm" style="flex-shrink: 0; position: relative;">
           <!--プログレスバー-->
           <div class="progress" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; border-radius: 0;">
-            <div id="studyProgress" class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="studyProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="color: #8db57a;"></div>
           </div>
 
         </header>
 
-        <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: #f8f9fa;">
+        <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: #fcfaf2;">
 
           <h2 id="setTitle"></h2>
           <div class="study-card">
@@ -254,12 +254,12 @@
               <div class="button-container">
                   <div class="basic-button">
                       <div class="answer-button">
-                          <button onclick="showAnswer()">答えを表示</button>
+                          <button onclick="showAnswer()">答え</button>
                       </div>
 
                       <div class="next-question-button">
-                          <button onclick="nextQuestion(false)">覚えていない...</button>
-                          <button onclick="nextQuestion(true)">覚えた！</button>
+                          <button onclick="nextQuestion(false)">✕</button>
+                          <button onclick="nextQuestion(true)">〇</button>
                       </div>
                   </div>
 
@@ -272,7 +272,7 @@
           </div>
 
           <div id="loading" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; display:flex; align-items:center; justify-content:center; z-index:1000;">
-              <div class="loader">Medety データを同期中...</div>
+              <div class="loader">データを読み込み中...</div>
           </div>
           
           <script>
