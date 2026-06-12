@@ -122,14 +122,12 @@
             
             <button class="nav-link active btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
                     id="tab-1" data-bs-toggle="pill" data-bs-target="#content-1" type="button" role="tab">
-              語源そのもの
+              分野ごと
             </button>
-
-
 
             <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
                     id="tab-2" data-bs-toggle="pill" data-bs-target="#content-2" type="button" role="tab">
-              分野ごと
+              語源そのもの
             </button>
 
             <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
@@ -143,9 +141,444 @@
         
         <div class="px-3 py-2">
           <div class="tab-content mt-1">
+            <!--分野ごとに学ぶ-->
+            <div class="tab-pane fade show active" id="content-1" role="tabpanel">
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-osteology">
+                      <span class="fs-5 me-2">🦴</span> 骨学
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">6カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-osteology" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=総論'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">総論</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=脊柱'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">脊柱</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=胸郭'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">胸郭</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=上肢'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">上肢</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=下肢'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">下肢</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=頭蓋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">頭蓋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-muscle">
+                      <span class="fs-5 me-2">💪</span> 筋肉
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">10カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=筋肉総論'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">筋肉総論</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=頭部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">頭部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=頚部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">頚部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=上肢の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">上肢の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=胸部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">胸部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=腹部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">腹部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=背部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">背部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=脊柱周囲の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">脊柱周囲の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=腰部の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">腰部の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=下肢の筋'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">下肢の筋</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+              </div>
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-bloodvessel">
+                      <span class="fs-5 me-2">🩸</span> 血管
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-bloodvessel" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=血管'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">血管</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-organ">
+                      <span class="fs-5 me-2">🫁</span> 臓器
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">7カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-organ" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=臓器総論'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">臓器総論</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=頭部'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">頭部</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=呼吸器系'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">呼吸器系</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=循環器系'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">循環器系</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=消化器系'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">消化器系</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=泌尿器系'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">泌尿器系</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=生殖器系'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">生殖器系</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-nerve">
+                      <span class="fs-5 me-2">⚡</span> 脳神経
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-nerve" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=脳'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">脳</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=神経'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">神経</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion accordion-flush" id="studyAccordion">
+                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#group-others">
+                      <span class="fs-5 me-2">✨</span> その他
+                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
+                    </button>
+                  </h2>
+
+                  <div id="group-others" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                    <div class="accordion-body bg-light d-flex flex-column gap-2">
+                      
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
+                              style="background-color: #ffffff !important;"
+                              onclick="location.href='studysetting.html?way=area&set=その他'">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="fw-bold text-dark">その他</span>
+                          <i class="bi bi-play-circle-fill text-primary"></i>
+                        </div>
+                      </button>
+
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+
+
+
+            </div>
+
+
 
             <!--語源そのものを学ぶ-->
-            <div class="tab-pane fade show active" id="content-1" role="tabpanel"> 
+            <div class="tab-pane fade " id="content-2" role="tabpanel"> 
               <div class="accordion accordion-flush" id="studyAccordionLevel">
                 <div id="button-list-level">
                   <p id="loading-msg" class="text-center text-muted p-3">データを読み込み中...</p>
@@ -238,210 +671,7 @@
               </script>
             </div>
 
-            <!--分野ごとに学ぶ-->
-            <div class="tab-pane fade" id="content-2" role="tabpanel">
 
-              <div class="accordion accordion-flush" id="studyAccordion">
-                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
-                            data-bs-toggle="collapse" data-bs-target="#group-osteology">
-                      <span class="fs-5 me-2">🦴</span> 骨学
-                      <span class="badge rounded-pill bg-light text-dark ms-2 border">6カテゴリ</span>
-                    </button>
-                  </h2>
-
-                  <div id="group-osteology" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=総論'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">総論</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=脊柱'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">脊柱</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=胸郭'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">胸郭</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=上肢'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">上肢</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=下肢'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">下肢</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=頭蓋'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">頭蓋</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion accordion-flush" id="studyAccordion">
-                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
-                            data-bs-toggle="collapse" data-bs-target="#group-muscle">
-                      <span class="fs-5 me-2">💪</span> 筋肉
-                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
-                    </button>
-                  </h2>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=筋肉'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">筋肉</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion accordion-flush" id="studyAccordion">
-                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
-                            data-bs-toggle="collapse" data-bs-target="#group-organ">
-                      <span class="fs-5 me-2">🫁</span> 臓器
-                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
-                    </button>
-                  </h2>
-
-                  <div id="group-organ" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=臓器'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">臓器</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion accordion-flush" id="studyAccordion">
-                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
-                            data-bs-toggle="collapse" data-bs-target="#group-nerve">
-                      <span class="fs-5 me-2">⚡</span> 脳神経
-                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
-                    </button>
-                  </h2>
-
-                  <div id="group-nerve" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=脳'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">脳</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=神経'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">神経</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion accordion-flush" id="studyAccordion">
-                <div class="accordion-item border rounded-4 mb-3 shadow-sm">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
-                            data-bs-toggle="collapse" data-bs-target="#group-nerve">
-                      <span class="fs-5 me-2">✨</span> その他
-                      <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
-                    </button>
-                  </h2>
-
-                  <div id="group-nerve" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
-                              onclick="location.href='studysetting.html?way=area&set=その他'">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold text-dark">その他</span>
-                          <i class="bi bi-play-circle-fill text-primary"></i>
-                        </div>
-                      </button>
-
-                      
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              
-
-
-
-
-            </div>
 
             <!--語源ごとに学ぶ-->
             <div class="tab-pane fade" id="content-3" role="tabpanel"> 
