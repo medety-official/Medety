@@ -3,6 +3,7 @@
   <head>
 
     <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -85,6 +86,7 @@
       <symbol id="study" viewBox="0 0 16 16">
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      </symbol>
       <symbol id="setting" viewBox="0 0 16 16">
         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
@@ -119,18 +121,18 @@
         
         <div class="px-3 pt-3 pb-1 overflow-auto" style="white-space: nowrap; -webkit-overflow-scrolling: touch;">
           <div class="nav nav-pills flex-nowrap" id="pills-tab" role="tablist">
-            
-            <button class="nav-link active btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
+
+            <button class="nav-link active btn btn-outline-primary btn-sm rounded-pill me-2 px-3"
                     id="tab-1" data-bs-toggle="pill" data-bs-target="#content-1" type="button" role="tab">
               分野ごと
             </button>
 
-            <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
+            <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3"
                     id="tab-2" data-bs-toggle="pill" data-bs-target="#content-2" type="button" role="tab">
               語源そのもの
             </button>
 
-            <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3" 
+            <button class="nav-link btn btn-outline-primary btn-sm rounded-pill me-2 px-3"
                     id="tab-3" data-bs-toggle="pill" data-bs-target="#content-3" type="button" role="tab">
               語源ごと
             </button>
@@ -138,27 +140,27 @@
           </div>
         </div>
 
-        
+
         <div class="px-3 py-2">
           <div class="tab-content mt-1">
             <!--分野ごとに学ぶ-->
             <div class="tab-pane fade show active" id="content-1" role="tabpanel">
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-osteology">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-osteology">
                       <span class="fs-5 me-2">🦴</span> 骨学
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">6カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-osteology" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-osteology" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-osteology">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
                       
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=総論'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">総論</span>
@@ -167,7 +169,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=脊柱'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">脊柱</span>
@@ -176,7 +178,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=胸郭'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">胸郭</span>
@@ -185,7 +187,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=上肢'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">上肢</span>
@@ -194,7 +196,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=下肢'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">下肢</span>
@@ -203,7 +205,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頭蓋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頭蓋</span>
@@ -216,21 +218,21 @@
                 </div>
               </div>
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-muscle">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-muscle">
                       <span class="fs-5 me-2">💪</span> 筋肉
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">10カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-muscle">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=筋肉総論'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">筋肉総論</span>
@@ -238,14 +240,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頭部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頭部の筋</span>
@@ -253,14 +249,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頸部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頸部の筋</span>
@@ -268,14 +258,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=上肢の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">上肢の筋</span>
@@ -283,14 +267,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=胸部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">胸部の筋</span>
@@ -298,14 +276,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=腹部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">腹部の筋</span>
@@ -313,14 +285,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=背部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">背部の筋</span>
@@ -328,14 +294,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=脊柱周囲の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">脊柱周囲の筋</span>
@@ -343,14 +303,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=腰部の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">腰部の筋</span>
@@ -358,14 +312,8 @@
                         </div>
                       </button>
 
-                    </div>
-                  </div>
-
-                  <div id="group-muscle" class="accordion-collapse collapse" data-bs-parent="#button-list">
-                    <div class="accordion-body bg-light d-flex flex-column gap-2">
-                      
-                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                      <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=下肢の筋'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">下肢の筋</span>
@@ -389,21 +337,21 @@
                 </div>
               </div>
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-bloodvessel">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-bloodvessel">
                       <span class="fs-5 me-2">🩸</span> 血管
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">6カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-bloodvessel" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-bloodvessel" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-bloodvessel">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=血管総論・大血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">血管総論・大血管</span>
@@ -412,7 +360,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頭頸部の血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頭頸部の血管</span>
@@ -421,7 +369,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=上肢の血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">上肢の血管</span>
@@ -430,7 +378,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=胸部の血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">胸部の血管</span>
@@ -439,7 +387,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=腹部・骨盤部の血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">腹部・骨盤部の血管</span>
@@ -448,7 +396,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=下肢の血管'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">下肢の血管</span>
@@ -463,21 +411,21 @@
                 </div>
               </div>
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-organ">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-organ">
                       <span class="fs-5 me-2">🫁</span> 臓器
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">7カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-organ" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-organ" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-organ">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=臓器総論'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">臓器総論</span>
@@ -486,7 +434,7 @@
                       </button>
                       
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頭部'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頭部</span>
@@ -495,7 +443,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=呼吸器系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">呼吸器系</span>
@@ -504,7 +452,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=循環器系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">循環器系</span>
@@ -513,7 +461,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=消化器系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">消化器系</span>
@@ -522,7 +470,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=泌尿器系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">泌尿器系</span>
@@ -531,7 +479,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=生殖器系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">生殖器系</span>
@@ -546,21 +494,21 @@
                 </div>
               </div>
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-nerve">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-nerve">
                       <span class="fs-5 me-2">⚡</span> 脳・神経
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">11カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-nerve" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-nerve" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-nerve">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=神経総論'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">神経総論</span>
@@ -570,7 +518,7 @@
 
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=脳神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">脳神経</span>
@@ -580,7 +528,7 @@
 
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=頭頸部の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">頭頸部の神経</span>
@@ -589,7 +537,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=上腕の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">上腕の神経</span>
@@ -598,7 +546,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=胸部の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">胸部の神経</span>
@@ -607,7 +555,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=後頭部・背部の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">後頭部・背部の神経</span>
@@ -616,7 +564,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=腹部・骨盤部の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">腹部・骨盤部の神経</span>
@@ -625,7 +573,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=下肢の神経'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">下肢の神経</span>
@@ -634,7 +582,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=脊髄'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">脊髄</span>
@@ -643,7 +591,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=自律神経系'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">自律神経系</span>
@@ -652,7 +600,7 @@
                       </button>
 
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=脳'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">脳</span>
@@ -667,21 +615,21 @@
                 </div>
               </div>
 
-              <div class="accordion accordion-flush" id="studyAccordion">
+              <div class="accordion accordion-flush" id="studyAccordion-others">
                 <div class="accordion-item border rounded-4 mb-3 shadow-sm">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed fw-bold" type="button" 
+                    <button class="accordion-button collapsed fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#group-others">
                       <span class="fs-5 me-2">✨</span> その他
                       <span class="badge rounded-pill bg-light text-dark ms-2 border">1カテゴリ</span>
                     </button>
                   </h2>
 
-                  <div id="group-others" class="accordion-collapse collapse" data-bs-parent="#button-list">
+                  <div id="group-others" class="accordion-collapse collapse" data-bs-parent="#studyAccordion-others">
                     <div class="accordion-body bg-light d-flex flex-column gap-2">
                       
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=area&set=その他'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">その他</span>
@@ -783,7 +731,7 @@
                     });
                     body.innerHTML = categories.map(cat => `
                       <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                              style="background-color: #ffffff !important;"
+                              style="background-color: var(--c-surface) !important;"
                               onclick="location.href='studysetting.html?way=etymology&level=${lvKey}&cat=${encodeURIComponent(cat)}'">
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="fw-bold text-dark">${cat}</span>
@@ -802,8 +750,8 @@
 
 
             <!--語源ごとに学ぶ-->
-            <div class="tab-pane fade" id="content-3" role="tabpanel"> 
-              <div class="accordion accordion-flush" id="studyAccordion">
+            <div class="tab-pane fade" id="content-3" role="tabpanel">
+              <div class="accordion accordion-flush" id="studyAccordionTags">
 
                 <div id="button-list">
                   <script src="api.js"></script> 
@@ -822,8 +770,6 @@
 
                     }
 
-
-                    fetchTags();
 
                     async function start() {
                       // 1. fetchTagsが「リスト」を返してくれるのを、awaitでちゃんと待って、
@@ -892,7 +838,7 @@
                       if (groups[initial]) {
                         const buttons = groups[initial].map(tag => `
                           <button class="btn btn-white w-100 text-start p-3 shadow-sm border-0 rounded-3 mb-2" 
-                                  style="background-color: #ffffff !important; max-width: 96%;"
+                                  style="background-color: var(--c-surface) !important; max-width: 96%;"
                                   onclick="location.href='studysetting.html?way=rootgroup&set=${tag}'">
                             <div class="d-flex justify-content-between align-items-center">
                               <span class="fw-bold text-dark">${tag}</span>

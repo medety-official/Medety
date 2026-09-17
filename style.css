@@ -1,74 +1,201 @@
+/* =====================================================
+   カラーテーマ定義
+   ここで定義した変数を下のスタイル全体で使い回しているので、
+   テーマを増やしたい／色を試したいときはこのブロックだけを触ればOK
+   ===================================================== */
 
-/* 全体の背景：練り色*/
-/* 真っ白じゃない、温かみのあるバニラアイスのような色 */
+/* --- わがし（デフォルト）：温かみのあるクリーム×若草色 --- */
+:root,
+:root[data-theme="wagashi"] {
+    --c-bg: #fcfaf2;         /* 練り：ページ背景 */
+    --c-surface: #ffffff;    /* カード・ボタンなどの前景面 */
+    --c-sidebar: #f1f3eb;    /* 淡い若草：サイドバー／アコーディオン背景 */
+    --c-border: #e2e4db;
+    --c-text: #4a4543;       /* 消炭 */
+
+    --c-primary: #8db57a;        /* 若草 */
+    --c-primary-dark: #7da36a;   /* 抹茶 */
+    --c-primary-darker: #6d935a;
+    --c-primary-rgb: 141, 181, 122;
+
+    --c-accent: #f2c091;         /* 杏子 */
+    --c-accent-rgb: 242, 192, 145;
+
+    --c-warm: #8a6b63;            /* 餡子：不正解・注意 */
+    --c-warm-rgb: 138, 107, 99;
+
+    --c-quick: #f0a1a8;           /* 桜：クイック学習などの差し色 */
+
+    --c-carousel-1: #d1e5c3;
+    --c-carousel-2: #f9d8b8;
+    --c-carousel-3: #c9d9e8;
+}
+
+/* --- クリニカル：落ち着いた青緑系。医学生らしい静けさ重視 --- */
+:root[data-theme="clinical"] {
+    --c-bg: #f3f7f7;
+    --c-surface: #ffffff;
+    --c-sidebar: #e8f1f0;
+    --c-border: #d9e6e4;
+    --c-text: #2f4548;
+
+    --c-primary: #4d8b8f;
+    --c-primary-dark: #3c7377;
+    --c-primary-darker: #2f5c60;
+    --c-primary-rgb: 77, 139, 143;
+
+    --c-accent: #e8a674;
+    --c-accent-rgb: 232, 166, 116;
+
+    --c-warm: #7d6a63;
+    --c-warm-rgb: 125, 106, 99;
+
+    --c-quick: #e2798a;
+
+    --c-carousel-1: #cfe3df;
+    --c-carousel-2: #f5ddc2;
+    --c-carousel-3: #cfe0ea;
+}
+
+/* --- ナイト：夜の実習後や暗い部屋でも目に優しいダークテーマ --- */
+:root[data-theme="night"] {
+    color-scheme: dark;
+
+    --c-bg: #1e2422;
+    --c-surface: #2a3330;
+    --c-sidebar: #242c2a;
+    --c-border: #3a453f;
+    --c-text: #e7ece7;
+
+    --c-primary: #7fae72;
+    --c-primary-dark: #98c78a;
+    --c-primary-darker: #6d935a;
+    --c-primary-rgb: 127, 174, 114;
+
+    --c-accent: #e0b17f;
+    --c-accent-rgb: 224, 177, 127;
+
+    --c-warm: #b08b81;
+    --c-warm-rgb: 176, 139, 129;
+
+    --c-quick: #e08a92;
+
+    --c-carousel-1: #33463a;
+    --c-carousel-2: #4a3f30;
+    --c-carousel-3: #2f3f4a;
+}
+
+/* --- モノトーン＋差し色：ニュートラルな土台に、インディゴを一色だけ差す --- */
+:root[data-theme="mono"] {
+    --c-bg: #f7f6f4;
+    --c-surface: #ffffff;
+    --c-sidebar: #ececea;
+    --c-border: #dcdad6;
+    --c-text: #333333;
+
+    --c-primary: #5b6ee1;
+    --c-primary-dark: #4a5bc4;
+    --c-primary-darker: #3d4ba3;
+    --c-primary-rgb: 91, 110, 225;
+
+    --c-accent: #8891d9;
+    --c-accent-rgb: 136, 145, 217;
+
+    --c-warm: #8c8c8c;
+    --c-warm-rgb: 140, 140, 140;
+
+    --c-quick: #e0574a;
+
+    --c-carousel-1: #e4e6f5;
+    --c-carousel-2: #f5e6e4;
+    --c-carousel-3: #e6e6e6;
+}
+
+
+/* 全体の背景 */
 body, main {
-    background-color: #fcfaf2 !important; 
-    color: #4a4543 !important; /* 墨色：真っ黒じゃない優しい茶鼠 */
+    background-color: var(--c-bg) !important;
+    color: var(--c-text) !important;
 }
 
-/* サイドバー：淡い若草色のニュアンス */
+/* サイドバー */
 aside, .bg-body-tertiary {
-    background-color: #f1f3eb !important; 
-    border-right: 1px solid #e2e4db !important;
+    background-color: var(--c-sidebar) !important;
+    border-right: 1px solid var(--c-border) !important;
 }
 
-/* ヘッダー：清潔感のある明るいベージュ */
+/* ヘッダー */
 header {
-    background-color: #ffffff !important;
-    border-bottom: 1px solid #e2e4db !important;
-    color: #4a4543 !important;
+    background-color: var(--c-surface) !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    color: var(--c-text) !important;
 }
 
 /* カルーセル：ロゴの色を「パステル和菓子」に */
-/* 成功（黄緑）：萌黄色（もえぎいろ） */
-.carousel-item.bg-success { background-color: #d1e5c3 !important; color: #4a4543 !important; }
-/* 情報（オレンジ）：薄柿（うすがき） */
-.carousel-item.bg-info { background-color: #f9d8b8 !important; color: #4a4543 !important; }
-/* ブログ（青）：露草色（つゆくさいろ） */
-.carousel-item.bg-primary { background-color: #c9d9e8 !important; color: #4a4543 !important; }
+.carousel-item.bg-success { background-color: var(--c-carousel-1) !important; color: var(--c-text) !important; }
+.carousel-item.bg-info    { background-color: var(--c-carousel-2) !important; color: var(--c-text) !important; }
+.carousel-item.bg-primary { background-color: var(--c-carousel-3) !important; color: var(--c-text) !important; }
 
-/* 下部のボタン：ロゴのオレンジを「飴細工」のように使う */
+/* 下部のボタン：アクセントカラーを「飴細工」のように使う */
 .btn-outline-primary {
-    background-color: #ffffff !important;
-    border-color: #f2c091 !important; /* ロゴのオレンジ */
-    color: #f2c091 !important;
+    background-color: var(--c-surface) !important;
+    border-color: var(--c-accent) !important;
+    color: var(--c-accent) !important;
     border-width: 2px !important;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.08) !important; /* 押せる感を出す底の影 */
+    transform: translateY(0);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-outline-primary:hover {
-    background-color: #f2c091 !important;
-    color: #ffffff !important;
+    background-color: var(--c-accent) !important;
+    color: var(--c-surface) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.08) !important;
 }
 
-/* アイコンの色をロゴの緑に寄せる */
-.nav-link svg {
-    fill: #8db57a;
+.btn-outline-primary:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.08) !important;
 }
 
 
-
-
-
-/* --- 全体共通の設定 --- */
-.nav-link { color: #4a4543; }
-
-/* --- PCの時だけ（画面幅が 768px 以上の時） --- */
-@media (min-width: 768px) {
-.fixed-bottom {
-    display: none; /* スマホ用フッターを隠す */
-}
-aside {
-    display: flex; /* PC用サイドバーを出す */
-}
-}
-
-/* --- スマホの時だけ（画面幅が 767px 以下の時） --- */
+/* --- スマホの時だけ（画面幅が 767px 以下の時）：サイドバーを下部の横並びナビに変える --- */
+/* 元のasideはインラインstyleでwidth/height/positionが指定されているため、!importantで上書きする */
 @media (max-width: 768px) {
-aside {
-    display: none; /* PC用サイドバーを隠す */
+aside, aside > div {
+    width: 100% !important;
+    height: auto !important;
 }
-.fixed-bottom {
-    display: flex; /* スマホ用フッターを出す */
+aside {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1030;
+    border-right: none !important;
+    border-top: 1px solid var(--c-border) !important;
+}
+aside .nav {
+    flex-direction: row !important;
+    margin-bottom: 0 !important;
+    width: 100%;
+}
+aside .nav-item,
+aside li {
+    flex: 1 1 0;
+}
+aside .nav-link {
+    border-bottom: none !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+/* 下部ナビの分、コンテンツが隠れないように余白を確保する */
+main {
+    padding-bottom: 4.5rem !important;
+    box-sizing: border-box;
 }
 }
 
@@ -77,27 +204,27 @@ aside {
 
 /* --- ナビゲーション全体の基本設定 --- */
 .nav-link {
-    color: #8db57a !important; 
+    color: var(--c-primary) !important;
     transition: all 0.3s ease; /* 色の変化を滑らかに（心地よさの追求） */
 }
 
 .nav-link svg {
-    fill: #8db57a; /* SVGの中身も若草色に */
+    fill: var(--c-primary); /* SVGの中身もテーマカラーに */
 }
 
 /* --- アクティブ（今いるページ）の設定 --- */
 .nav-link.active {
     background-color: transparent !important; /* 背景の青い色を消す */
-    color: #f2c091 !important; 
+    color: var(--c-accent) !important;
 }
 
 .nav-link.active svg {
-    fill: #f2c091 !important; 
+    fill: var(--c-accent) !important;
 }
 
 /* --- ホバー（指やマウスが触れた時）の設定 --- */
 .nav-link:hover {
-    color: #f2c091 !important;
+    color: var(--c-accent) !important;
     opacity: 0.8;
 }
 
@@ -107,16 +234,16 @@ aside {
 /* --- タブボタン（語源そのもの、など）専用のスタイル --- */
 #pills-tab .nav-link {
     background-color: transparent !important;
-    color: #f2c091 !important; 
-    border: 1px solid #f2c091 !important; 
+    color: var(--c-accent) !important;
+    border: 1px solid var(--c-accent) !important;
     margin-bottom: 5px;
 }
 
 /* --- タブボタンがアクティブな時（塗りつぶす！） --- */
 #pills-tab .nav-link.active {
-    background-color: #8db57a !important; 
-    color: #ffffff !important; /* 文字は白抜きにして読みやすく */
-    border-color: #8db57a !important;
+    background-color: var(--c-primary) !important;
+    color: var(--c-surface) !important; /* 文字は白抜きにして読みやすく */
+    border-color: var(--c-primary) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ほんの少し影をつけて「ボタン感」を出す */
 }
 
@@ -124,9 +251,9 @@ aside {
 
 /* --- 設定ボタンの基本スタイル（未選択時） --- */
 .select-group .btn-outline-primary {
-    background-color: #ffffff !important; /* 白（ミルク色）背景 */
-    color: #f2c091 !important;            
-    border: 2px solid #f2c091 !important; 
+    background-color: var(--c-surface) !important;
+    color: var(--c-accent) !important;
+    border: 2px solid var(--c-accent) !important;
     transition: all 0.2s ease;
 }
 
@@ -134,38 +261,42 @@ aside {
 /* Bootstrapの標準activeクラスと、あなたのactive-modeクラス両方に対応させます */
 .select-group .btn-outline-primary.active,
 .select-group .btn-outline-primary.active-mode {
-    background-color: #8db57a !important; 
-    color: #ffffff !important;            /* 文字は白抜き */
-    border-color: #8db57a !important;     
+    background-color: var(--c-primary) !important;
+    color: var(--c-surface) !important;   /* 文字は白抜き */
+    border-color: var(--c-primary) !important;
+    animation: medety-pop-in 0.3s cubic-bezier(.34,1.56,.64,1); /* 選んだ瞬間にポンっと弾む */
 }
 
 
 
 /* --- 学習スタートボタン（メインアクション） --- */
 .btn-primary.w-100.rounded-pill {
-    background-color: #8db57a !important; /* ロゴの若草色 */
+    background-color: var(--c-primary) !important;
     border: none !important;
-    color: #ffffff !important;           /* 文字は清潔感のある白 */
+    color: var(--c-surface) !important;  /* 文字は清潔感のある白 */
     font-size: 1.1rem;                   /* 少し大きくして押しやすく */
     letter-spacing: 0.05rem;             /* 文字の間隔を少し開けて読みやすく */
-    transition: transform 0.2s ease, background-color 0.3s ease;
-    box-shadow: 0 4px 15px rgba(141, 181, 122, 0.3) !important; /* 若草色の影 */
+    transition: transform 0.15s ease, background-color 0.3s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 15px rgba(var(--c-primary-rgb), 0.3), 0 5px 0 var(--c-primary-darker) !important;
+    animation: medety-pulse-soft 2.2s ease-in-out infinite; /* 「押してね」と誘う呼吸 */
 }
 
 /* --- ホバー・クリック時の演出（生き生きとした反応） --- */
 .btn-primary.w-100.rounded-pill:hover {
-    background-color: #7da36a !important; /* 少し濃い緑 */
+    background-color: var(--c-primary-dark) !important;
     transform: translateY(-2px);           /* 軽く浮き上がる（「押せる！」感） */
+    animation-play-state: paused;
 }
 
 .btn-primary.w-100.rounded-pill:active {
-    transform: translateY(0);              /* 押した時に沈む */
+    transform: translateY(3px);              /* 押した時に沈む */
+    box-shadow: 0 2px 8px rgba(var(--c-primary-rgb), 0.3), 0 2px 0 var(--c-primary-darker) !important;
 }
 
 
 /* --- 1. アコーディオンの外枠（アイテム全体） --- */
 .accordion-item {
-    background-color: #f1f3eb !important; /* 背景：サイドバーと同じ淡い若草色 */
+    background-color: var(--c-sidebar) !important;
     border: none !important;              /* 枠線を消してスッキリ */
     border-radius: 1rem !important;      /* 角を丸く */
     overflow: hidden;                     /* 角丸を中身にも適用 */
@@ -173,12 +304,14 @@ aside {
 
 /* --- 2. アコーディオンのボタン部分（基本 ＆ 開いている時 共通） --- */
 .accordion-button {
-    color: #4a4543 !important;           /* 文字：優しい墨色 */
+    color: var(--c-text) !important;
+    background-color: transparent !important;
 }
 
 /* --- 3. 開いている（collapsedでない）時の文字色と影の抑制 --- */
 .accordion-button:not(.collapsed) {
     box-shadow: none !important;          /* 青い影を完全に封印 */
+    background-color: var(--c-surface) !important;
 }
 
 /* --- 4. フォーカス時（押した瞬間）の水色の影を消す --- */
@@ -189,12 +322,24 @@ aside {
 
 /* --- 5. アコーディオンの中身（ボディ） --- */
 .accordion-body {
-    background-color: #f1f3eb !important; /* 背景：サイドバーと同じ色 */
-    border-top: 1px solid #e2e4db !important; /* 境目に薄い線を引く */
-    color: #4a4543 !important;
+    background-color: var(--c-sidebar) !important;
+    border-top: 1px solid var(--c-border) !important; /* 境目に薄い線を引く */
+    color: var(--c-text) !important;
 }
 
-/* --- 6. 右側の矢印アイコンを若草色に馴染ませる --- */
+/* Bootstrapの text-dark 固定色を上書き（ナイトテーマ等でも文字が読めるように） */
+.text-dark {
+    color: var(--c-text) !important;
+}
+
+/* text-muted / text-secondary もテーマの文字色を基準にした「薄さ」に変える */
+.text-muted,
+.text-secondary {
+    color: var(--c-text) !important;
+    opacity: 0.65;
+}
+
+/* --- 6. 右側の矢印アイコンをテーマカラーに馴染ませる --- */
 .accordion-button::after {
     filter: opacity(0.5); /* 矢印を少し控えめにする */
 }
@@ -202,16 +347,16 @@ aside {
 
 /* --- プログレスバーの土台（未達成部分） --- */
 .progress {
-    background-color: #f1f3eb !important; /* サイドバーと同じ淡い若草色 */
+    background-color: var(--c-sidebar) !important;
     height: 12px !important;              /* 少し太めにして視認性をアップ */
     border-radius: 10px !important;       /* ころんとした丸み */
     overflow: hidden;
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); /* わずかな奥行き */
 }
 
-/* --- 進捗部分（達成部分）：若草色 --- */
+/* --- 進捗部分（達成部分） --- */
 .progress-bar {
-    background-color: #8db57a !important; /* ロゴのメインカラー */
+    background-color: var(--c-primary) !important;
     transition: width 0.6s ease;           /* 伸びる時の動きを滑らかに */
 }
 
@@ -221,29 +366,429 @@ aside {
 }
 
 
-/* --- 全ての btn-primary を若草色に統一 --- */
+/* --- 全ての btn-primary をテーマカラーに統一 --- */
 .btn-primary {
-    background-color: #8db57a !important; /* ロゴの若草色 */
+    background-color: var(--c-primary) !important;
     border: none !important;              /* 枠線なしでスッキリ */
-    color: #ffffff !important;            /* 文字は白 */
-    box-shadow: 0 4px 10px rgba(141, 181, 122, 0.3) !important; /* 若草色の柔らかな影 */
-    transition: all 0.2s ease;            /* 動きを滑らかに */
+    color: var(--c-surface) !important;
+    box-shadow: 0 4px 10px rgba(var(--c-primary-rgb), 0.3), 0 4px 0 var(--c-primary-darker) !important;
+    transition: all 0.15s ease;            /* 動きを滑らかに */
 }
 
 /* --- ホバー（触れた時） --- */
 .btn-primary:hover {
-    background-color: #7da36a !important; /* 少し濃い緑 */
+    background-color: var(--c-primary-dark) !important;
     transform: translateY(-2px);           /* 軽く浮き上がる */
-    box-shadow: 0 6px 15px rgba(141, 181, 122, 0.4) !important;
+    box-shadow: 0 6px 15px rgba(var(--c-primary-rgb), 0.4), 0 6px 0 var(--c-primary-darker) !important;
 }
 
 /* --- アクティブ（押した瞬間） --- */
 .btn-primary:active {
-    background-color: #6d935a !important;
-    transform: translateY(0);              /* 押し込まれる感触 */
+    background-color: var(--c-primary-darker) !important;
+    transform: translateY(2px);              /* 押し込まれる感触 */
+    box-shadow: 0 2px 6px rgba(var(--c-primary-rgb), 0.3), 0 1px 0 var(--c-primary-darker) !important;
 }
 
 /* --- フォーカス（選択中）の青い輪を消す --- */
 .btn-primary:focus {
-    box-shadow: 0 0 0 0.25rem rgba(141, 181, 122, 0.25) !important; /* 若草色の光輪 */
+    box-shadow: 0 0 0 0.25rem rgba(var(--c-primary-rgb), 0.25) !important;
+}
+
+
+/* =====================================================
+   ここから「勉強を楽しくする」演出まわり（色はテーマ変数を利用）
+   ===================================================== */
+
+/* --- サイト全体のボタンに、押した時のささやかな沈み込みを統一で付与 --- */
+/* （.btn-primary / .btn-outline-primary 等、個別指定があるものはそちらが優先される） */
+.btn {
+    transition: transform 0.12s ease;
+}
+.btn:active {
+    transform: translateY(2px);
+}
+
+@keyframes medety-pop-in {
+    0%   { transform: scale(0.85); opacity: 0; }
+    60%  { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes medety-bounce {
+    0%, 100% { transform: translateY(0); }
+    30%      { transform: translateY(-8px); }
+    50%      { transform: translateY(0); }
+    70%      { transform: translateY(-4px); }
+}
+
+@keyframes medety-shake {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px); }
+    40%      { transform: translateX(6px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+}
+
+@keyframes medety-pulse-soft {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.035); }
+}
+
+@keyframes medety-flash-correct {
+    0%   { background-color: rgba(var(--c-primary-rgb), 0); }
+    30%  { background-color: rgba(var(--c-primary-rgb), 0.18); }
+    100% { background-color: rgba(var(--c-primary-rgb), 0); }
+}
+
+@keyframes medety-flash-wrong {
+    0%   { background-color: rgba(var(--c-warm-rgb), 0); }
+    30%  { background-color: rgba(var(--c-warm-rgb), 0.14); }
+    100% { background-color: rgba(var(--c-warm-rgb), 0); }
+}
+
+@keyframes medety-float-up {
+    0%   { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translate(-50%, -50px) scale(1.15); opacity: 0; }
+}
+
+@keyframes medety-confetti-fall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(220px) rotate(360deg); opacity: 0; }
+}
+
+/* 汎用アニメーションクラス（JSからonanimationendで付け外しして使う） */
+.medety-anim-pop    { animation: medety-pop-in 0.35s cubic-bezier(.34,1.56,.64,1); }
+.medety-anim-bounce { animation: medety-bounce 0.5s ease; }
+.medety-anim-shake  { animation: medety-shake 0.4s ease; }
+.medety-anim-flash-correct { animation: medety-flash-correct 0.7s ease; }
+.medety-anim-flash-wrong   { animation: medety-flash-wrong 0.5s ease; }
+
+/* 正解／不正解のフィードバックをまとめて1つのクラスで再生（animationプロパティの競合を避けるため） */
+.medety-feedback-correct { animation: medety-flash-correct 0.7s ease, medety-bounce 0.5s ease; }
+.medety-feedback-wrong   { animation: medety-flash-wrong 0.5s ease, medety-shake 0.4s ease; }
+
+/* --- ふわっと浮かんで消える「＋1」「やったね！」などの応援テキスト --- */
+.medety-cheer-pop {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, 0);
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--c-primary-dark);
+    pointer-events: none;
+    white-space: nowrap;
+    animation: medety-float-up 0.9s ease-out forwards;
+    z-index: 5;
+}
+
+/* --- 紙吹雪（絵文字パーティクル） --- */
+.medety-confetti-piece {
+    position: absolute;
+    top: 0;
+    font-size: 1.4rem;
+    pointer-events: none;
+    animation: medety-confetti-fall 1.4s ease-in forwards;
+    z-index: 4;
+}
+
+/* --- 連続正解ストリーク表示 --- */
+.medety-streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: bold;
+    color: var(--c-accent);
+    background-color: rgba(var(--c-accent-rgb), 0.15);
+    border: 1.5px solid var(--c-accent);
+    border-radius: 999px;
+    padding: 2px 12px;
+    font-size: 0.9rem;
+}
+
+/* --- 学習中カード：問題の切り替わりをふわっと＆演出レイヤーの基準位置 --- */
+.study-card {
+    position: relative;
+    background-color: var(--c-surface);
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* --- ヒントボタン：気づいてもらうためのやさしい呼吸アニメーション --- */
+.hint-button button {
+    animation: medety-pulse-soft 2.4s ease-in-out infinite;
+}
+.hint-button button:hover,
+.hint-button button:active {
+    animation-play-state: paused;
+}
+
+/* --- 分野選択などのカードボタン：ホバー・タップで弾む --- */
+.accordion-body .btn.w-100 {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.accordion-body .btn.w-100:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08) !important;
+}
+.accordion-body .btn.w-100:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+/* --- アコーディオンの見出しアイコン：開いた瞬間にぴょんと弾む --- */
+.accordion-button:not(.collapsed) .fs-5 {
+    display: inline-block;
+    animation: medety-bounce 0.5s ease;
+}
+
+
+
+/* --- コース学習：レッスンの「道」全体 --- */
+.medety-lesson-path {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* --- 1ノード分の行（中央の道に沿って、少しだけ左右にジグザグ配置） --- */
+/* プレビューは絶対配置（レイアウトは動かさない）。開いている行だけ z-index を上げて、
+   後続のノードに隠れず必ず手前に表示されるようにする */
+.medety-lesson-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+}
+.medety-lesson-row.show-preview {
+    z-index: 10;
+}
+.medety-lesson-row.medety-row-locked {
+    cursor: not-allowed;
+}
+/* ノードだけを横に並べる行 */
+.medety-node-line {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+/* ノード本体だけを中央からわずかにずらす（道の線に近い位置を保つ） */
+.medety-lesson-row.medety-side-start .medety-node-wrap {
+    transform: translateX(-30px);
+}
+.medety-lesson-row.medety-side-end .medety-node-wrap {
+    transform: translateX(30px);
+}
+
+/* --- ノードの土台（リング＋本体＋プレビューをまとめる） --- */
+.medety-node-wrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    z-index: 1;
+    cursor: pointer;
+}
+.medety-node-wrap.medety-node-locked {
+    cursor: not-allowed;
+}
+
+/* 進捗リング（チェックポイント用） */
+.medety-node-ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg); /* 12時の位置から埋まっていくように */
+    pointer-events: none;
+}
+.medety-node-ring-track {
+    fill: none;
+    stroke: var(--c-border);
+    stroke-width: 6;
+}
+.medety-node-ring-progress {
+    fill: none;
+    stroke: var(--c-primary);
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.4s ease;
+}
+
+/* --- チェックポイントの真ん中：分数の代わりに、進んだぶんだけ丸が増える可愛い表示 --- */
+.medety-node-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 3px;
+    width: 32px;
+}
+.medety-node-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--c-border);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.medety-node-dot.is-filled {
+    background-color: var(--c-primary);
+    transform: scale(1.2);
+}
+
+/* --- ノード本体（円形ボタン） --- */
+.medety-lesson-node {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--c-surface);
+    color: var(--c-text);
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.medety-node-wrap:hover .medety-lesson-node {
+    transform: translateY(-2px) scale(1.05);
+}
+.medety-node-wrap:active .medety-lesson-node {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* 完了ずみ（チェックポイントが全部終わった／復習・テストをクリア済み） */
+.medety-lesson-node.medety-lesson-done {
+    background-color: var(--c-primary);
+    color: var(--c-surface);
+    box-shadow: 0 4px 0 var(--c-primary-darker);
+}
+
+/* 復習ノード（他と違う見た目でひと目でわかるように） */
+.medety-lesson-node.medety-lesson-review {
+    background-color: var(--c-surface);
+    color: var(--c-accent);
+    border: 3px solid var(--c-accent);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+.medety-lesson-node.medety-lesson-review.medety-lesson-done {
+    background-color: var(--c-accent);
+    color: var(--c-surface);
+    border-color: var(--c-accent);
+    box-shadow: 0 4px 0 var(--c-primary-darker);
+}
+
+/* レベルアップテストのノード（グループ内で唯一の「関門」なので専用の色に） */
+.medety-lesson-node.medety-lesson-test {
+    background-color: var(--c-surface);
+    color: var(--c-quick);
+    border: 3px solid var(--c-quick);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+    font-size: 1.3rem;
+}
+.medety-lesson-node.medety-lesson-test.medety-lesson-done {
+    background-color: var(--c-quick);
+    color: var(--c-surface);
+    border-color: var(--c-quick);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+/* ロック中のノード（手前のテスト未合格） */
+.medety-node-wrap.medety-node-locked .medety-lesson-node {
+    background-color: var(--c-border);
+    color: var(--c-surface);
+    border-color: var(--c-border);
+    box-shadow: none;
+}
+.medety-node-wrap.medety-node-locked .medety-node-ring-progress {
+    stroke: var(--c-border);
+}
+.medety-node-wrap.medety-node-locked:hover .medety-lesson-node {
+    transform: none;
+}
+
+/* --- 「START」の吹き出し（次にやるべきノードの上に表示） --- */
+.medety-lesson-start-tag {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--c-text);
+    color: var(--c-surface);
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    z-index: 2;
+}
+.medety-lesson-row.medety-side-start .medety-lesson-start-tag {
+    left: calc(50% - 30px);
+}
+.medety-lesson-row.medety-side-end .medety-lesson-start-tag {
+    left: calc(50% + 30px);
+}
+
+/* --- ホバー／タップで開く、次のレッスンの単語プレビュー --- */
+/* 絶対配置にして、レイアウトは動かさない（他のノードと重なっても、開いている行が手前に来る） */
+.medety-node-preview {
+    display: none;
+    position: absolute;
+    top: 82px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    max-width: 92%;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    padding: 10px 14px;
+    text-align: center;
+    z-index: 5;
+    cursor: default;
+}
+.medety-lesson-row.show-preview .medety-node-preview {
+    display: block;
+    animation: medety-pop-in 0.2s ease;
+}
+.medety-node-preview-title {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--c-text);
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+.medety-node-preview-words {
+    font-size: 0.85rem;
+    color: var(--c-text);
+    line-height: 1.4;
+}
+
+/* --- テーマ選択スウォッチ（setting.html） --- */
+.medety-theme-swatch {
+    width: 100%;
+    aspect-ratio: 1.4 / 1;
+    border-radius: 1rem;
+    border: 3px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.medety-theme-swatch:hover {
+    transform: translateY(-2px);
+}
+.medety-theme-swatch.is-selected {
+    border-color: var(--c-text);
 }

@@ -3,6 +3,7 @@
   <head>
 
     <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -69,6 +70,7 @@
       <symbol id="study" viewBox="0 0 16 16">
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      </symbol>
       <symbol id="setting" viewBox="0 0 16 16">
         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
@@ -98,7 +100,7 @@
 
       </aside>
 
-      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-color: #f2c091;">
+      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-accent);">
         
 
         <div class="flex-grow-1 d-flex flex-column overflow-hidden px-3 py-4">
@@ -123,6 +125,17 @@
                 <div class="d-flex gap-2 select-group">
                     <button onclick="setOrder('specific',this)" class="btn btn-outline-primary flex-grow-1 active-mode">登録順</button>
                     <button onclick="setOrder('random',this)" class="btn btn-outline-primary flex-grow-1">ランダム</button>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-3" id="countCard">
+                <label class="small fw-bold text-muted mb-1 d-block">出題数</label>
+                <div class="text-muted mb-3" style="font-size: 0.75rem;">疲れている日は少なめもおすすめです</div>
+                <div class="d-flex gap-2 select-group">
+                    <button onclick="setCount('5',this)" class="btn btn-outline-primary flex-grow-1">5問</button>
+                    <button onclick="setCount('10',this)" class="btn btn-outline-primary flex-grow-1">10問</button>
+                    <button onclick="setCount('20',this)" class="btn btn-outline-primary flex-grow-1">20問</button>
+                    <button onclick="setCount('all',this)" class="btn btn-outline-primary flex-grow-1 active-mode">すべて</button>
                 </div>
             </div>
 
@@ -172,6 +185,7 @@
 
         let selectedLanguage = 'en-jp';
         let selectedOrder = 'specific';
+        let selectedCount = 'all';
 
         function setLanguage(val, btnElement) {
             selectedLanguage = val;
@@ -180,6 +194,11 @@
 
         function setOrder(val, btnElement) {
             selectedOrder = val;
+            updateButtonStyles(btnElement);
+        }
+
+        function setCount(val, btnElement) {
+            selectedCount = val;
             updateButtonStyles(btnElement);
         }
 
@@ -194,15 +213,14 @@
 
         function startStudy() {
             // 共通のパラメータ
-            let url = `duringstudy.html?way=${setMode}&language=${selectedLanguage}&order=${selectedOrder}&set=${encodeURIComponent(setName)}`;
+            let url = `duringstudy.html?way=${setMode}&language=${selectedLanguage}&order=${selectedOrder}&count=${selectedCount}&set=${encodeURIComponent(setName)}`;
 
             if (setMode === "etymology") {
                 // 【新設】語源モードなら level と cat を追加
-                // URLSearchParamsから現在の値を引き継ぐか、変数から取得します
-                const urlParams = new URLSearchParams(window.location.search);
-                const level = urlParams.get('level') || "";
-                const cat = urlParams.get('cat') || "";
-                
+                // 一番上で作った params をそのまま使い回す
+                const level = params.get('level') || "";
+                const cat = params.get('cat') || "";
+
                 url += `&level=${encodeURIComponent(level)}&cat=${encodeURIComponent(cat)}`;
             }
 

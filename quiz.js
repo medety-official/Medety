@@ -1,9 +1,50 @@
 
 let currentIndex = 0 //現在の問題番号
 let correctCount = 0 //現在の正解数
+let streak = 0 //現在の連続正解数
 let words = [];
 let etymology = [];
 let selectedWords = [];
+let currentWord; //現在出題中の単語
+
+// コース学習は coursequiz.html + course.js が専用で担当するため、ここでは扱わない
+
+const cheerMessages = ["やったね！", "その調子！", "素晴らしい！", "ナイス！", "いいね！"];
+
+// 指定した要素にアニメーション用クラスを付け直す（連続で発火してもリセットされるように）
+function playCardAnim(el, className) {
+    if (!el) return;
+    el.classList.remove(className);
+    void el.offsetWidth; // 強制リフローでアニメーションを再始動させる
+    el.classList.add(className);
+    el.addEventListener("animationend", () => el.classList.remove(className), { once: true });
+}
+
+// 正解時にふわっと浮かぶ応援テキストを表示する
+function spawnCheerText(text) {
+    const layer = document.getElementById("effectLayer");
+    if (!layer) return;
+    const el = document.createElement("div");
+    el.className = "medety-cheer-pop";
+    el.textContent = text;
+    layer.appendChild(el);
+    el.addEventListener("animationend", () => el.remove(), { once: true });
+}
+
+// 連続正解数（ストリーク）バッジの表示を更新する
+function updateStreakBadge() {
+    const badge = document.getElementById("streakBadge");
+    const num = document.getElementById("streakNum");
+    if (!badge || !num) return;
+
+    if (streak >= 2) {
+        num.textContent = streak;
+        badge.style.display = "inline-flex";
+        playCardAnim(badge, "medety-anim-pop");
+    } else {
+        badge.style.display = "none";
+    }
+}
 
 async function initMedety() {
     const data = await loadMedetyData();
@@ -49,6 +90,10 @@ function startQuiz() {
         selectedWords = words.filter(w => {
             return w.field === setName;
         });
+
+    } else if (studyMode === "quick") {
+        // クイック学習：分野を問わず全単語からランダムに出題
+        selectedWords = words.slice();
     }
 
 
@@ -60,9 +105,17 @@ function startQuiz() {
         }
     }
 
+    // 出題数の指定があれば、そこで切り詰める（疲れている日向けの「5問だけ」等）
+    if (studyCount && studyCount !== "all") {
+        const limit = Number(studyCount);
+        if (!Number.isNaN(limit) && limit > 0) {
+            selectedWords = selectedWords.slice(0, limit);
+        }
+    }
+
     console.log("Selected Words Count:", selectedWords.length);
     console.log("Selected Words:", selectedWords);
-    
+
 
     if (selectedWords.length === 0) {
         alert("問題が見つかりませんでした。条件を確認してください。");
@@ -94,6 +147,9 @@ function startQuiz() {
 function renderQuestion() {
     currentWord = selectedWords[currentIndex];
 
+    // 新しい問題が来たことがわかるように、問題文をふわっと表示
+    playCardAnim(document.querySelector(".question-section"), "medety-anim-pop");
+
     //問題の言語
     if (studyLanguage === "en-jp") {
 
@@ -103,6 +159,7 @@ function renderQuestion() {
 
         else {
             document.getElementById("question").textContent = currentWord.word;
+            medetySpeak(currentWord.word); // 英単語が出題されたときは発音する
         }
 
     }   else if (studyLanguage === "jp-en") {
@@ -134,6 +191,8 @@ function showAnswer() {
 
     }
 
+    playCardAnim(document.getElementById("answer"), "medety-anim-pop");
+
     document.querySelector(".basic-button .answer-button").style.display = "none";
     document.querySelector(".basic-button .next-question-button").style.display = "flex";
 }
@@ -160,7 +219,7 @@ function showHint() {
                 // ランダムに1つ選ぶ
                 randomTag = otherTags[Math.floor(Math.random() * otherTags.length)];
 
-            } else if (studyMode === "area") {
+            } else if (studyMode === "area" || studyMode === "quick") {
                 // ランダムに1つ選ぶ
                 randomTag = tags[Math.floor(Math.random() * tags.length)];
             }
@@ -198,7 +257,18 @@ function showHint() {
 
 // 正解数を逐次数える、次に進むか終了する関数
 function nextQuestion(isOk) {
-    if (isOk) correctCount++;
+    const card = document.getElementById("studyCard");
+
+    if (isOk) {
+        correctCount++;
+        streak++;
+        playCardAnim(card, "medety-feedback-correct");
+        spawnCheerText(cheerMessages[Math.floor(Math.random() * cheerMessages.length)]);
+    } else {
+        streak = 0;
+        playCardAnim(card, "medety-feedback-wrong");
+    }
+    updateStreakBadge();
 
     currentIndex++;
 
@@ -223,6 +293,7 @@ function nextQuestion(isOk) {
     if (currentIndex < total) {
         renderQuestion();
     } else {
-        location.href = `studyresult.html?set=${setName}&result=${correctCount}&total=${currentIndex}`;
+        const resultUrl = `studyresult.html?set=${setName}&result=${correctCount}&total=${currentIndex}`;
+        location.href = resultUrl;
     }
 }

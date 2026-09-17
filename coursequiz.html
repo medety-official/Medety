@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ja" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.112.5">
+    <title>Medety</title>
+
+    <link rel="canonical" href="https://medety-official.github.io/Medety/coursequiz.html">
+    <link rel="icon" href="logo2.jpeg">
+    <link rel="apple-touch-icon" href="applelogo.png">
+
+<link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+    </style>
+    <style>
+      .study-card {
+          width: 95%;
+          max-width: 650px;
+          margin: 20px auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border-radius: 1.25rem;
+          border: none;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+          position: relative;
+          background-color: var(--c-surface);
+      }
+
+      #setTitle {
+          font-size: 0.9rem;
+          color: var(--c-text);
+          opacity: 0.7;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
+      }
+
+      .coursequiz-body {
+          width: 100%;
+          padding: 36px 28px;
+          box-sizing: border-box;
+          min-height: 55vh;
+          display: flex;
+          flex-direction: column;
+      }
+
+      .coursequiz-prompt-label {
+          font-size: 0.85rem;
+          color: var(--c-text);
+          opacity: 0.6;
+          text-align: center;
+          margin-bottom: 6px;
+      }
+
+      .coursequiz-prompt {
+          font-size: 1.9rem;
+          font-weight: 800;
+          color: var(--c-text);
+          text-align: center;
+          margin-bottom: 28px;
+      }
+
+      .coursequiz-prompt-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 28px;
+      }
+      .coursequiz-prompt-row .coursequiz-prompt {
+          margin-bottom: 0;
+      }
+      .coursequiz-speak-btn {
+          border: 2px solid var(--c-border);
+          background-color: var(--c-surface);
+          color: var(--c-primary);
+          border-radius: 50%;
+          width: 42px;
+          height: 42px;
+          min-width: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.15rem;
+          transition: transform 0.15s ease, background-color 0.15s ease;
+      }
+      .coursequiz-speak-btn:hover {
+          background-color: var(--c-sidebar);
+          transform: scale(1.05);
+      }
+      .coursequiz-speak-btn:active {
+          transform: scale(0.95);
+      }
+
+      /* --- 語源タグ選択（複数選択） --- */
+      .coursequiz-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+          margin-bottom: 20px;
+      }
+      .coursequiz-tag-btn {
+          border: 2px solid var(--c-border);
+          background-color: var(--c-surface);
+          color: var(--c-text);
+          border-radius: 999px;
+          padding: 8px 18px;
+          font-weight: bold;
+          transition: all 0.15s ease;
+      }
+      .coursequiz-tag-btn.is-selected {
+          background-color: var(--c-primary);
+          border-color: var(--c-primary);
+          color: #fff;
+      }
+      .coursequiz-tag-btn.is-correct {
+          background-color: var(--c-primary) !important;
+          border-color: var(--c-primary) !important;
+          color: #fff !important;
+      }
+      .coursequiz-tag-btn.is-wrong {
+          background-color: var(--c-warm) !important;
+          border-color: var(--c-warm) !important;
+          color: #fff !important;
+      }
+      .coursequiz-tag-btn:disabled {
+          opacity: 1;
+      }
+
+      /* --- 4択 --- */
+      .coursequiz-choices {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+      }
+      .coursequiz-choice-btn {
+          border: 2px solid var(--c-border);
+          background-color: var(--c-surface);
+          color: var(--c-text);
+          border-radius: 1rem;
+          padding: 14px 18px;
+          font-weight: bold;
+          font-size: 1.05rem;
+          text-align: left;
+          transition: all 0.15s ease;
+      }
+      .coursequiz-choice-btn:hover:not(:disabled) {
+          border-color: var(--c-primary);
+          transform: translateY(-1px);
+      }
+      .coursequiz-choice-btn.is-correct {
+          background-color: var(--c-primary) !important;
+          border-color: var(--c-primary) !important;
+          color: #fff !important;
+      }
+      .coursequiz-choice-btn.is-wrong {
+          background-color: var(--c-warm) !important;
+          border-color: var(--c-warm) !important;
+          color: #fff !important;
+      }
+
+      /* --- タイピング --- */
+      .coursequiz-typing input {
+          font-size: 1.2rem;
+          text-align: center;
+          border-radius: 1rem;
+          border: 2px solid var(--c-border);
+          padding: 12px;
+      }
+      .coursequiz-typing input:focus {
+          border-color: var(--c-primary);
+          box-shadow: 0 0 0 0.2rem rgba(var(--c-primary-rgb), 0.2);
+      }
+      .coursequiz-typing input.is-correct {
+          border-color: var(--c-primary);
+          color: var(--c-primary-dark);
+      }
+      .coursequiz-typing input.is-wrong {
+          border-color: var(--c-warm);
+          color: var(--c-warm);
+      }
+
+      .coursequiz-feedback {
+          text-align: center;
+          font-weight: bold;
+          font-size: 1.05rem;
+          margin-top: 10px;
+      }
+      .coursequiz-feedback.is-correct { color: var(--c-primary-dark); }
+      .coursequiz-feedback.is-wrong { color: var(--c-warm); }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+      </symbol>
+      <symbol id="study" viewBox="0 0 16 16">
+        <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+        <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      </symbol>
+      <symbol id="setting" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+      </symbol>
+    </svg>
+
+    <div class="d-flex flex-nowrap">
+      <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
+        <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
+          <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="study.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Setting"><use xlink:href="#setting"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+
+        <header class="d-flex align-items-center justify-content-between border-bottom shadow-sm" style="flex-shrink: 0; position: relative; padding: 6px 16px;">
+          <span class="small text-muted">残り <strong id="remainingCount">-</strong> 問</span>
+          <span id="streakBadge" class="medety-streak-badge" style="display:none;">🔥 <span id="streakNum">0</span></span>
+          <div class="progress" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; border-radius: 0;">
+            <div id="studyProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </header>
+
+        <div style="width: 100%; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; background-color: var(--c-bg);">
+
+          <h2 id="setTitle" class="text-center mt-3"></h2>
+
+          <div id="studyCard" class="study-card">
+            <div id="effectLayer" style="position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:inherit;"></div>
+            <div id="questionArea" class="coursequiz-body"></div>
+          </div>
+
+          <div id="loading" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--c-bg); color:var(--c-text); display:flex; align-items:center; justify-content:center; z-index:1000;">
+              <div class="loader">データを読み込み中...</div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <script src="progress.js"></script>
+    <script src="api.js"></script>
+    <script src="course.js"></script>
+    <script src="speech.js"></script>
+    <script>
+      const cqParams = new URLSearchParams(window.location.search);
+      const cqGroup = cqParams.get("group") || "";
+      const cqUnit = parseInt(cqParams.get("unit"), 10) || 0;
+      const cqSetLabel = cqParams.get("set") || "";
+      document.getElementById("setTitle").textContent = cqSetLabel;
+
+      let cqQuestions = [];
+      let cqWrongQueue = [];
+      let cqRetryAppended = false;
+      let cqIndex = 0;
+      let cqCorrectCount = 0;
+      let cqAnswered = false;
+      let cqItemType = "lesson";
+      let cqItemLevel = "";
+      let cqStreak = 0;
+
+      const cqCheerMessages = ["やったね！", "その調子！", "素晴らしい！", "ナイス！", "いいね！"];
+
+      function escapeHtml(str) {
+          return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
+
+      function playCardAnim(el, className) {
+          if (!el) return;
+          el.classList.remove(className);
+          void el.offsetWidth;
+          el.classList.add(className);
+          el.addEventListener("animationend", () => el.classList.remove(className), { once: true });
+      }
+
+      function spawnCheerText(text) {
+          const layer = document.getElementById("effectLayer");
+          if (!layer) return;
+          const el = document.createElement("div");
+          el.className = "medety-cheer-pop";
+          el.textContent = text;
+          layer.appendChild(el);
+          el.addEventListener("animationend", () => el.remove(), { once: true });
+      }
+
+      function updateStreakBadge() {
+          const badge = document.getElementById("streakBadge");
+          const num = document.getElementById("streakNum");
+          if (cqStreak >= 2) {
+              num.textContent = cqStreak;
+              badge.style.display = "inline-flex";
+              playCardAnim(badge, "medety-anim-pop");
+          } else {
+              badge.style.display = "none";
+          }
+      }
+
+      async function init() {
+          try {
+              const data = await loadMedetyData();
+              if (!data || !data.words) throw new Error("no data");
+
+              const plan = medetyBuildCoursePlan(data.words, cqGroup);
+              const item = plan[cqUnit];
+              if (!item) throw new Error("item not found");
+
+              cqItemType = item.type;
+              cqItemLevel = item.level;
+
+              if (item.type === "lesson") {
+                  cqQuestions = medetyBuildLessonQueue(item.words, data.words, data.etymology);
+              } else if (item.type === "review") {
+                  cqQuestions = medetyBuildReviewQueue(item.words, data.etymology, COURSE_REVIEW_SIZE);
+              } else if (item.type === "test") {
+                  cqQuestions = medetyBuildTestQueue(item.words, COURSE_TEST_SIZE);
+              }
+
+              if (cqQuestions.length === 0) throw new Error("no questions");
+
+              document.getElementById("remainingCount").textContent = cqQuestions.length;
+              document.getElementById("loading").style.display = "none";
+              renderQuestion();
+          } catch (e) {
+              console.error("コース出題の読み込みに失敗:", e);
+              document.getElementById("loading").innerHTML = '<div class="loader">読み込みに失敗しました。<a href="index.html">コース一覧に戻る</a></div>';
+          }
+      }
+
+      function promptLabel(q) {
+          if (q.kind === "tagselect") {
+              return q.mode === "meaning" ? "当てはまる語源タグの日本語訳をすべて選んでください" : "当てはまる語源タグをすべて選んでください";
+          }
+          if (q.kind === "choice") return q.promptLang === "en" ? "日本語の意味を選んでください" : "英語の単語を選んでください";
+          if (q.kind === "typing") return "英語のつづりを入力してください";
+          return "";
+      }
+
+      function renderQuestion() {
+          const q = cqQuestions[cqIndex];
+          cqAnswered = false;
+          const area = document.getElementById("questionArea");
+
+          let html = `<div class="coursequiz-prompt-label">${promptLabel(q)}</div>`;
+          if (q.promptLang === "en") {
+              html += `<div class="coursequiz-prompt-row">`
+                    + `<div class="coursequiz-prompt">${escapeHtml(q.prompt)}</div>`
+                    + `<button type="button" class="coursequiz-speak-btn" onclick="speakCurrentPrompt()" aria-label="発音を聞く">🔊</button>`
+                    + `</div>`;
+          } else {
+              html += `<div class="coursequiz-prompt">${escapeHtml(q.prompt)}</div>`;
+          }
+
+          if (q.kind === "tagselect") {
+              html += `<div class="coursequiz-tags" id="tagOptions">`
+                    + q.options.map(val => `<button type="button" class="coursequiz-tag-btn" data-value="${escapeHtml(val)}" onclick="toggleTag(this)">${escapeHtml(val)}</button>`).join("")
+                    + `</div>`
+                    + `<button type="button" class="btn btn-primary rounded-pill w-100" id="submitBtn" onclick="submitTagAnswer()">けってい ➔</button>`;
+          } else if (q.kind === "choice") {
+              html += `<div class="coursequiz-choices">`
+                    + q.options.map((opt, i) => `<button type="button" class="coursequiz-choice-btn" onclick="submitChoiceAnswer(${i})">${escapeHtml(opt)}</button>`).join("")
+                    + `</div>`;
+          } else if (q.kind === "typing") {
+              html += `<form class="coursequiz-typing" onsubmit="event.preventDefault(); submitTypingAnswer();">
+                          <input type="text" id="typingInput" class="form-control" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力">
+                          <button type="submit" class="btn btn-primary rounded-pill mt-3 w-100">こたえる ➔</button>
+                       </form>`;
+          }
+
+          html += `<div id="feedbackArea" class="mt-3"></div>`;
+          area.innerHTML = html;
+
+          playCardAnim(document.getElementById("questionArea"), "medety-anim-pop");
+          if (q.kind === "typing") document.getElementById("typingInput").focus();
+          if (q.promptLang === "en") speakCurrentPrompt();
+      }
+
+      function speakCurrentPrompt() {
+          const q = cqQuestions[cqIndex];
+          if (q && q.promptLang === "en") medetySpeak(q.prompt);
+      }
+
+      function toggleTag(btn) {
+          if (cqAnswered) return;
+          btn.classList.toggle("is-selected");
+      }
+
+      function correctAnswerText(q) {
+          if (q.kind === "tagselect") return q.correctAnswers.join(" ・ ") || "（なし）";
+          return q.correctAnswer;
+      }
+
+      function finishAnswer(isCorrect, q) {
+          const card = document.getElementById("studyCard");
+          if (isCorrect) {
+              cqCorrectCount++;
+              cqStreak++;
+              playCardAnim(card, "medety-feedback-correct");
+              spawnCheerText(cqCheerMessages[Math.floor(Math.random() * cqCheerMessages.length)]);
+          } else {
+              cqStreak = 0;
+              cqWrongQueue.push(q);
+              playCardAnim(card, "medety-feedback-wrong");
+          }
+          updateStreakBadge();
+
+          const feedback = document.getElementById("feedbackArea");
+          feedback.innerHTML = `<div class="coursequiz-feedback ${isCorrect ? "is-correct" : "is-wrong"}">`
+                              + (isCorrect ? "✓ 正解！" : `✕ 不正解（正解: ${escapeHtml(correctAnswerText(q))}）`)
+                              + `</div>`
+                              + `<button type="button" class="btn btn-outline-primary rounded-pill w-100 mt-2" onclick="advanceQuestion()">つぎへ ➔</button>`;
+      }
+
+      function submitTagAnswer() {
+          if (cqAnswered) return;
+          cqAnswered = true;
+          const q = cqQuestions[cqIndex];
+          const selected = Array.from(document.querySelectorAll("#tagOptions .is-selected")).map(b => b.dataset.value);
+          const correctSet = new Set(q.correctAnswers);
+          const selectedSet = new Set(selected);
+          const isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(t => selectedSet.has(t));
+
+          document.querySelectorAll("#tagOptions button").forEach(b => {
+              b.disabled = true;
+              const val = b.dataset.value;
+              if (correctSet.has(val)) b.classList.add("is-correct");
+              else if (b.classList.contains("is-selected")) b.classList.add("is-wrong");
+          });
+          document.getElementById("submitBtn").remove();
+          finishAnswer(isCorrect, q);
+      }
+
+      function submitChoiceAnswer(index) {
+          if (cqAnswered) return;
+          cqAnswered = true;
+          const q = cqQuestions[cqIndex];
+          const chosen = q.options[index];
+          const isCorrect = chosen === q.correctAnswer;
+
+          document.querySelectorAll(".coursequiz-choice-btn").forEach((b, i) => {
+              b.disabled = true;
+              if (q.options[i] === q.correctAnswer) b.classList.add("is-correct");
+              else if (i === index) b.classList.add("is-wrong");
+          });
+          finishAnswer(isCorrect, q);
+      }
+
+      function submitTypingAnswer() {
+          if (cqAnswered) return;
+          cqAnswered = true;
+          const q = cqQuestions[cqIndex];
+          const input = document.getElementById("typingInput");
+          const val = (input.value || "").trim().toLowerCase();
+          const isCorrect = val === (q.correctAnswer || "").trim().toLowerCase();
+          input.disabled = true;
+          input.classList.add(isCorrect ? "is-correct" : "is-wrong");
+          finishAnswer(isCorrect, q);
+      }
+
+      function updateProgress() {
+          const total = cqQuestions.length;
+          const remaining = Math.max(0, total - cqIndex);
+          document.getElementById("remainingCount").textContent = remaining;
+          document.getElementById("studyProgress").style.width = `${(cqIndex / total) * 100}%`;
+      }
+
+      function advanceQuestion() {
+          cqIndex++;
+
+          if (cqIndex >= cqQuestions.length) {
+              if (cqItemType === "lesson" && cqWrongQueue.length > 0 && !cqRetryAppended) {
+                  cqRetryAppended = true;
+                  cqQuestions = cqQuestions.concat(cqWrongQueue);
+                  cqWrongQueue = [];
+                  updateProgress();
+                  renderQuestion();
+                  return;
+              }
+              finishQuiz();
+              return;
+          }
+          updateProgress();
+          renderQuestion();
+      }
+
+      function finishQuiz() {
+          const total = cqQuestions.length;
+          const url = `studyresult.html?set=${encodeURIComponent(cqSetLabel)}&result=${cqCorrectCount}&total=${total}`
+                    + `&way=course&group=${encodeURIComponent(cqGroup)}&unit=${cqUnit}&type=${cqItemType}&level=${encodeURIComponent(cqItemLevel)}`;
+          location.href = url;
+      }
+
+      init();
+    </script>
+
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="sidebars.js"></script>
+  </body>
+</html>

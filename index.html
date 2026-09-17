@@ -3,6 +3,7 @@
   <head>
 
     <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -56,22 +57,8 @@
       }
 
     </style>
-    <style>
-      /* スライド内のリンク（aタグ）への設定 */
-      .carousel-item a {
-        transition: background-color 0.3s ease, opacity 0.3s ease;
-      }
-
-      /* ホバーした時に白っぽく（半透明に）する */
-      .carousel-item a:hover {
-        background-color: rgba(255, 255, 255, 0.15); /* ほんのり白を重ねる */
-        opacity: 0.85; /* 少し透けさせることで白っぽく見せる */
-        cursor: pointer; /* マウスカーソルを指の形にする */
-      }
-    </style>
 
 
-    
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -119,77 +106,291 @@
 
       <main class="flex-grow-1" style="overflow-y: auto;">
         <div class = "p-4">
-          <div id="carouselExampleCaptions" class="carousel slide mb-4 shadow" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
 
-            <div class="carousel-inner rounded-4">
-              <div class="carousel-item active bg-success text-white text-center" style="height: 250px;">
-                <a href="https://note.com/medety_official/n/n64802ab410ab" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="text-reset text-decoration-none d-flex align-items-center justify-content-center h-100 w-100">
-                  
-                  <div class="p-5">
-                    <h5 class="fw-bold mb-4">🔰 Medety の使い方</h5>
-                    <p class="small">はじめての人はこちらをチェック！</p>
-                  </div>
-                  
-                </a>
-              </div>
-
-              <div class="carousel-item bg-info text-white text-center" style="height: 250px;">
-                <a href="https://forms.gle/ZCCdRVZefM8TzMkt9" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="text-reset text-decoration-none d-flex align-items-center justify-content-center h-100 w-100">
-                  
-                  <div class="p-5">
-                    <h5 class="fw-bold mb-4">🌱 Medety を一緒に育てる</h5>
-                    <p class="small">スペルミスや要望、メッセージはこちらのアンケートフォームから</p>
-                  </div>
-                  
-                </a>
-              </div>
-
-              <div class="carousel-item bg-primary text-white text-center" style="height: 250px;">
-                <a href="https://note.com/medety_official" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="text-reset text-decoration-none d-flex align-items-center justify-content-center h-100 w-100">
-                  
-                  <div class="p-5">
-                    <h5 class="fw-bold mb-4">📝 Medety 開発ブログ</h5>
-                    <p class="small">開発の裏話や、ここに載せきれなかった英語のコラムを掲載予定</p>
-                  </div>
-                  
-                </a>
-              </div>
-
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
+          <div class="mb-3">
+            <h4 id="greeting" class="fw-bold mb-1" style="color: var(--c-text);">おかえりなさい</h4>
+            <p id="progressLine" class="text-muted mb-0" style="font-size: 0.9rem;"></p>
           </div>
 
-          <div class="px-3 py-3">
-            <button class="btn btn-outline-primary w-100 py-4 rounded-4 shadow-sm border-2 d-flex flex-column align-items-center bg-white" onclick="location.href='study.html'">
-              <span class="fs-2 mb-1">📖</span>
-              <div class="fw-bold">学ぶ</div>
-              <small class="text-secondary" style="font-size: 0.7rem;">知識を蓄える</small>
-            </button>
-              
+          <button id="courseContinueBtn" class="btn w-100 py-4 rounded-4 shadow-sm border-0 d-flex flex-column align-items-center mb-4"
+                  style="background-color: var(--c-primary); color: #ffffff;" disabled>
+            <span class="fs-2 mb-1" id="courseContinueEmoji">📚</span>
+            <div class="fw-bold fs-5" id="courseContinueTitle">コースを読み込み中...</div>
+            <small style="opacity: 0.9;" id="courseContinueSub">&nbsp;</small>
+          </button>
+
+          <div class="d-flex gap-2 mb-3">
+            <select id="courseGroupSelect" class="form-select rounded-pill px-3" style="max-width: 160px;" onchange="renderCourseGroup(this.value)"></select>
+            <select id="courseLevelSelect" class="form-select rounded-pill px-3" style="max-width: 160px;"
+                    onchange="renderCourseGroup(document.getElementById('courseGroupSelect').value, this.value)"></select>
           </div>
+
+          <div id="course-container">
+            <p class="text-center text-muted p-3">データを読み込み中...</p>
+          </div>
+
         </div>
       </main>
     </div>
+
+    <script src="progress.js"></script>
+    <script src="api.js"></script>
+    <script src="course.js"></script>
+    <script>
+        const hour = new Date().getHours();
+        document.getElementById("greeting").textContent =
+            hour < 5  ? "こんばんは" :
+            hour < 11 ? "おはようございます" :
+            hour < 18 ? "こんにちは" : "おつかれさまです";
+
+        const streak = medetyCalcStreak();
+        const studiedToday = medetyStudiedToday();
+        const totalWords = medetyTotalWords();
+
+        let progressLine;
+        if (streak >= 1 && studiedToday) {
+            progressLine = `✅ 今日の分は学習ずみ！🔥 ${streak}日連続、いいペースです`;
+        } else if (streak >= 1) {
+            progressLine = `🔥 ${streak}日連続で学習中。今日の分もサクッと済ませよう`;
+        } else if (totalWords > 0) {
+            progressLine = `これまでに${totalWords}単語に挑戦しました。また少しずつ進めよう`;
+        } else {
+            progressLine = "実習で疲れた日も、1レッスンだけでOK。まずはコースを始めてみよう";
+        }
+        document.getElementById("progressLine").textContent = progressLine;
+
+        // 「コースの続き」ボタンを、続きのレッスンにつなげる
+        (async () => {
+            const btn = document.getElementById("courseContinueBtn");
+            try {
+                const data = await loadMedetyData();
+                if (!data || !data.words) throw new Error("no data");
+
+                const lastGroup = medetyGetLastCourseGroup();
+                const groupId = COURSE_GROUPS[lastGroup] ? lastGroup : COURSE_GROUP_ORDER[0];
+                const group = COURSE_GROUPS[groupId];
+
+                const plan = medetyApplyCourseLocks(medetyBuildCoursePlan(data.words, groupId), groupId)
+                    .map((item, i) => Object.assign({}, item, { done: medetyIsCourseItemDone(groupId, item, i) }));
+                if (plan.length === 0) throw new Error("no lessons");
+
+                const nextIndex = plan.findIndex(it => !it.done);
+                const isCourseDone = nextIndex === -1;
+                const target = plan[isCourseDone ? plan.length - 1 : nextIndex];
+                const targetIdx = isCourseDone ? plan.length - 1 : nextIndex;
+                const lessonNumber = plan.slice(0, targetIdx + 1).filter(it => it.type === "lesson").length;
+                const label = target.type === "test" ? "レベルアップテスト" : target.type === "review" ? "復習" : `レッスン${lessonNumber}`;
+                const setLabel = `${group.label} ${label}`;
+
+                document.getElementById("courseContinueEmoji").textContent = group.emoji;
+                if (isCourseDone) {
+                    document.getElementById("courseContinueTitle").textContent = `${group.label} コース修了！`;
+                    document.getElementById("courseContinueSub").textContent = "お疲れさまでした。他の分野もやってみよう";
+                    btn.onclick = () => { document.getElementById("courseGroupSelect").scrollIntoView({ behavior: "smooth", block: "start" }); };
+                } else {
+                    document.getElementById("courseContinueTitle").textContent = `${group.label}の続きへ`;
+                    document.getElementById("courseContinueSub").textContent = setLabel;
+                    btn.onclick = () => {
+                        location.href = `coursequiz.html?group=${groupId}&unit=${nextIndex}&set=${encodeURIComponent(setLabel)}`;
+                    };
+                }
+                btn.disabled = false;
+            } catch (e) {
+                console.error("コースの続きの読み込みに失敗:", e);
+                document.getElementById("courseContinueTitle").textContent = "コース学習をはじめる";
+                document.getElementById("courseContinueSub").textContent = "下から分野を選んでね";
+                btn.disabled = false;
+                btn.onclick = () => { document.getElementById("courseGroupSelect").scrollIntoView({ behavior: "smooth", block: "start" }); };
+            }
+        })();
+
+        // コース学習の本体（分野を選んで、レッスンの道を表示する）
+        let courseAllWords = [];
+
+        window.addEventListener("load", async () => {
+            const tabsEl = document.getElementById("courseGroupSelect");
+            const container = document.getElementById("course-container");
+            try {
+                const allData = await loadMedetyData();
+                if (!allData || !allData.words) return;
+                courseAllWords = allData.words;
+
+                const startGroup = medetyGetLastCourseGroup();
+                const initialGroup = COURSE_GROUPS[startGroup] ? startGroup : COURSE_GROUP_ORDER[0];
+
+                tabsEl.innerHTML = COURSE_GROUP_ORDER.map(gid => {
+                    const g = COURSE_GROUPS[gid];
+                    const selectedAttr = gid === initialGroup ? " selected" : "";
+                    return `<option value="${gid}"${selectedAttr}>${g.emoji} ${g.label}</option>`;
+                }).join("");
+
+                renderCourseGroup(initialGroup);
+            } catch (e) {
+                console.error("コース学習の読み込みに失敗:", e);
+                container.innerHTML = '<p class="text-center text-muted p-3">読み込みに失敗しました。</p>';
+            }
+        });
+
+        const NODE_RING_R = 34;
+        const NODE_RING_CIRC = 2 * Math.PI * NODE_RING_R;
+
+        // レッスン用：単語リストをプレビュー用の短いテキストにする
+        function wordsPreviewText(wordsArr) {
+            return wordsArr.map(w => w.word).join(" ・ ");
+        }
+
+        // 復習・テスト用：出題プールの説明文を作る（実際にどの単語が出るかは毎回ランダム）
+        function poolPreviewText(item) {
+            if (item.type === "review") {
+                return `これまで学んだ${item.words.length}語からランダムに${COURSE_REVIEW_SIZE}問（語源タグ選択）`;
+            }
+            return `このレベルの${item.words.length}語からランダムに${COURSE_TEST_SIZE}問（英語タイピング・合格ライン${Math.round(COURSE_TEST_PASS_RATE * 100)}%）`;
+        }
+
+        // 1つの項目（レッスン／復習／テスト）を開始するリンク先を作る
+        function courseItemHref(groupId, planIndex, groupLabel, item, lessonNumber) {
+            const label = item.type === "test" ? "レベルアップテスト" : item.type === "review" ? "復習" : `レッスン${lessonNumber}`;
+            const setLabel = `${groupLabel} ${label}`;
+            return `coursequiz.html?group=${groupId}&unit=${planIndex}&set=${encodeURIComponent(setLabel)}`;
+        }
+
+        const courseSelectedLevel = {}; // groupId -> 現在表示中のレベル（切り替えるとここに記憶される）
+
+        function renderCourseGroup(groupId, forceLevel) {
+            const groupSelect = document.getElementById("courseGroupSelect");
+            if (groupSelect.value !== groupId) groupSelect.value = groupId;
+
+            const container = document.getElementById("course-container");
+            const group = COURSE_GROUPS[groupId];
+            const rawPlan = medetyBuildCoursePlan(courseAllWords, groupId);
+
+            if (rawPlan.length === 0) {
+                container.innerHTML = '<p class="text-center text-muted p-3">この分野の単語はまだ登録されていません。</p>';
+                return;
+            }
+
+            const plan = medetyApplyCourseLocks(rawPlan, groupId).map((item, i) => Object.assign({}, item, {
+                planIndex: i,
+                done: medetyIsCourseItemDone(groupId, item, i),
+            }));
+
+            const nextIndex = plan.findIndex(it => !it.done);
+
+            // このグループに実際に登場するレベルの一覧（順番通り）
+            const levelsInGroup = [];
+            plan.forEach(it => { if (!levelsInGroup.includes(it.level)) levelsInGroup.push(it.level); });
+
+            // 今まさに取り組んでいるレベルをデフォルトで表示する（全部終わっていれば最後のレベル）
+            const currentLevel = nextIndex === -1 ? plan[plan.length - 1].level : plan[nextIndex].level;
+            let selectedLevel = forceLevel || courseSelectedLevel[groupId] || currentLevel;
+            if (!levelsInGroup.includes(selectedLevel)) selectedLevel = currentLevel;
+            courseSelectedLevel[groupId] = selectedLevel;
+
+            // レベル切り替えプルダウン（区切りが分かりにくい問題への対策：1レベルずつ表示し、いつでも前のレベルに戻れる）
+            const levelOptionsHtml = levelsInGroup.map(lv => {
+                const levelItems = plan.filter(it => it.level === lv);
+                const levelAllDone = levelItems.every(it => it.done);
+                const levelLocked = levelItems[0].locked;
+                const mark = levelLocked ? "🔒 " : levelAllDone ? "✓ " : "";
+                const selectedAttr = lv === selectedLevel ? " selected" : "";
+                return `<option value="${lv}"${selectedAttr}>${mark}${COURSE_LEVEL_LABELS[lv] || lv}</option>`;
+            }).join("");
+            document.getElementById("courseLevelSelect").innerHTML = levelOptionsHtml;
+
+            // 選択中のレベルの項目だけに絞り込む
+            const levelPlan = plan.filter(it => it.level === selectedLevel);
+
+            // レッスン番号（復習・テストを除いた通し番号、グループ全体で通し）を先に振っておく
+            let lessonCounter = 0;
+            const lessonNumbers = plan.map(it => it.type === "lesson" ? ++lessonCounter : null);
+
+            // 連続する「lesson」をチェックポイント（1つの円）にまとめ、review/testは単独ノードにする
+            const visualNodes = [];
+            let buffer = [];
+            const flushBuffer = () => {
+                if (buffer.length > 0) {
+                    visualNodes.push({ kind: "checkpoint", items: buffer });
+                    buffer = [];
+                }
+            };
+            levelPlan.forEach(item => {
+                if (item.type === "lesson") {
+                    buffer.push(item);
+                    if (buffer.length >= COURSE_NODE_SIZE) flushBuffer();
+                } else {
+                    flushBuffer();
+                    visualNodes.push({ kind: item.type, items: [item] });
+                }
+            });
+            flushBuffer();
+
+            let nodesHtml = "";
+            visualNodes.forEach((node, idx) => {
+                const side = idx % 2 === 0 ? "start" : "end";
+                const containsNext = node.items.some(it => it.planIndex === nextIndex);
+                const isLocked = node.items[0].locked;
+                const target = node.items.find(it => !it.done) || node.items[0];
+                const targetLabel = target.type === "test" ? "レベルアップテスト" : target.type === "review" ? "復習" : `レッスン${lessonNumbers[target.planIndex]}`;
+                const href = courseItemHref(groupId, target.planIndex, group.label, target, lessonNumbers[target.planIndex]);
+
+                let nodeInnerHtml, extraClass = "";
+                const previewWords = target.type === "lesson" ? wordsPreviewText(target.words) : poolPreviewText(target);
+
+                if (node.kind === "checkpoint") {
+                    const doneInNode = node.items.filter(it => it.done).length;
+                    const frac = doneInNode / node.items.length;
+                    const allDone = doneInNode === node.items.length;
+                    if (allDone) extraClass = " medety-lesson-done";
+                    if (isLocked) extraClass += " medety-lesson-locked";
+
+                    // 分数表示の代わりに、終わったレッスンのぶんだけ丸が増えるドット表示にする
+                    const dotsHtml = `<div class="medety-node-dots">${node.items.map(it =>
+                        `<span class="medety-node-dot${it.done ? " is-filled" : ""}"></span>`
+                    ).join("")}</div>`;
+                    const centerContent = isLocked ? "🔒" : allDone ? "✓" : dotsHtml;
+
+                    nodeInnerHtml = `
+                        <svg class="medety-node-ring" viewBox="0 0 80 80" width="72" height="72">
+                            <circle class="medety-node-ring-track" cx="40" cy="40" r="${NODE_RING_R}"></circle>
+                            <circle class="medety-node-ring-progress" cx="40" cy="40" r="${NODE_RING_R}"
+                                    style="stroke-dasharray:${NODE_RING_CIRC}; stroke-dashoffset:${NODE_RING_CIRC * (1 - frac)};"></circle>
+                        </svg>
+                        <div class="medety-lesson-node${extraClass}">${centerContent}</div>`;
+                } else if (node.kind === "review") {
+                    if (target.done) extraClass = " medety-lesson-done";
+                    if (isLocked) extraClass += " medety-lesson-locked";
+                    nodeInnerHtml = `<div class="medety-lesson-node medety-lesson-review${extraClass}">${isLocked ? "🔒" : target.done ? "✓" : "🔄"}</div>`;
+                } else { // test
+                    if (target.done) extraClass = " medety-lesson-done";
+                    if (isLocked) extraClass += " medety-lesson-locked";
+                    nodeInnerHtml = `<div class="medety-lesson-node medety-lesson-test${extraClass}">${isLocked ? "🔒" : target.done ? "✓" : "🏆"}</div>`;
+                }
+
+                const previewBody = isLocked
+                    ? `<div class="medety-node-preview-words">🔒 手前のレベルアップテストに合格すると解放されます</div>`
+                    : `<div class="medety-node-preview-title">${targetLabel}</div>
+                       <div class="medety-node-preview-words">${previewWords}</div>
+                       <button type="button" class="btn btn-primary btn-sm rounded-pill mt-2 px-3"
+                               onclick="event.stopPropagation(); location.href='${href}'">はじめる ➔</button>`;
+
+                nodesHtml += `
+                    <div class="medety-lesson-row medety-side-${side}${isLocked ? " medety-row-locked" : ""}"
+                         onmouseenter="!this.classList.contains('medety-row-locked') && this.classList.add('show-preview')"
+                         onmouseleave="this.classList.remove('show-preview')"
+                         onclick="this.classList.toggle('show-preview')">
+                        <div class="medety-node-line">
+                            ${containsNext && !isLocked ? '<span class="medety-lesson-start-tag">START</span>' : ""}
+                            <div class="medety-node-wrap${isLocked ? " medety-node-locked" : ""}">
+                                ${nodeInnerHtml}
+                            </div>
+                        </div>
+                        <div class="medety-node-preview">${previewBody}</div>
+                    </div>`;
+            });
+
+            container.innerHTML = `<div class="medety-lesson-path">${nodesHtml}</div>`;
+        }
+    </script>
 
     <script src="bootstrap.bundle.min.js"></script>
     <script src="sidebars.js"></script>

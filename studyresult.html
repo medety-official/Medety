@@ -3,6 +3,7 @@
   <head>
 
     <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -64,7 +65,6 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          background-color: #ffffff; /* 白背景に */
           border-radius: 1.25rem; /* Bootstrapの rounded-4 相当 */
           border: none;
           box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* 柔らかい影 */
@@ -73,7 +73,8 @@
 
       #setTitle {
           font-size: 0.9rem;
-          color: #6c757d;
+          color: var(--c-text);
+          opacity: 0.7;
           text-transform: uppercase;
           letter-spacing: 1px;
           margin-bottom: 10px;
@@ -96,6 +97,7 @@
       <symbol id="study" viewBox="0 0 16 16">
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      </symbol>
       <symbol id="setting" viewBox="0 0 16 16">
         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
@@ -127,24 +129,32 @@
 
       <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
 
-        <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: #fcfaf2;">
+        <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-bg);">
 
           <h2 id="setTitle"></h2>
 
-          <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: #fcfaf2;">
+          <div style="width: 100%; flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-bg);">
             
             <div id="resultCard" class="study-card" style="display: none; justify-content: center; text-align: center;">
+              <div id="effectLayer" style="position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:inherit;"></div>
               <div class="p-4">
-                <h3 class="display-6 fw-bold mb-4" style="color: #2d3748;">🎉 学習完了！</h3>
-                
+                <h3 id="resultTitle" class="display-6 fw-bold mb-2" style="color: var(--c-text);">🎉 学習完了！</h3>
+                <p id="resultMessage" class="fw-bold mb-4" style="color: var(--c-primary-dark);"></p>
+
                 <div class="mb-5">
                   <p class="fs-5 text-muted mb-1">今回のスコア</p>
-                  <div class="display-2 fw-bold" style="color: #8db57a !important;">
+                  <div class="display-2 fw-bold" style="color: var(--c-primary) !important;">
                     <span id="res-count">0</span><span class="fs-4 text-secondary"> / <span id="res-total">0</span></span>
                   </div>
                 </div>
-                
-                <a href="study.html" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">
+
+                <div id="courseNextArea" style="display:none;" class="mb-3">
+                  <a id="courseNextLink" href="#" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">
+                    次のユニットへ ➔
+                  </a>
+                </div>
+
+                <a href="study.html" class="btn btn-outline-primary rounded-pill px-4" id="backToStudyLink">
                   学習選択画面に戻る
                 </a>
               </div>
@@ -152,11 +162,18 @@
 
           </div>
 
+          <script src="progress.js"></script>
+          <script src="course.js"></script>
           <script>
               const params = new URLSearchParams(window.location.search);
               const setName = params.get("set");
               const result = params.get("result");
               const total = params.get("total");
+              const wayParam = params.get("way");
+              const groupParam = params.get("group");
+              const unitParam = params.get("unit");
+              const typeParam = params.get("type");
+              const levelParam = params.get("level");
 
               // セット名を表示
               if(setName) {
@@ -167,9 +184,101 @@
               if (result !== null && total !== null) {
                   const card = document.getElementById("resultCard");
                   card.style.display = "flex"; // ここでカードを出現させる
+                  card.classList.add("medety-anim-pop"); // ふわっと登場
 
-                  document.getElementById("res-count").textContent = result;
+                  const resultNum = Number(result);
+                  const totalNum = Number(total);
                   document.getElementById("res-total").textContent = total;
+
+                  // スコアを 0 から結果の数字までカウントアップさせる
+                  const countElem = document.getElementById("res-count");
+                  const duration = 700; // ms
+                  const startTime = performance.now();
+                  function tickCount(now) {
+                      const progress = Math.min(1, (now - startTime) / duration);
+                      countElem.textContent = Math.round(progress * resultNum);
+                      if (progress < 1) {
+                          requestAnimationFrame(tickCount);
+                      }
+                  }
+                  requestAnimationFrame(tickCount);
+
+                  // 正答率に応じた応援メッセージ
+                  const rate = totalNum > 0 ? resultNum / totalNum : 0;
+                  const isTest = wayParam === "course" && typeParam === "test";
+                  const testPassRate = typeof COURSE_TEST_PASS_RATE === "number" ? COURSE_TEST_PASS_RATE : 0.8;
+                  const testPassed = isTest && rate >= testPassRate;
+
+                  if (isTest) {
+                      document.getElementById("resultTitle").textContent = testPassed ? "🎉 レベルアップ！" : "😢 もう少し！";
+                      document.getElementById("resultMessage").textContent = testPassed
+                          ? "テストに合格しました。次のレベルに進めます"
+                          : `合格ラインは正答率${Math.round(testPassRate * 100)}%です。もう一度挑戦してみましょう`;
+                  } else {
+                      const messages = rate === 1
+                          ? "パーフェクト！やったね🌟"
+                          : rate >= 0.8
+                          ? "その調子！とてもいい感じ✨"
+                          : rate >= 0.5
+                          ? "よくがんばった！この調子💪"
+                          : "第一歩、おつかれさま🌱";
+                      document.getElementById("resultMessage").textContent = messages;
+                  }
+
+                  // 紙吹雪をふわっと降らせる
+                  const confettiEmojis = ["🎉", "✨", "🌟", "🍀"];
+                  const layer = document.getElementById("effectLayer");
+                  for (let i = 0; i < 16; i++) {
+                      const piece = document.createElement("span");
+                      piece.className = "medety-confetti-piece";
+                      piece.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                      piece.style.left = `${Math.random() * 100}%`;
+                      piece.style.animationDelay = `${Math.random() * 0.6}s`;
+                      layer.appendChild(piece);
+                  }
+
+                  // 学習記録（連続日数・累計単語数）に今回のセッションを反映
+                  medetyRecordSession(totalNum);
+
+                  // コース学習から来た場合は、結果を記録し「次へ」のリンクを出す
+                  const backLink = document.getElementById("backToStudyLink");
+                  if (wayParam === "course" && groupParam) {
+                      medetySetLastCourseGroup(groupParam); // ホーム画面の「コースの続き」用に記録
+
+                      const groupMeta = COURSE_GROUPS[groupParam];
+                      const groupLabel = groupMeta ? groupMeta.label : groupParam;
+                      const unitIdx = parseInt(unitParam, 10) || 0;
+
+                      const nextArea = document.getElementById("courseNextArea");
+                      const nextLink = document.getElementById("courseNextLink");
+
+                      if (isTest) {
+                          if (testPassed) {
+                              medetyMarkLevelTestPassed(groupParam, levelParam);
+                              const nextUnit = unitIdx + 1;
+                              nextLink.textContent = "次のレベルへ ➔";
+                              nextLink.href = `coursequiz.html?group=${encodeURIComponent(groupParam)}&unit=${nextUnit}&set=${encodeURIComponent(groupLabel + " 続き")}`;
+                              nextArea.style.display = "block";
+                          } else {
+                              // 不合格の場合は、同じテストをやり直せるようにする
+                              nextLink.textContent = "もう一度挑戦する ➔";
+                              nextLink.href = `coursequiz.html?group=${encodeURIComponent(groupParam)}&unit=${unitIdx}&set=${encodeURIComponent(groupLabel + " レベルアップテスト")}`;
+                              nextArea.style.display = "block";
+                          }
+                      } else {
+                          medetyMarkUnitDone(groupParam, unitParam);
+                          const nextUnit = unitIdx + 1;
+                          nextLink.textContent = "次のユニットへ ➔";
+                          nextLink.href = `coursequiz.html?group=${encodeURIComponent(groupParam)}&unit=${nextUnit}&set=${encodeURIComponent(groupLabel + " 続き")}`;
+                          nextArea.style.display = "block";
+                      }
+                      backLink.textContent = "コース一覧に戻る";
+                      backLink.href = "index.html"; // コース学習はホーム画面に移動したため
+                  } else {
+                      // コース以外の結果画面では、こちらのボタンを主役として大きく見せる
+                      backLink.classList.remove("btn-outline-primary", "rounded-pill", "px-4");
+                      backLink.classList.add("btn-primary", "btn-lg", "rounded-pill", "px-5", "shadow-sm");
+                  }
               }
           </script>
 
