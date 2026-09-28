@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="ja" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <script>(function(){try{var t=localStorage.getItem("medetyTheme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.112.5">
+    <title>Medety</title>
+
+    <link rel="canonical" href="https://medety-official.github.io/Medety/play.html">
+    <link rel="icon" href="logo2.jpeg">
+    <link rel="apple-touch-icon" href="applelogo.png">
+
+<link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+    </style>
+    <style>
+      #playWrap {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          margin: 10px auto;
+          touch-action: none;
+          user-select: none;
+      }
+      #gameCanvas {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 1rem;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+          background-color: var(--c-bg);
+      }
+      .play-overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          border-radius: 1rem;
+          background-color: rgba(0,0,0,0.45);
+          color: #fff;
+          padding: 20px;
+          box-sizing: border-box;
+      }
+      #questionBanner {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          right: 8px;
+          background-color: var(--c-surface);
+          border: 2px solid var(--c-accent);
+          border-radius: 0.9rem;
+          padding: 8px 12px;
+          box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+          display: none;
+          z-index: 3;
+      }
+      #questionBanner .q-prompt {
+          font-weight: bold;
+          font-size: 0.95rem;
+          color: var(--c-text);
+          margin-bottom: 4px;
+          text-align: center;
+      }
+      #questionBanner .q-options {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 6px;
+          font-size: 0.8rem;
+      }
+      #questionBanner .q-opt {
+          background-color: var(--c-sidebar);
+          border-radius: 999px;
+          padding: 2px 10px;
+          color: var(--c-text);
+          white-space: nowrap;
+      }
+      #bestScoreLine.is-new-best {
+          color: #ffd76a;
+          font-weight: bold;
+          animation: medetyNewBestPop 0.6s ease;
+      }
+      @keyframes medetyNewBestPop {
+          0% { transform: scale(0.7); opacity: 0; }
+          60% { transform: scale(1.15); opacity: 1; }
+          100% { transform: scale(1); }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+      </symbol>
+      <symbol id="study" viewBox="0 0 16 16">
+        <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+        <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+      </symbol>
+      <symbol id="play" viewBox="0 0 16 16">
+        <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
+        <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
+      </symbol>
+      <symbol id="setting" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+      </symbol>
+    </svg>
+    <div class="d-flex flex-nowrap">
+      <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
+        <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
+          <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="study.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="playsetting.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Play"><use xlink:href="#play"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Setting"><use xlink:href="#setting"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="flex-grow-1" style="overflow-y: auto;">
+        <div class="p-3">
+          <h5 class="fw-bold mb-2 text-center" id="pageTitle">🎮 遊んで学ぶ</h5>
+
+          <div id="playWrap">
+            <canvas id="gameCanvas" width="360" height="600"></canvas>
+
+            <div id="questionBanner">
+              <div class="q-prompt" id="qPromptText"></div>
+              <div class="q-options" id="qOptionsText"></div>
+            </div>
+
+            <div class="play-overlay" id="startOverlay">
+              <div class="fs-1 mb-2">🐥</div>
+              <div class="fw-bold fs-5 mb-1">タップ／スペースキーでスタート</div>
+              <div class="small">連打でジャンプ！コインでクイズに答えよう</div>
+              <div class="small mt-2" id="startDifficultyLabel" style="opacity:0.85;"></div>
+            </div>
+
+            <div class="play-overlay" id="gameOverOverlay" style="display:none;">
+              <div class="fs-2 mb-2">🎉 おつかれさま！</div>
+              <div class="fs-3 fw-bold mb-1">スコア：<span id="finalScore">0</span></div>
+              <div class="small mb-3" id="bestScoreLine">自己ベスト：0点</div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-primary rounded-pill px-4" onclick="restartGame()">もう一度</button>
+                <button type="button" class="btn btn-outline-light rounded-pill px-4" onclick="location.href='playsetting.html'">設定を変える</button>
+              </div>
+              <button type="button" class="btn btn-outline-light rounded-pill px-4 mt-2" onclick="location.href='playresult.html'">出題結果を見る</button>
+              <a href="index.html" class="small text-white-50 mt-3">ホームへ戻る</a>
+            </div>
+
+            <div class="play-overlay" id="loadingOverlay">
+              <div class="small">データを読み込み中...</div>
+            </div>
+          </div>
+
+          <p class="text-center text-muted small mt-2">タップ／クリック、またはスペースキーでジャンプ</p>
+        </div>
+      </main>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="course.js"></script>
+    <script src="speech.js"></script>
+    <script>
+      // ===== 設定の読み込み =====
+      const playParams = new URLSearchParams(window.location.search);
+      const playGroup = playParams.get("group") || "all";
+      const playLevel = playParams.get("level") || "all";
+      const playDifficultyKey = playParams.get("difficulty") || "normal";
+      function difficultyPoints(base, mult) { return Math.max(1, Math.round(base * mult)); }
+      const DIFFICULTY_PRESETS = {
+          easy:     { label: "かんたん",   scrollSpeed: 2.2, obstacleInterval: 220, obstacleGap: 260, coinRandomness: 0,    scoreMultiplier: 1,
+                      quizBannerStart: 110, quizBannerMin: 110, quizBannerStep: 0 },
+          normal:   { label: "ふつう",     scrollSpeed: 3,   obstacleInterval: 170, obstacleGap: 230, coinRandomness: 0,    scoreMultiplier: 1.5,
+                      quizBannerStart: 110, quizBannerMin: 110, quizBannerStep: 0 },
+          hard:     { label: "むずかしい", scrollSpeed: 3.8, obstacleInterval: 130, obstacleGap: 195, coinRandomness: 0.5,  scoreMultiplier: 2,
+                      quizBannerStart: 110, quizBannerMin: 110, quizBannerStep: 0 },
+          veryhard: { label: "激ムズ",     scrollSpeed: 4.6, obstacleInterval: 100, obstacleGap: 170, coinRandomness: 1,    scoreMultiplier: 3,
+                      quizBannerStart: 110, quizBannerMin: 40, quizBannerStep: 10 }, // 出題のたびにバナー時間が短くなり、40フレーム（約0.7秒）で下げ止まる
+      };
+      const DIFF = DIFFICULTY_PRESETS[playDifficultyKey] || DIFFICULTY_PRESETS.normal;
+      const scrollSpeed = DIFF.scrollSpeed;
+      const QUIZ_POINTS = difficultyPoints(10, DIFF.scoreMultiplier);
+      const BONUS_POINTS = difficultyPoints(1, DIFF.scoreMultiplier);
+
+      // ===== テーマカラーを取得（キャンバスはCSS変数を直接使えないため） =====
+      function cssVar(name, fallback) {
+          const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+          return v || fallback;
+      }
+      const COLORS = {
+          bg: cssVar("--c-bg", "#fcfaf2"),
+          sky: cssVar("--c-surface", "#ffffff"),
+          text: cssVar("--c-text", "#4a4543"),
+          primary: cssVar("--c-primary", "#8db57a"),
+          primaryDark: cssVar("--c-primary-dark", "#7da36a"),
+          accent: cssVar("--c-accent", "#f2c091"),
+          quick: cssVar("--c-quick", "#f0a1a8"),
+          warm: cssVar("--c-warm", "#8a6b63"),
+          border: cssVar("--c-border", "#e2e4db"),
+          surface: cssVar("--c-surface", "#ffffff"),
+      };
+
+      // ===== 音（Web Audio APIで簡易生成。追加ファイル不要） =====
+      let audioCtx = null;
+      function ensureAudio() {
+          if (!audioCtx) {
+              try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
+          } else if (audioCtx.state === "suspended") {
+              audioCtx.resume();
+          }
+      }
+      function playTone(freq, duration, type, vol) {
+          if (!audioCtx) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type || "sine";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(vol || 0.16, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain).connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+      }
+      function sfxJump() { playTone(540, 0.09, "square", 0.12); }
+      function sfxBonus() { playTone(900, 0.1, "triangle", 0.14); }
+      function sfxCorrect() { playTone(880, 0.12, "triangle", 0.16); setTimeout(() => playTone(1320, 0.14, "triangle", 0.16), 80); }
+      function sfxWrong() { playTone(180, 0.28, "sawtooth", 0.15); }
+      function sfxHit() { playTone(120, 0.3, "sawtooth", 0.15); }
+      function sfxNewBest() {
+          playTone(660, 0.12, "triangle", 0.18);
+          setTimeout(() => playTone(880, 0.12, "triangle", 0.18), 100);
+          setTimeout(() => playTone(1100, 0.2, "triangle", 0.2), 200);
+      }
+      function sfxHeart() {
+          playTone(520, 0.1, "sine", 0.16);
+          setTimeout(() => playTone(780, 0.16, "sine", 0.18), 90);
+      }
+
+      // ===== キャンバス・定数 =====
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      const CANVAS_W = canvas.width;
+      const CANVAS_H = canvas.height;
+      const GROUND_Y = CANVAS_H - 36;
+      const GRAVITY = 0.45;
+      const JUMP_V = -7.6;
+      const BIRD_X = 66;
+      const BIRD_R = 15;
+
+      const OBSTACLE_INTERVAL = DIFF.obstacleInterval; // フレーム間隔（大きいほど出現頻度が下がる）
+      const OBSTACLE_GAP = DIFF.obstacleGap; // 通過できる幅（大きいほど簡単）
+      const OBSTACLE_MARGIN = 30; // 天井・地面からの最低余白
+      const OBSTACLE_W = 46;
+      const BONUS_INTERVAL = 260;
+      const QUIZ_INTERVAL = 480; // 約8秒（60fps換算）
+      const BEST_SCORE_KEY = "medetyPlayBestScore";
+
+      // ===== 選択肢コインの配置パターン（上から必ずA→B→C→Dの順。横方向だけ変化） =====
+      const QUIZ_LAYOUTS = [
+          // 縦一列（まっすぐ）
+          () => {
+              const top = 90, bottom = GROUND_Y - 90;
+              const slot = (bottom - top) / 4;
+              return [0, 1, 2, 3].map(i => ({ dx: 0, y: top + slot * i + slot / 2 }));
+          },
+          // 右下がり階段
+          () => {
+              const top = 90, bottom = GROUND_Y - 90;
+              const slot = (bottom - top) / 4;
+              return [0, 1, 2, 3].map(i => ({ dx: i * 50, y: top + slot * i + slot / 2 }));
+          },
+          // 右上がり階段
+          () => {
+              const top = 90, bottom = GROUND_Y - 90;
+              const slot = (bottom - top) / 4;
+              return [0, 1, 2, 3].map(i => ({ dx: (3 - i) * 50, y: top + slot * i + slot / 2 }));
+          },
+          // ジグザグ
+          () => {
+              const top = 90, bottom = GROUND_Y - 90;
+              const slot = (bottom - top) / 4;
+              return [0, 1, 2, 3].map(i => ({ dx: (i % 2 === 0 ? 0 : 70), y: top + slot * i + slot / 2 }));
+          },
+      ];
+      function pickQuizLayout() {
+          if (Math.random() >= DIFF.coinRandomness) return QUIZ_LAYOUTS[0]();
+          return QUIZ_LAYOUTS[Math.floor(Math.random() * QUIZ_LAYOUTS.length)]();
+      }
+
+      // ===== ボーナスコインの配置パターン（バリエーション用） =====
+      const BONUS_PATTERNS = [
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY })), // 一直線
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY - i * 20 })), // 上昇
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY + i * 20 })), // 下降
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY - Math.abs(i - 2) * 26 })), // 山型
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY + Math.abs(i - 2) * 26 })), // 谷型
+          (baseY) => [0, 1, 2, 3, 4].map(i => ({ dx: i * 34, y: baseY + (i % 2 === 0 ? -22 : 22) })), // ジグザグ
+      ];
+
+      // ===== 自己ベスト =====
+      function getBestScore() {
+          try { return parseInt(localStorage.getItem(BEST_SCORE_KEY) || "0", 10) || 0; } catch (e) { return 0; }
+      }
+      function setBestScore(v) {
+          try { localStorage.setItem(BEST_SCORE_KEY, String(v)); } catch (e) {}
+      }
+
+      // ===== ゲーム状態 =====
+      let bird, obstacles, bonusCoins, quizCoins, heartPickup;
+      let score, lives, frame, running, started, invulnFrames;
+      let bgScrollX = 0; // 背景（雲・町並み）のスクロール位置。障害物と同じ速さで進める
+      let nextObstacleFrame, nextBonusFrame, nextQuizFrame;
+      let quizPhase, quizBannerTimer, currentQuestion, quizOccurrenceCount;
+      let heartQuestionCounter = 0; // ハートを失ってからの経過問題数（満タン時は増えない）
+      let quizHistory = [];
+      let questionPool = [];
+      let allWordsForFallback = [];
+      let lastQuestionWord = null;
+
+      function resetState() {
+          bird = { y: CANVAS_H / 2, vy: 0 };
+          obstacles = [];
+          bonusCoins = [];
+          quizCoins = [];
+          heartPickup = null;
+          heartQuestionCounter = 0;
+          score = 0;
+          lives = 3;
+          frame = 0;
+          invulnFrames = 0;
+          bgScrollX = 0;
+          running = false;
+          started = false;
+          nextObstacleFrame = 60;
+          nextBonusFrame = 200;
+          nextQuizFrame = QUIZ_INTERVAL;
+          quizPhase = null;
+          quizBannerTimer = 0;
+          quizOccurrenceCount = 0;
+          quizHistory = [];
+          currentQuestion = null;
+          document.getElementById("questionBanner").style.display = "none";
+          document.getElementById("gameOverOverlay").style.display = "none";
+          document.getElementById("startOverlay").style.display = "flex";
+          document.getElementById("startDifficultyLabel").textContent = `難易度：${DIFF.label}（スコア×${DIFF.scoreMultiplier}）`;
+      }
+
+      // ===== データの単語/意味フィールド入れ違いの補正 =====
+      // データ中に一部、word（英語であるべき）とmeaning（日本語であるべき）が
+      // 入れ違っている行があるため、出題前に検出して直す。
+      const JP_CHAR_RE = /[぀-ヿ一-鿿]/;
+      function medetyLooksJapanese(text) { return JP_CHAR_RE.test(text || ""); }
+      function medetyNormalizeWordEntry(w) {
+          if (medetyLooksJapanese(w.word) && w.meaning && !medetyLooksJapanese(w.meaning)) {
+              return Object.assign({}, w, { word: w.meaning, meaning: w.word });
+          }
+          return w;
+      }
+      function medetyIsPlayableWord(w) {
+          return !!(w && w.word && w.word.trim() && w.meaning && w.meaning.trim() && !medetyLooksJapanese(w.word));
+      }
+
+      // ===== データ読み込み・出題プール作成 =====
+      async function init() {
+          resetState();
+          try {
+              const data = await loadMedetyData();
+              if (!data || !data.words) throw new Error("no data");
+              const normalizedWords = data.words.map(medetyNormalizeWordEntry).filter(medetyIsPlayableWord);
+              allWordsForFallback = normalizedWords;
+
+              let pool = normalizedWords;
+              if (playGroup !== "all" && COURSE_GROUPS[playGroup]) {
+                  const fieldSet = new Set(COURSE_GROUPS[playGroup].fields);
+                  pool = pool.filter(w => fieldSet.has((w.field || "").toString().trim()));
+              }
+              if (playLevel !== "all") {
+                  pool = pool.filter(w => medetyWordLevelKey(w) === playLevel);
+              }
+              questionPool = pool.length > 0 ? pool : normalizedWords;
+
+              document.getElementById("loadingOverlay").style.display = "none";
+              requestAnimationFrame(loop);
+          } catch (e) {
+              console.error("プレイモードの読み込みに失敗:", e);
+              document.getElementById("loadingOverlay").innerHTML = '<div class="small">読み込みに失敗しました。<a href="playsetting.html" class="text-white">設定に戻る</a></div>';
+          }
+      }
+
+      function pickQuestion() {
+          const candidates = questionPool.filter(w => w !== lastQuestionWord && w.word && w.meaning);
+          const source = candidates.length > 0 ? candidates : questionPool;
+          const word = source[Math.floor(Math.random() * source.length)];
+          lastQuestionWord = word;
+          const optionPool = questionPool.length >= 4 ? questionPool : allWordsForFallback;
+          const options = medetyBuildChoiceOptions(word, optionPool, "word", 4);
+          return { word, prompt: word.meaning, options, correctIndex: options.indexOf(word.word) };
+      }
+
+      // ===== 入力 =====
+      function jump() {
+          ensureAudio();
+          if (!started) {
+              started = true;
+              running = true;
+              document.getElementById("startOverlay").style.display = "none";
+          }
+          if (!running) return;
+          bird.vy = JUMP_V;
+          sfxJump();
+      }
+
+      canvas.addEventListener("pointerdown", (e) => { e.preventDefault(); jump(); });
+      document.getElementById("playWrap").addEventListener("pointerdown", (e) => {
+          if (e.target === canvas) return; // canvasは上のリスナーで処理済み
+      });
+      window.addEventListener("keydown", (e) => {
+          if (e.code === "Space") { e.preventDefault(); jump(); }
+      });
+
+      function restartGame() {
+          resetState();
+          document.getElementById("startOverlay").style.display = "flex";
+      }
+
+      // ===== 衝突判定 =====
+      function circleRectHit(cx, cy, r, rx, ry, rw, rh) {
+          const nearestX = Math.max(rx, Math.min(cx, rx + rw));
+          const nearestY = Math.max(ry, Math.min(cy, ry + rh));
+          const dx = cx - nearestX;
+          const dy = cy - nearestY;
+          return (dx * dx + dy * dy) < (r * r);
+      }
+      function circleHit(x1, y1, r1, x2, y2, r2) {
+          const dx = x1 - x2, dy = y1 - y2;
+          return (dx * dx + dy * dy) < (r1 + r2) * (r1 + r2);
+      }
+
+      function loseLife() {
+          if (invulnFrames > 0) return;
+          lives--;
+          invulnFrames = 80;
+          heartQuestionCounter = 0; // 失った瞬間から、また10問カウントし直す
+          sfxHit();
+          if (lives <= 0) endGame();
+      }
+
+      // ===== 回復ハート（ハートが満タンでない時、10問ごとに出現） =====
+      function spawnHeartPickup() {
+          heartPickup = {
+              x: CANVAS_W + 40,
+              baseY: 110 + Math.random() * Math.max(GROUND_Y - 220, 0),
+              phase: 0,
+              y: 0,
+              r: 13,
+          };
+          heartPickup.y = heartPickup.baseY;
+      }
+
+      function endGame() {
+          running = false;
+          const best = getBestScore();
+          const isNewBest = score > best;
+          if (isNewBest) setBestScore(score);
+          document.getElementById("finalScore").textContent = score;
+          const bestEl = document.getElementById("bestScoreLine");
+          bestEl.classList.toggle("is-new-best", isNewBest);
+          if (isNewBest) {
+              bestEl.textContent = `🎉 自己ベスト更新！ ${score}点`;
+              sfxNewBest();
+          } else {
+              bestEl.textContent = `自己ベスト：${best}点`;
+          }
+          try {
+              localStorage.setItem("medetyPlayLastResult", JSON.stringify({
+                  score,
+                  difficultyKey: playDifficultyKey,
+                  difficultyLabel: DIFF.label,
+                  group: playGroup,
+                  level: playLevel,
+                  quizHistory,
+                  savedAt: Date.now(),
+              }));
+          } catch (e) {}
+          document.getElementById("gameOverOverlay").style.display = "flex";
+      }
+
+      // ===== 更新 =====
+      // dt: 前回の描画からの経過時間を「60fpsなら1」になるよう正規化した倍率。
+      // これを掛けずに固定量ずつ動かしていると、タブが背景に回るなどしてrequestAnimationFrameの
+      // 呼び出し頻度が落ちたとき、見た目の速度がそのまま遅くなってしまう（今回の不具合の原因）。
+      function update(dt) {
+          frame += dt;
+          bgScrollX += scrollSpeed * dt; // 背景も障害物と同じ速さでスクロールさせる
+          if (invulnFrames > 0) invulnFrames = Math.max(0, invulnFrames - dt);
+
+          bird.vy += GRAVITY * dt;
+          bird.y += bird.vy * dt;
+          if (bird.y > GROUND_Y - BIRD_R) {
+              bird.y = GROUND_Y - BIRD_R;
+              bird.vy = 0;
+              loseLife();
+          }
+          if (bird.y < BIRD_R) {
+              bird.y = BIRD_R;
+              bird.vy = 0;
+          }
+
+          // 障害物（クイズ中は出現を止めて、コインと重ならないようにする）
+          if (quizPhase === null && frame >= nextObstacleFrame) {
+              const gapRange = GROUND_Y - OBSTACLE_MARGIN * 2 - OBSTACLE_GAP;
+              const obstacleX = CANVAS_W + 20;
+              let gapCenter = OBSTACLE_MARGIN + OBSTACLE_GAP / 2 + Math.random() * Math.max(gapRange, 0);
+              // すでに出ているボーナスコインとx方向が重なる場合は、そのコインが通路（隙間）に
+              // 収まるよう隙間の中心を寄せる（ボーナスコインは通路の中にあるぶんには構わない）
+              const overlappingCoins = bonusCoins.filter(c => c.x + c.r > obstacleX && c.x - c.r < obstacleX + OBSTACLE_W);
+              if (overlappingCoins.length > 0) {
+                  const avgY = overlappingCoins.reduce((sum, c) => sum + c.y, 0) / overlappingCoins.length;
+                  const minCenter = OBSTACLE_MARGIN + OBSTACLE_GAP / 2;
+                  const maxCenter = GROUND_Y - OBSTACLE_MARGIN - OBSTACLE_GAP / 2;
+                  gapCenter = Math.max(minCenter, Math.min(maxCenter, avgY));
+              }
+              obstacles.push({ x: obstacleX, gapCenter, passed: false });
+              nextObstacleFrame = frame + OBSTACLE_INTERVAL;
+          }
+          obstacles.forEach(o => { o.x -= scrollSpeed * dt; });
+          obstacles = obstacles.filter(o => o.x > -OBSTACLE_W - 10);
+          obstacles.forEach(o => {
+              const topH = o.gapCenter - OBSTACLE_GAP / 2;
+              const botY = o.gapCenter + OBSTACLE_GAP / 2;
+              if (circleRectHit(BIRD_X, bird.y, BIRD_R, o.x, 0, OBSTACLE_W, topH) ||
+                  circleRectHit(BIRD_X, bird.y, BIRD_R, o.x, botY, OBSTACLE_W, GROUND_Y - botY)) {
+                  loseLife();
+              }
+          });
+
+          // ボーナスコイン（クイズ中は出現を止める。配置パターンはランダム）
+          if (quizPhase === null && frame >= nextBonusFrame) {
+              const baseY = 160 + Math.random() * Math.max(GROUND_Y - 320, 0);
+              const pattern = BONUS_PATTERNS[Math.floor(Math.random() * BONUS_PATTERNS.length)](baseY);
+              pattern.forEach(slot => {
+                  let y = Math.max(50, Math.min(GROUND_Y - 50, slot.y));
+                  const x = CANVAS_W + 40 + slot.dx;
+                  const r = 9;
+                  // 障害物の壁とは重ならないようにする（通路＝隙間の中にあるのは問題ない）
+                  obstacles.forEach(o => {
+                      if (x + r < o.x || x - r > o.x + OBSTACLE_W) return; // x方向に重ならないなら無関係
+                      const top = o.gapCenter - OBSTACLE_GAP / 2;
+                      const bot = o.gapCenter + OBSTACLE_GAP / 2;
+                      const margin = r + 4;
+                      if (y < top + margin || y > bot - margin) {
+                          y = Math.max(top + margin, Math.min(bot - margin, o.gapCenter));
+                      }
+                  });
+                  bonusCoins.push({ x, y, r });
+              });
+              nextBonusFrame = frame + BONUS_INTERVAL;
+          }
+          bonusCoins.forEach(c => { c.x -= scrollSpeed * dt; });
+          bonusCoins = bonusCoins.filter(c => {
+              if (c.x < -20) return false;
+              if (circleHit(BIRD_X, bird.y, BIRD_R, c.x, c.y, c.r)) {
+                  score += BONUS_POINTS;
+                  sfxBonus();
+                  return false;
+              }
+              return true;
+          });
+
+          // クイズ
+          if (quizPhase === null && frame >= nextQuizFrame && questionPool.length > 0) {
+              currentQuestion = pickQuestion();
+              quizPhase = "banner";
+              quizBannerTimer = Math.max(
+                  DIFF.quizBannerMin,
+                  DIFF.quizBannerStart - quizOccurrenceCount * DIFF.quizBannerStep
+              );
+              quizOccurrenceCount++;
+              showQuestionBanner(currentQuestion);
+          } else if (quizPhase === "banner") {
+              quizBannerTimer -= dt;
+              // 障害物の新規出現はクイズ中ずっと止めてあるので、画面上の障害物が
+              // 自然にスクロールして消えるまで待ってからコインを出す
+              // （途中で強制的に消すと、見えている障害物が突然消えたように見えてしまうため）
+              if (quizBannerTimer <= 0 && obstacles.length === 0) {
+                  quizPhase = "coins";
+                  const layout = pickQuizLayout();
+                  quizCoins = layout.map((slot, i) => ({
+                      x: CANVAS_W + 60 + slot.dx,
+                      y: slot.y,
+                      r: 15,
+                      label: "ABCD"[i],
+                      correct: i === currentQuestion.correctIndex,
+                  }));
+              }
+          } else if (quizPhase === "coins") {
+              quizCoins.forEach(c => { c.x -= scrollSpeed * dt; });
+              let resolved = false;
+              let wasCorrect = false;
+              quizCoins.forEach(c => {
+                  if (!resolved && circleHit(BIRD_X, bird.y, BIRD_R, c.x, c.y, c.r)) {
+                      resolved = true;
+                      wasCorrect = c.correct;
+                      if (c.correct) { score += QUIZ_POINTS; sfxCorrect(); }
+                      else { sfxWrong(); loseLife(); }
+                  }
+              });
+              if (resolved || quizCoins.every(c => c.x < -30)) {
+                  quizHistory.push({
+                      prompt: currentQuestion.prompt,
+                      correctAnswer: currentQuestion.options[currentQuestion.correctIndex],
+                      options: currentQuestion.options.slice(),
+                      outcome: resolved ? (wasCorrect ? "correct" : "wrong") : "skipped",
+                  });
+                  quizCoins = [];
+                  quizPhase = null;
+                  hideQuestionBanner();
+                  nextQuizFrame = frame + QUIZ_INTERVAL;
+                  nextObstacleFrame = frame + OBSTACLE_INTERVAL;
+
+                  // ハートが満タンでないときだけ経過問題数を数え、10問ごとに回復ハートを出す
+                  if (lives < 3) {
+                      heartQuestionCounter++;
+                      if (heartQuestionCounter % 10 === 0 && !heartPickup) {
+                          spawnHeartPickup();
+                      }
+                  }
+              }
+          }
+
+          // 回復ハート（ふわふわ上下に動きながら流れてくる。取ると満タンでなければ1回復）
+          if (heartPickup) {
+              heartPickup.phase += 0.07 * dt;
+              heartPickup.x -= scrollSpeed * dt;
+              heartPickup.y = heartPickup.baseY + Math.sin(heartPickup.phase) * 36;
+              if (heartPickup.x < -30) {
+                  heartPickup = null;
+              } else if (circleHit(BIRD_X, bird.y, BIRD_R, heartPickup.x, heartPickup.y, heartPickup.r)) {
+                  if (lives < 3) {
+                      lives++;
+                      sfxHeart();
+                  }
+                  heartPickup = null;
+              }
+          }
+      }
+
+      function showQuestionBanner(q) {
+          const labels = ["A", "B", "C", "D"];
+          document.getElementById("qPromptText").textContent = `${q.prompt}`;
+          document.getElementById("qOptionsText").innerHTML = q.options.map((opt, i) =>
+              `<span class="q-opt">${labels[i]}: ${opt}</span>`
+          ).join("");
+          document.getElementById("questionBanner").style.display = "block";
+      }
+      function hideQuestionBanner() {
+          document.getElementById("questionBanner").style.display = "none";
+      }
+
+      // ===== 描画 =====
+      // ===== 背景（空・雲） =====
+      // タイル幅ぶんの模様を繰り返し並べて、障害物と同じ速さ（bgScrollX）でスクロールさせる。
+      const BG_TILE_W = CANVAS_W;
+      const CLOUD_SHAPES = [
+          { x: 55, y: 75, scale: 1.0 },
+          { x: 150, y: 130, scale: 0.6 },
+          { x: 250, y: 55, scale: 0.85 },
+          { x: 330, y: 115, scale: 0.7 },
+      ];
+      function drawCloud(x, y, scale) {
+          ctx.beginPath();
+          ctx.arc(x, y, 14 * scale, 0, Math.PI * 2);
+          ctx.arc(x + 16 * scale, y - 6 * scale, 12 * scale, 0, Math.PI * 2);
+          ctx.arc(x + 30 * scale, y, 15 * scale, 0, Math.PI * 2);
+          ctx.arc(x + 14 * scale, y + 7 * scale, 13 * scale, 0, Math.PI * 2);
+          ctx.fill();
+      }
+
+      function drawBackground() {
+          // 空（グラデーション）
+          const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+          skyGrad.addColorStop(0, COLORS.sky);
+          skyGrad.addColorStop(1, COLORS.bg);
+          ctx.fillStyle = skyGrad;
+          ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+
+          const offset = ((bgScrollX % BG_TILE_W) + BG_TILE_W) % BG_TILE_W;
+
+          // 雲（空と同化しすぎないよう、淡いグレーで）
+          ctx.globalAlpha = 0.8;
+          ctx.fillStyle = COLORS.border;
+          for (let t = -1; t <= 1; t++) {
+              const tileX = t * BG_TILE_W - offset;
+              CLOUD_SHAPES.forEach(c => drawCloud(tileX + c.x, c.y, c.scale));
+          }
+          ctx.globalAlpha = 1;
+      }
+
+      function render() {
+          drawBackground();
+
+          // 地面
+          ctx.fillStyle = COLORS.border;
+          ctx.fillRect(0, GROUND_Y, CANVAS_W, CANVAS_H - GROUND_Y);
+          ctx.fillStyle = COLORS.primaryDark;
+          ctx.fillRect(0, GROUND_Y, CANVAS_W, 4);
+
+          // 障害物
+          ctx.fillStyle = COLORS.warm;
+          obstacles.forEach(o => {
+              const topH = o.gapCenter - OBSTACLE_GAP / 2;
+              const botY = o.gapCenter + OBSTACLE_GAP / 2;
+              roundRect(o.x, 0, OBSTACLE_W, Math.max(topH, 0), 8);
+              roundRect(o.x, botY, OBSTACLE_W, GROUND_Y - botY, 8);
+          });
+
+          // ボーナスコイン
+          bonusCoins.forEach(c => {
+              ctx.beginPath();
+              ctx.fillStyle = COLORS.primary;
+              ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+              ctx.fill();
+          });
+
+          // 回復ハート（ふわふわ動いて目立つように、拍動させる）
+          if (heartPickup) {
+              const pulse = 1 + Math.sin(heartPickup.phase * 2) * 0.18;
+              ctx.save();
+              ctx.translate(heartPickup.x, heartPickup.y);
+              ctx.scale(pulse, pulse);
+              ctx.font = "26px sans-serif";
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+              ctx.fillText("❤️", 0, 0);
+              ctx.restore();
+          }
+
+          // クイズコイン
+          quizCoins.forEach(c => {
+              ctx.beginPath();
+              ctx.fillStyle = COLORS.surface;
+              ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.lineWidth = 3;
+              ctx.strokeStyle = COLORS.accent;
+              ctx.stroke();
+              ctx.fillStyle = COLORS.text;
+              ctx.font = "bold 15px sans-serif";
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+              ctx.fillText(c.label, c.x, c.y + 1);
+          });
+
+          // 鳥（無敵中は点滅させる）
+          if (invulnFrames <= 0 || frame % 8 < 4) {
+              ctx.save();
+              ctx.translate(BIRD_X, bird.y);
+              ctx.rotate(Math.max(-0.5, Math.min(0.9, bird.vy * 0.06)));
+              ctx.font = "28px sans-serif";
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+              ctx.fillText("🐥", 0, 0);
+              ctx.restore();
+          }
+
+          // HUD
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          ctx.font = "bold 18px sans-serif";
+          ctx.fillStyle = COLORS.text;
+          ctx.fillText(`スコア ${score}`, 10, 10);
+
+          ctx.textAlign = "right";
+          ctx.font = "18px sans-serif";
+          ctx.fillText("❤️".repeat(Math.max(0, lives)) + "🖤".repeat(Math.max(0, 3 - lives)), CANVAS_W - 10, 10);
+      }
+
+      function roundRect(x, y, w, h, r) {
+          if (h <= 0) return;
+          const rr = Math.min(r, w / 2, h / 2);
+          ctx.beginPath();
+          ctx.moveTo(x + rr, y);
+          ctx.arcTo(x + w, y, x + w, y + h, rr);
+          ctx.arcTo(x + w, y + h, x, y + h, rr);
+          ctx.arcTo(x, y + h, x, y, rr);
+          ctx.arcTo(x, y, x + w, y, rr);
+          ctx.closePath();
+          ctx.fill();
+      }
+
+      // ===== メインループ =====
+      // requestAnimationFrameの実際の呼び出し間隔（dtMs）を60fps基準の倍率に変換し、
+      // ゲームの進み方が端末やタブの状態（背景スロットリング等）に左右されないようにする。
+      let lastTimestamp = null;
+      function loop(timestamp) {
+          if (lastTimestamp === null) lastTimestamp = timestamp;
+          const dtMs = timestamp - lastTimestamp;
+          lastTimestamp = timestamp;
+          // 極端に大きい値（タブが長時間非アクティブだった直後など）はクランプし、
+          // 復帰した瞬間に鳥が障害物をすり抜けたりしないようにする。
+          const dt = Math.max(0, Math.min(dtMs / (1000 / 60), 3));
+
+          if (running) update(dt);
+          render();
+          requestAnimationFrame(loop);
+      }
+
+      init();
+    </script>
+
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="sidebars.js"></script>
+  </body>
+</html>

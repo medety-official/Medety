@@ -181,7 +181,55 @@
           color: #fff !important;
       }
 
-      /* --- タイピング --- */
+      /* --- タイピング（頭文字だけ与えられ、残りを当てていくレターボックス表示） --- */
+      .coursequiz-type-mask {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: flex-end;
+          gap: 6px;
+          margin-bottom: 18px;
+          font-family: 'Courier New', monospace;
+      }
+      .cq-type-box {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 1.6rem;
+          height: 2.2rem;
+          padding: 0 2px;
+          font-size: 1.3rem;
+          font-weight: 800;
+          color: var(--c-text);
+          border-bottom: 3px solid var(--c-border);
+          transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      }
+      .cq-type-box.is-given {
+          border-color: var(--c-primary);
+          color: var(--c-primary-dark);
+      }
+      .cq-type-box.is-good {
+          border-color: var(--c-primary);
+          color: var(--c-primary-dark);
+          transform: translateY(-3px) scale(1.1);
+      }
+      .cq-type-box.is-bad {
+          border-color: var(--c-warm);
+          color: var(--c-warm);
+          transform: translateY(2px);
+      }
+      .cq-type-box.is-neutral {
+          border-color: var(--c-text);
+          color: var(--c-text);
+      }
+      .cq-type-space {
+          width: 0.9rem;
+      }
+      .cq-type-word {
+          display: inline-flex;
+          flex-wrap: nowrap;
+      }
+
       .coursequiz-typing input {
           font-size: 1.2rem;
           text-align: center;
@@ -226,6 +274,10 @@
         <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
         <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
       </symbol>
+      <symbol id="play" viewBox="0 0 16 16">
+        <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z"/>
+        <path d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27"/>
+      </symbol>
       <symbol id="setting" viewBox="0 0 16 16">
         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
@@ -244,6 +296,11 @@
             <li class="nav-item">
               <a href="study.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="playsetting.html" class="nav-link py-3 border-bottom rounded-0">
+                <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Play"><use xlink:href="#play"/></svg>
               </a>
             </li>
             <li>
@@ -302,11 +359,68 @@
       let cqItemType = "lesson";
       let cqItemLevel = "";
       let cqStreak = 0;
+      let cqHistory = [];
 
       const cqCheerMessages = ["やったね！", "その調子！", "素晴らしい！", "ナイス！", "いいね！"];
 
       function escapeHtml(str) {
           return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
+
+      // ===== 音（Web Audio APIで簡易生成） =====
+      let cqAudioCtx = null;
+      function ensureAudio() {
+          if (!cqAudioCtx) {
+              try { cqAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { cqAudioCtx = null; }
+          } else if (cqAudioCtx.state === "suspended") {
+              cqAudioCtx.resume();
+          }
+      }
+      function playTone(freq, duration, type, vol) {
+          if (!cqAudioCtx) return;
+          const osc = cqAudioCtx.createOscillator();
+          const gain = cqAudioCtx.createGain();
+          osc.type = type || "sine";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(vol || 0.16, cqAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, cqAudioCtx.currentTime + duration);
+          osc.connect(gain).connect(cqAudioCtx.destination);
+          osc.start();
+          osc.stop(cqAudioCtx.currentTime + duration);
+      }
+      function sfxCorrect() { playTone(880, 0.12, "triangle", 0.16); setTimeout(() => playTone(1320, 0.14, "triangle", 0.16), 80); }
+      function sfxWrong() { playTone(180, 0.28, "sawtooth", 0.15); }
+
+      // ===== タイピング問題：頭文字だけ与えられたレターボックス表示 =====
+      // showFeedback: false にすると、文字ごとの正誤色付けをせず入力した文字をそのまま表示する
+      // （レベルアップテストは、決定ボタンを押すまで正誤がわからないようにするため）
+      function buildTypingMaskHtml(correctAnswer, typedValue, showFeedback) {
+          const chars = correctAnswer.split("");
+          const typed = typedValue || "";
+
+          function boxFor(ch, i) {
+              if (i === 0) return `<span class="cq-type-box is-given">${escapeHtml(ch)}</span>`;
+              const typedCh = typed[i] || "";
+              if (!typedCh) return `<span class="cq-type-box">_</span>`;
+              if (!showFeedback) return `<span class="cq-type-box is-neutral">${escapeHtml(typedCh)}</span>`;
+              const cls = typedCh.toLowerCase() === ch.toLowerCase() ? "is-good" : "is-bad";
+              return `<span class="cq-type-box ${cls}">${escapeHtml(typedCh)}</span>`;
+          }
+
+          // 単語（半角スペース区切り）ごとに1つの塊としてまとめ、長い単語の途中ではなく
+          // 単語と単語の間（スペースの位置）で折り返すようにする。
+          let html = "";
+          let wordHtml = "";
+          chars.forEach((ch, i) => {
+              if (ch === " ") {
+                  html += `<span class="cq-type-word">${wordHtml}</span><span class="cq-type-space"></span>`;
+                  wordHtml = "";
+              } else {
+                  wordHtml += boxFor(ch, i);
+              }
+          });
+          html += `<span class="cq-type-word">${wordHtml}</span>`;
+          return html;
       }
 
       function playCardAnim(el, className) {
@@ -354,7 +468,7 @@
               if (item.type === "lesson") {
                   cqQuestions = medetyBuildLessonQueue(item.words, data.words, data.etymology);
               } else if (item.type === "review") {
-                  cqQuestions = medetyBuildReviewQueue(item.words, data.etymology, COURSE_REVIEW_SIZE);
+                  cqQuestions = medetyBuildReviewQueue(item.words, COURSE_REVIEW_SIZE);
               } else if (item.type === "test") {
                   cqQuestions = medetyBuildTestQueue(item.words, COURSE_TEST_SIZE);
               }
@@ -374,8 +488,8 @@
           if (q.kind === "tagselect") {
               return q.mode === "meaning" ? "当てはまる語源タグの日本語訳をすべて選んでください" : "当てはまる語源タグをすべて選んでください";
           }
-          if (q.kind === "choice") return q.promptLang === "en" ? "日本語の意味を選んでください" : "英語の単語を選んでください";
-          if (q.kind === "typing") return "英語のつづりを入力してください";
+          if (q.kind === "choice") return "日本語の意味を選んでください";
+          if (q.kind === "typing") return "頭文字をヒントに、英語のつづりを入力してください";
           return "";
       }
 
@@ -383,6 +497,7 @@
           const q = cqQuestions[cqIndex];
           cqAnswered = false;
           const area = document.getElementById("questionArea");
+          const showTypingFeedback = cqItemType !== "test";
 
           let html = `<div class="coursequiz-prompt-label">${promptLabel(q)}</div>`;
           if (q.promptLang === "en") {
@@ -398,15 +513,17 @@
               html += `<div class="coursequiz-tags" id="tagOptions">`
                     + q.options.map(val => `<button type="button" class="coursequiz-tag-btn" data-value="${escapeHtml(val)}" onclick="toggleTag(this)">${escapeHtml(val)}</button>`).join("")
                     + `</div>`
-                    + `<button type="button" class="btn btn-primary rounded-pill w-100" id="submitBtn" onclick="submitTagAnswer()">けってい ➔</button>`;
+                    + `<button type="button" class="btn btn-primary rounded-pill w-100" id="submitBtn" onclick="submitTagAnswer()">決定 ➔</button>`;
           } else if (q.kind === "choice") {
               html += `<div class="coursequiz-choices">`
                     + q.options.map((opt, i) => `<button type="button" class="coursequiz-choice-btn" onclick="submitChoiceAnswer(${i})">${escapeHtml(opt)}</button>`).join("")
                     + `</div>`;
           } else if (q.kind === "typing") {
-              html += `<form class="coursequiz-typing" onsubmit="event.preventDefault(); submitTypingAnswer();">
-                          <input type="text" id="typingInput" class="form-control" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力">
-                          <button type="submit" class="btn btn-primary rounded-pill mt-3 w-100">こたえる ➔</button>
+              const firstLetter = (q.correctAnswer || "")[0] || "";
+              html += `<div class="coursequiz-type-mask" id="typeMask">${buildTypingMaskHtml(q.correctAnswer, firstLetter, showTypingFeedback)}</div>`
+                    + `<form class="coursequiz-typing" onsubmit="event.preventDefault(); submitTypingAnswer();">
+                          <input type="text" id="typingInput" class="form-control" autocomplete="off" autocapitalize="off" spellcheck="false" value="${escapeHtml(firstLetter)}">
+                          <button type="submit" class="btn btn-primary rounded-pill mt-3 w-100">答える ➔</button>
                        </form>`;
           }
 
@@ -414,7 +531,15 @@
           area.innerHTML = html;
 
           playCardAnim(document.getElementById("questionArea"), "medety-anim-pop");
-          if (q.kind === "typing") document.getElementById("typingInput").focus();
+          if (q.kind === "typing") {
+              const input = document.getElementById("typingInput");
+              const mask = document.getElementById("typeMask");
+              input.addEventListener("input", () => {
+                  mask.innerHTML = buildTypingMaskHtml(q.correctAnswer, input.value, showTypingFeedback);
+              });
+              input.focus();
+              input.setSelectionRange(input.value.length, input.value.length);
+          }
           if (q.promptLang === "en") speakCurrentPrompt();
       }
 
@@ -434,24 +559,34 @@
       }
 
       function finishAnswer(isCorrect, q) {
+          ensureAudio();
           const card = document.getElementById("studyCard");
           if (isCorrect) {
               cqCorrectCount++;
               cqStreak++;
               playCardAnim(card, "medety-feedback-correct");
               spawnCheerText(cqCheerMessages[Math.floor(Math.random() * cqCheerMessages.length)]);
+              sfxCorrect();
           } else {
               cqStreak = 0;
               cqWrongQueue.push(q);
               playCardAnim(card, "medety-feedback-wrong");
+              sfxWrong();
           }
           updateStreakBadge();
+
+          cqHistory.push({
+              prompt: q.prompt,
+              promptLang: q.promptLang,
+              correctAnswer: correctAnswerText(q),
+              isCorrect: isCorrect,
+          });
 
           const feedback = document.getElementById("feedbackArea");
           feedback.innerHTML = `<div class="coursequiz-feedback ${isCorrect ? "is-correct" : "is-wrong"}">`
                               + (isCorrect ? "✓ 正解！" : `✕ 不正解（正解: ${escapeHtml(correctAnswerText(q))}）`)
                               + `</div>`
-                              + `<button type="button" class="btn btn-outline-primary rounded-pill w-100 mt-2" onclick="advanceQuestion()">つぎへ ➔</button>`;
+                              + `<button type="button" class="btn btn-outline-primary rounded-pill w-100 mt-2" onclick="advanceQuestion()">次へ ➔</button>`;
       }
 
       function submitTagAnswer() {
@@ -528,6 +663,16 @@
 
       function finishQuiz() {
           const total = cqQuestions.length;
+          try {
+              localStorage.setItem("medetyCourseLastResult", JSON.stringify({
+                  setLabel: cqSetLabel,
+                  score: cqCorrectCount,
+                  total,
+                  itemType: cqItemType,
+                  history: cqHistory,
+                  savedAt: Date.now(),
+              }));
+          } catch (e) {}
           const url = `studyresult.html?set=${encodeURIComponent(cqSetLabel)}&result=${cqCorrectCount}&total=${total}`
                     + `&way=course&group=${encodeURIComponent(cqGroup)}&unit=${cqUnit}&type=${cqItemType}&level=${encodeURIComponent(cqItemLevel)}`;
           location.href = url;

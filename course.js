@@ -199,8 +199,8 @@ function medetyBuildQuestion(stage, word, siblingWords, allWords, allEtymology) 
     if (stage === "tagselect_jp") {
         return medetyBuildTagChoiceQuestion("jp", "tag", word, allEtymology);
     }
-    const pool = siblingWords.length >= 4 ? siblingWords : allWords;
     if (stage === "mc_meaning") {
+        const pool = siblingWords.length >= 4 ? siblingWords : allWords;
         return {
             kind: "choice",
             promptLang: "en",
@@ -210,22 +210,21 @@ function medetyBuildQuestion(stage, word, siblingWords, allWords, allEtymology) 
             options: medetyBuildChoiceOptions(word, pool, "meaning", 4),
         };
     }
-    // mc_word（日本語→英語）
+    // mc_word（日本語→英語）→ 日本語をもとにした英単語タイピング問題
     return {
-        kind: "choice",
+        kind: "typing",
         promptLang: "jp",
         prompt: word.meaning,
         word: word,
         correctAnswer: word.word,
-        options: medetyBuildChoiceOptions(word, pool, "word", 4),
     };
 }
 
 // レッスンの出題キューを作る：単語ごとに
-// 「英語→タグ／英語→タグの日本語訳／英語→日本語／日本語→英語／日本語→タグ」の順、
+// 「英語→タグ／英語→タグの日本語訳／英語→日本語／日本語→タグ／日本語→英語タイピング」の順、
 // 単語をまたいでラウンドロビン（同じ段階を全単語ぶん終えてから、次の段階に進む）
 function medetyBuildLessonQueue(lessonWords, allWords, allEtymology) {
-    const stages = ["tagselect_en", "tagselect_en_meaning", "mc_meaning", "mc_word", "tagselect_jp"];
+    const stages = ["tagselect_en", "tagselect_en_meaning", "mc_meaning", "tagselect_jp", "mc_word"];
     const queue = [];
     stages.forEach(stage => {
         lessonWords.forEach(word => {
@@ -235,10 +234,16 @@ function medetyBuildLessonQueue(lessonWords, allWords, allEtymology) {
     return queue;
 }
 
-// 復習の出題キュー：これまで学んだ単語からランダムに数問、日本語→語源タグ選択
-function medetyBuildReviewQueue(coveredWordsPool, allEtymology, count) {
+// 復習の出題キュー：これまで学んだ単語からランダムに数問、日本語をもとにした英単語タイピング
+function medetyBuildReviewQueue(coveredWordsPool, count) {
     const sample = medetyRandomSample(coveredWordsPool, count);
-    return sample.map(word => medetyBuildQuestion("tagselect_jp", word, coveredWordsPool, coveredWordsPool, allEtymology));
+    return sample.map(word => ({
+        kind: "typing",
+        promptLang: "jp",
+        prompt: word.meaning,
+        word: word,
+        correctAnswer: word.word,
+    }));
 }
 
 // レベルアップテストの出題キュー：レベル内の単語からランダムに数問、日本語→英語タイピング

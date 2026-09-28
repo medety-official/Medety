@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.112.5">
     <title>Medety</title>
 
-    <link rel="canonical" href="https://medety-official.github.io/Medety/studysetting.html">
+    <link rel="canonical" href="https://medety-official.github.io/Medety/courselesson.html">
     <link rel="icon" href="logo2.jpeg">
     <link rel="apple-touch-icon" href="applelogo.png">
 
@@ -24,39 +24,49 @@
         -moz-user-select: none;
         user-select: none;
       }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+    </style>
+    <style>
+      .clesson-word-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 14px 18px;
+          margin-bottom: 10px;
+          border-radius: 1rem;
+          background-color: var(--c-surface);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
+      .clesson-word-en {
+          font-weight: 800;
+          font-size: 1.15rem;
+          color: var(--c-text);
       }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
+      .clesson-word-jp {
+          font-size: 0.85rem;
+          color: var(--c-text);
+          opacity: 0.65;
+          margin-top: 2px;
       }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+      .clesson-speak-btn {
+          border: 2px solid var(--c-border);
+          background-color: var(--c-surface);
+          color: var(--c-primary);
+          border-radius: 50%;
+          width: 42px;
+          height: 42px;
+          min-width: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.15rem;
+          transition: transform 0.15s ease, background-color 0.15s ease;
+          flex-shrink: 0;
       }
-
+      .clesson-speak-btn:hover { background-color: var(--c-sidebar); transform: scale(1.05); }
+      .clesson-speak-btn:active { transform: scale(0.95); }
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -80,6 +90,7 @@
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
       </symbol>
     </svg>
+
     <div class="d-flex flex-nowrap">
       <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
         <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
@@ -106,135 +117,84 @@
             </li>
           </ul>
         </div>
-
       </aside>
 
-      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-accent);">
-        
+      <main class="flex-grow-1" style="overflow-y: auto;">
+        <div class="p-3" style="max-width: 520px; margin: 0 auto;">
 
-        <div class="flex-grow-1 d-flex flex-column overflow-hidden px-3 py-4">
-              
-          <div class="mb-4">
-              <h2 id="setTitle" class="h5 fw-bold text-dark mb-1">読み込み中...</h2>
-              <div class="small text-muted">出題設定を選択してください</div>
+          <h5 class="fw-bold mb-1" id="clessonTitle">レッスン</h5>
+          <div class="small text-muted mb-3">これから出題される単語です。タップして発音を確認しましょう</div>
+
+          <div id="clessonList"></div>
+
+          <div id="clessonLoading" class="text-center text-muted py-5">データを読み込み中...</div>
+
+          <div id="clessonActions" style="display:none;" class="mt-3 mb-2">
+            <button type="button" class="btn btn-primary rounded-pill w-100 py-3 fw-bold shadow-sm" id="clessonStartBtn">レッスンを始める ➔</button>
+            <a href="index.html" class="d-block text-center small text-muted mt-3">やめる</a>
           </div>
 
-          <div class="flex-grow-1 d-flex flex-column gap-4">
-              
-            <div class="card border-0 shadow-sm rounded-4 p-3">
-                <label class="small fw-bold text-muted mb-3 d-block">出題形式</label>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setLanguage('en-jp',this)" class="btn btn-outline-primary flex-grow-1 active-mode">英語 → 日本語</button>
-                    <button onclick="setLanguage('jp-en',this)" class="btn btn-outline-primary flex-grow-1">日本語 → 英語</button>
-                </div>
-            </div>
-
-            <div class="card border-0 shadow-sm rounded-4 p-3">
-                <label class="small fw-bold text-muted mb-3 d-block">出題順序</label>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setOrder('specific',this)" class="btn btn-outline-primary flex-grow-1 active-mode">登録順</button>
-                    <button onclick="setOrder('random',this)" class="btn btn-outline-primary flex-grow-1">ランダム</button>
-                </div>
-            </div>
-
-            <div class="card border-0 shadow-sm rounded-4 p-3" id="countCard">
-                <label class="small fw-bold text-muted mb-1 d-block">出題数</label>
-                <div class="text-muted mb-3" style="font-size: 0.75rem;">疲れている日は少なめもおすすめです</div>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setCount('5',this)" class="btn btn-outline-primary flex-grow-1">5問</button>
-                    <button onclick="setCount('10',this)" class="btn btn-outline-primary flex-grow-1">10問</button>
-                    <button onclick="setCount('20',this)" class="btn btn-outline-primary flex-grow-1">20問</button>
-                    <button onclick="setCount('all',this)" class="btn btn-outline-primary flex-grow-1 active-mode">すべて</button>
-                </div>
-            </div>
-
-          </div>
-
-          <div class="mt-auto pt-4 px-2">
-              <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow" onclick="startStudy()">
-                  学習スタート ➔
-              </button>
-          </div>
         </div>
-
-      
-
-
       </main>
     </div>
 
+    <script src="api.js"></script>
+    <script src="course.js"></script>
+    <script src="speech.js"></script>
     <script>
-        // --- 以前のロジックをそのまま移植 ---
-        const params = new URLSearchParams(window.location.search);
-        const setMode = params.get("way"); // etymology か　area か rootgroup か
+      const clParams = new URLSearchParams(window.location.search);
+      const clGroup = clParams.get("group") || "";
+      const clUnit = parseInt(clParams.get("unit"), 10) || 0;
+      const clSetLabel = clParams.get("set") || "";
+      const clQuizHref = `coursequiz.html?group=${encodeURIComponent(clGroup)}&unit=${clUnit}&set=${encodeURIComponent(clSetLabel)}`;
 
-        // 1. まず「外側」で setName を用意しておく（中身は空っぽ）
-        let setName = ""; 
+      function escapeHtml(str) {
+          return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
 
-        if (setMode === "etymology") {
-            // 2. etymologyモードの時は、levelとcatを合体させて代入
-            const level = params.get('level') || "";
-            const cat = params.get('cat') || "";
-            
-            // 見栄えを良くするために「:」などで繋ぐのがオススメです
-            setName = `${level} > ${cat}`; 
+      async function init() {
+          try {
+              const data = await loadMedetyData();
+              if (!data || !data.words) throw new Error("no data");
 
-        } else {
-            // 3. それ以外のモードは、従来通り "set" を代入
-            setName = params.get("set") || "";
-        }
+              const plan = medetyBuildCoursePlan(data.words, clGroup);
+              const item = plan[clUnit];
 
-        // 4. あとはこの setName を HTML のタイトル要素に入れるだけ！
-        // 例：document.getElementById('quiz-title').innerText = setName;
-        console.log("今回のタイトル:", setName);
+              // レッスン以外（復習・テスト）は一覧プレビュー対象外なので、そのまま出題画面へ
+              if (!item || item.type !== "lesson") {
+                  location.replace(clQuizHref);
+                  return;
+              }
 
+              document.getElementById("clessonTitle").textContent = clSetLabel || "レッスン";
 
-        
-        document.getElementById("setTitle").textContent = setName;
+              document.getElementById("clessonList").innerHTML = item.words.map((w, i) => `
+                  <div class="clesson-word-row">
+                    <div>
+                      <div class="clesson-word-en">${escapeHtml(w.word)}</div>
+                      <div class="clesson-word-jp">${escapeHtml(w.meaning)}</div>
+                    </div>
+                    <button type="button" class="clesson-speak-btn" data-index="${i}" aria-label="発音を聞く">🔊</button>
+                  </div>
+              `).join("");
 
-        let selectedLanguage = 'en-jp';
-        let selectedOrder = 'specific';
-        let selectedCount = 'all';
+              document.querySelectorAll(".clesson-speak-btn").forEach(btn => {
+                  btn.addEventListener("click", () => {
+                      const w = item.words[parseInt(btn.dataset.index, 10)];
+                      if (w) medetySpeak(w.word);
+                  });
+              });
 
-        function setLanguage(val, btnElement) {
-            selectedLanguage = val;
-            updateButtonStyles(btnElement);
-        }
+              document.getElementById("clessonLoading").style.display = "none";
+              document.getElementById("clessonActions").style.display = "block";
+              document.getElementById("clessonStartBtn").addEventListener("click", () => { location.href = clQuizHref; });
+          } catch (e) {
+              console.error("レッスン単語一覧の読み込みに失敗:", e);
+              document.getElementById("clessonLoading").innerHTML = '読み込みに失敗しました。<a href="index.html">ホームに戻る</a>';
+          }
+      }
 
-        function setOrder(val, btnElement) {
-            selectedOrder = val;
-            updateButtonStyles(btnElement);
-        }
-
-        function setCount(val, btnElement) {
-            selectedCount = val;
-            updateButtonStyles(btnElement);
-        }
-
-
-        function updateButtonStyles(clickedButton) {
-            // 同じグループ内のボタンから active-mode を消して、押したのにつける
-            const parent = clickedButton.parentElement;
-            const buttons = parent.querySelectorAll('button');
-            buttons.forEach(btn => btn.classList.remove('active-mode'));
-            clickedButton.classList.add('active-mode');
-        }
-
-        function startStudy() {
-            // 共通のパラメータ
-            let url = `duringstudy.html?way=${setMode}&language=${selectedLanguage}&order=${selectedOrder}&count=${selectedCount}&set=${encodeURIComponent(setName)}`;
-
-            if (setMode === "etymology") {
-                // 【新設】語源モードなら level と cat を追加
-                // 一番上で作った params をそのまま使い回す
-                const level = params.get('level') || "";
-                const cat = params.get('cat') || "";
-
-                url += `&level=${encodeURIComponent(level)}&cat=${encodeURIComponent(cat)}`;
-            }
-
-            location.href = url;
-        }
+      init();
     </script>
 
     <script src="bootstrap.bundle.min.js"></script>

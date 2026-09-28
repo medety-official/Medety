@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.112.5">
     <title>Medety</title>
 
-    <link rel="canonical" href="https://medety-official.github.io/Medety/studysetting.html">
+    <link rel="canonical" href="https://medety-official.github.io/Medety/playsetting.html">
     <link rel="icon" href="logo2.jpeg">
     <link rel="apple-touch-icon" href="applelogo.png">
 
@@ -25,38 +25,14 @@
         user-select: none;
       }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
       .nav-scroller {
         position: relative;
         z-index: 2;
         height: 2.75rem;
         overflow-y: hidden;
       }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -90,12 +66,12 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="study.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+              <a href="study.html" class="nav-link py-3 border-bottom rounded-0">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
               </a>
             </li>
             <li class="nav-item">
-              <a href="playsetting.html" class="nav-link py-3 border-bottom rounded-0">
+              <a href="playsetting.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Play"><use xlink:href="#play"/></svg>
               </a>
             </li>
@@ -106,134 +82,77 @@
             </li>
           </ul>
         </div>
-
       </aside>
 
-      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-accent);">
-        
+      <main style="width: 100%; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-color: var(--c-quick);">
 
         <div class="flex-grow-1 d-flex flex-column overflow-hidden px-3 py-4">
-              
+
           <div class="mb-4">
-              <h2 id="setTitle" class="h5 fw-bold text-dark mb-1">読み込み中...</h2>
-              <div class="small text-muted">出題設定を選択してください</div>
+              <h2 class="h5 fw-bold text-dark mb-1">🎮 遊んで学ぶ</h2>
+              <div class="small text-muted">出題範囲と難易度を選んでください</div>
           </div>
 
-          <div class="flex-grow-1 d-flex flex-column gap-4">
-              
+          <div class="flex-grow-1 d-flex flex-column gap-4 overflow-auto">
+
             <div class="card border-0 shadow-sm rounded-4 p-3">
-                <label class="small fw-bold text-muted mb-3 d-block">出題形式</label>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setLanguage('en-jp',this)" class="btn btn-outline-primary flex-grow-1 active-mode">英語 → 日本語</button>
-                    <button onclick="setLanguage('jp-en',this)" class="btn btn-outline-primary flex-grow-1">日本語 → 英語</button>
-                </div>
+                <label class="small fw-bold text-muted mb-3 d-block">分野</label>
+                <select id="groupSelect" class="form-select rounded-pill px-3"></select>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4 p-3">
-                <label class="small fw-bold text-muted mb-3 d-block">出題順序</label>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setOrder('specific',this)" class="btn btn-outline-primary flex-grow-1 active-mode">登録順</button>
-                    <button onclick="setOrder('random',this)" class="btn btn-outline-primary flex-grow-1">ランダム</button>
-                </div>
+                <label class="small fw-bold text-muted mb-3 d-block">レベル</label>
+                <select id="levelSelect" class="form-select rounded-pill px-3"></select>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4 p-3" id="countCard">
-                <label class="small fw-bold text-muted mb-1 d-block">出題数</label>
-                <div class="text-muted mb-3" style="font-size: 0.75rem;">疲れている日は少なめもおすすめです</div>
-                <div class="d-flex gap-2 select-group">
-                    <button onclick="setCount('5',this)" class="btn btn-outline-primary flex-grow-1">5問</button>
-                    <button onclick="setCount('10',this)" class="btn btn-outline-primary flex-grow-1">10問</button>
-                    <button onclick="setCount('20',this)" class="btn btn-outline-primary flex-grow-1">20問</button>
-                    <button onclick="setCount('all',this)" class="btn btn-outline-primary flex-grow-1 active-mode">すべて</button>
+            <div class="card border-0 shadow-sm rounded-4 p-3">
+                <label class="small fw-bold text-muted mb-3 d-block">難易度（スコア倍率）</label>
+                <div class="d-flex gap-2 select-group flex-wrap">
+                    <button onclick="setDifficulty('easy',this)" class="btn btn-outline-primary flex-grow-1">かんたん<br><small>×1.0</small></button>
+                    <button onclick="setDifficulty('normal',this)" class="btn btn-outline-primary flex-grow-1 active-mode">ふつう<br><small>×1.5</small></button>
+                    <button onclick="setDifficulty('hard',this)" class="btn btn-outline-primary flex-grow-1">むずかしい<br><small>×2.0</small></button>
+                    <button onclick="setDifficulty('veryhard',this)" class="btn btn-outline-primary flex-grow-1">激ムズ<br><small>×3.0</small></button>
                 </div>
             </div>
 
           </div>
 
           <div class="mt-auto pt-4 px-2">
-              <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow" onclick="startStudy()">
-                  学習スタート ➔
+              <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow" onclick="startGame()">
+                  スタート ➔
               </button>
           </div>
         </div>
 
-      
-
-
       </main>
     </div>
 
+    <script src="course.js"></script>
     <script>
-        // --- 以前のロジックをそのまま移植 ---
-        const params = new URLSearchParams(window.location.search);
-        const setMode = params.get("way"); // etymology か　area か rootgroup か
+        const groupSelectEl = document.getElementById("groupSelect");
+        groupSelectEl.innerHTML = `<option value="all">すべての分野</option>` + COURSE_GROUP_ORDER.map(gid => {
+            const g = COURSE_GROUPS[gid];
+            return `<option value="${gid}">${g.emoji} ${g.label}</option>`;
+        }).join("");
 
-        // 1. まず「外側」で setName を用意しておく（中身は空っぽ）
-        let setName = ""; 
+        const levelSelectEl = document.getElementById("levelSelect");
+        levelSelectEl.innerHTML = `<option value="all">すべてのレベル</option>` + COURSE_LEVEL_ORDER.map(lv => {
+            return `<option value="${lv}">${COURSE_LEVEL_LABELS[lv] || lv}</option>`;
+        }).join("");
 
-        if (setMode === "etymology") {
-            // 2. etymologyモードの時は、levelとcatを合体させて代入
-            const level = params.get('level') || "";
-            const cat = params.get('cat') || "";
-            
-            // 見栄えを良くするために「:」などで繋ぐのがオススメです
-            setName = `${level} > ${cat}`; 
+        let selectedDifficulty = "normal";
 
-        } else {
-            // 3. それ以外のモードは、従来通り "set" を代入
-            setName = params.get("set") || "";
+        function setDifficulty(val, btnElement) {
+            selectedDifficulty = val;
+            const parent = btnElement.parentElement;
+            parent.querySelectorAll("button").forEach(btn => btn.classList.remove("active-mode"));
+            btnElement.classList.add("active-mode");
         }
 
-        // 4. あとはこの setName を HTML のタイトル要素に入れるだけ！
-        // 例：document.getElementById('quiz-title').innerText = setName;
-        console.log("今回のタイトル:", setName);
-
-
-        
-        document.getElementById("setTitle").textContent = setName;
-
-        let selectedLanguage = 'en-jp';
-        let selectedOrder = 'specific';
-        let selectedCount = 'all';
-
-        function setLanguage(val, btnElement) {
-            selectedLanguage = val;
-            updateButtonStyles(btnElement);
-        }
-
-        function setOrder(val, btnElement) {
-            selectedOrder = val;
-            updateButtonStyles(btnElement);
-        }
-
-        function setCount(val, btnElement) {
-            selectedCount = val;
-            updateButtonStyles(btnElement);
-        }
-
-
-        function updateButtonStyles(clickedButton) {
-            // 同じグループ内のボタンから active-mode を消して、押したのにつける
-            const parent = clickedButton.parentElement;
-            const buttons = parent.querySelectorAll('button');
-            buttons.forEach(btn => btn.classList.remove('active-mode'));
-            clickedButton.classList.add('active-mode');
-        }
-
-        function startStudy() {
-            // 共通のパラメータ
-            let url = `duringstudy.html?way=${setMode}&language=${selectedLanguage}&order=${selectedOrder}&count=${selectedCount}&set=${encodeURIComponent(setName)}`;
-
-            if (setMode === "etymology") {
-                // 【新設】語源モードなら level と cat を追加
-                // 一番上で作った params をそのまま使い回す
-                const level = params.get('level') || "";
-                const cat = params.get('cat') || "";
-
-                url += `&level=${encodeURIComponent(level)}&cat=${encodeURIComponent(cat)}`;
-            }
-
-            location.href = url;
+        function startGame() {
+            const group = groupSelectEl.value;
+            const level = levelSelectEl.value;
+            location.href = `play.html?group=${encodeURIComponent(group)}&level=${encodeURIComponent(level)}&difficulty=${encodeURIComponent(selectedDifficulty)}`;
         }
     </script>
 

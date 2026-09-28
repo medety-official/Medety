@@ -414,6 +414,16 @@ main {
     100% { transform: scale(1); }
 }
 
+/* medety-pop-in と同じ弾む動きだが、left:50%; transform:translateX(-50%); で中央寄せしている
+   要素（ノードのプレビュー吹き出しなど）専用。scaleだけのキーフレームだと、アニメーション中は
+   translateX(-50%)が上書きされて消え、右にずれて見えてからアニメーション終了時に中央へ
+   スナップしてしまうため、常にtranslateX(-50%)を含めておく。 */
+@keyframes medety-pop-in-centered {
+    0%   { transform: translateX(-50%) scale(0.85); opacity: 0; }
+    60%  { transform: translateX(-50%) scale(1.06); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
 @keyframes medety-bounce {
     0%, 100% { transform: translateY(0); }
     30%      { transform: translateY(-8px); }
@@ -756,7 +766,7 @@ main {
 }
 .medety-lesson-row.show-preview .medety-node-preview {
     display: block;
-    animation: medety-pop-in 0.2s ease;
+    animation: medety-pop-in-centered 0.2s ease;
 }
 .medety-node-preview-title {
     font-weight: bold;
