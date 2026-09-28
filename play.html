@@ -707,6 +707,31 @@
           { x: 250, y: 55, scale: 0.85 },
           { x: 330, y: 115, scale: 0.7 },
       ];
+      // HUDのライフ表示用ハート。絵文字（❤️/🖤）だと端末・フォントによって実際の描画幅が
+      // 大きく異なり（特にiPadで顕著）、固定間隔で並べると重なって見えることがあったため、
+      // 常に同じ形・同じ大きさになるよう、canvasのパスで直接描画する。
+      function drawHeartIcon(cx, cy, size, filled) {
+          const width = size, height = size * 0.9;
+          const x = cx, y = cy - height / 2;
+          const topCurveHeight = height * 0.3;
+          ctx.beginPath();
+          ctx.moveTo(x, y + topCurveHeight);
+          ctx.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
+          ctx.bezierCurveTo(x - width / 2, y + (height + topCurveHeight) / 2, x, y + (height + topCurveHeight) / 2, x, y + height);
+          ctx.bezierCurveTo(x, y + (height + topCurveHeight) / 2, x + width / 2, y + (height + topCurveHeight) / 2, x + width / 2, y + topCurveHeight);
+          ctx.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
+          ctx.closePath();
+          ctx.fillStyle = filled ? COLORS.quick : COLORS.border;
+          ctx.fill();
+          if (!filled) {
+              ctx.lineWidth = 1;
+              ctx.strokeStyle = COLORS.text;
+              ctx.globalAlpha = 0.3;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+          }
+      }
+
       function drawCloud(x, y, scale) {
           ctx.beginPath();
           ctx.arc(x, y, 14 * scale, 0, Math.PI * 2);
@@ -810,16 +835,15 @@
           ctx.fillStyle = COLORS.text;
           ctx.fillText(`スコア ${score}`, 10, 10);
 
-          // ハートは絵文字を連結して右寄せ描画すると、端末によって絵文字フォントの実際の幅が
-          // 想定より大きく、列全体がcanvas左端からはみ出して見切れることがあるため、
-          // 1つずつ固定位置に描画して、どの端末でも必ずcanvas内に収まるようにする。
-          ctx.textAlign = "center";
-          ctx.font = "20px sans-serif";
+          // ハートは絵文字ではなく、canvasのパスで直接描く（drawHeartIcon参照）。
+          // 常に同じ大きさ・同じ間隔になるので、端末による見切れや重なりが起きない。
           const heartSpacing = 26;
           const heartRightMargin = 24;
+          const heartSize = 18;
+          const heartCenterY = 19;
           for (let i = 0; i < 3; i++) {
               const x = CANVAS_W - heartRightMargin - (2 - i) * heartSpacing;
-              ctx.fillText(i < lives ? "❤️" : "🖤", x, 10);
+              drawHeartIcon(x, heartCenterY, heartSize, i < lives);
           }
       }
 
