@@ -628,7 +628,7 @@
                   quizCoins = layout.map((slot, i) => ({
                       x: CANVAS_W + 60 + slot.dx,
                       y: slot.y,
-                      r: 15,
+                      r: 19,
                       label: "ABCD"[i],
                       correct: i === currentQuestion.correctIndex,
                   }));
@@ -785,7 +785,7 @@
               ctx.strokeStyle = COLORS.accent;
               ctx.stroke();
               ctx.fillStyle = COLORS.text;
-              ctx.font = "bold 15px sans-serif";
+              ctx.font = "bold 18px sans-serif";
               ctx.textAlign = "center";
               ctx.textBaseline = "middle";
               ctx.fillText(c.label, c.x, c.y + 1);
@@ -810,9 +810,17 @@
           ctx.fillStyle = COLORS.text;
           ctx.fillText(`スコア ${score}`, 10, 10);
 
-          ctx.textAlign = "right";
-          ctx.font = "18px sans-serif";
-          ctx.fillText("❤️".repeat(Math.max(0, lives)) + "🖤".repeat(Math.max(0, 3 - lives)), CANVAS_W - 10, 10);
+          // ハートは絵文字を連結して右寄せ描画すると、端末によって絵文字フォントの実際の幅が
+          // 想定より大きく、列全体がcanvas左端からはみ出して見切れることがあるため、
+          // 1つずつ固定位置に描画して、どの端末でも必ずcanvas内に収まるようにする。
+          ctx.textAlign = "center";
+          ctx.font = "20px sans-serif";
+          const heartSpacing = 26;
+          const heartRightMargin = 24;
+          for (let i = 0; i < 3; i++) {
+              const x = CANVAS_W - heartRightMargin - (2 - i) * heartSpacing;
+              ctx.fillText(i < lives ? "❤️" : "🖤", x, 10);
+          }
       }
 
       function roundRect(x, y, w, h, r) {
