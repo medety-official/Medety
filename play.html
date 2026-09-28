@@ -447,9 +447,12 @@
           sfxJump();
       }
 
-      canvas.addEventListener("pointerdown", (e) => { e.preventDefault(); jump(); });
+      // スタート／ゲームオーバーのオーバーレイがcanvasの真上に重なっているため、
+      // canvas単体ではなく playWrap 全体でタップを拾う（ボタンやリンクの上は除く）。
       document.getElementById("playWrap").addEventListener("pointerdown", (e) => {
-          if (e.target === canvas) return; // canvasは上のリスナーで処理済み
+          if (e.target.closest("button, a")) return; // ボタン・リンクのタップはそちらの処理に任せる
+          e.preventDefault();
+          jump();
       });
       window.addEventListener("keydown", (e) => {
           if (e.code === "Space") { e.preventDefault(); jump(); }
