@@ -90,7 +90,7 @@
           color: var(--c-text);
           white-space: nowrap;
       }
-      #bestScoreLine.is-new-best {
+      #bestScoreText.is-new-best {
           color: #ffd76a;
           font-weight: bold;
           animation: medetyNewBestPop 0.6s ease;
@@ -99,6 +99,21 @@
           0% { transform: scale(0.7); opacity: 0; }
           60% { transform: scale(1.15); opacity: 1; }
           100% { transform: scale(1); }
+      }
+      .gameover-rank-card {
+          width: 100%;
+          max-width: 260px;
+          background-color: rgba(255,255,255,0.1);
+          border-radius: 0.9rem;
+          padding: 10px 14px;
+          text-align: center;
+      }
+      #rankingSubmitArea input {
+          min-width: 0;
+      }
+      #rankingSubmitBtn {
+          flex-shrink: 0;
+          white-space: nowrap;
       }
     </style>
 
@@ -181,15 +196,29 @@
             </div>
 
             <div class="play-overlay" id="gameOverOverlay" style="display:none;">
-              <div class="fs-2 mb-2">🎉 おつかれさま！</div>
-              <div class="fs-3 fw-bold mb-1">スコア：<span id="finalScore">0</span></div>
-              <div class="small mb-3" id="bestScoreLine">自己ベスト：0点</div>
-              <div class="d-flex gap-2">
+              <div class="fs-3 fw-bold mb-5">スコア：<span id="finalScore">0</span></div>
+
+              <div class="gameover-rank-card mb-5">
+                <div class="small mb-1">
+                  <span id="bestScoreText">自己ベスト：0点</span><span id="rankStatusLine" class="opacity-75"></span>
+                </div>
+
+                <div id="rankingSubmitArea" style="display:none;">
+                  <div class="d-flex gap-2">
+                    <input type="text" id="rankingNicknameInput" class="form-control form-control-sm rounded-pill" placeholder="ニックネーム" maxlength="20">
+                    <button type="button" class="btn btn-sm btn-primary rounded-pill px-3" id="rankingSubmitBtn" onclick="submitToRanking()">登録</button>
+                  </div>
+                  <div class="small mt-1" id="rankingSubmitStatus"></div>
+                </div>
+
+                <a href="ranking.html" class="small text-white-50 d-inline-block">🏆 ランキングを見る</a>
+              </div>
+
+              <div class="d-flex gap-2 mb-4">
                 <button type="button" class="btn btn-primary rounded-pill px-4" onclick="restartGame()">もう一度</button>
                 <button type="button" class="btn btn-outline-light rounded-pill px-4" onclick="location.href='playsetting.html'">設定を変える</button>
               </div>
-              <button type="button" class="btn btn-outline-light rounded-pill px-4 mt-2" onclick="location.href='playresult.html'">出題結果を見る</button>
-              <a href="index.html" class="small text-white-50 mt-3">ホームへ戻る</a>
+              <button type="button" class="btn btn-outline-light rounded-pill px-4" onclick="location.href='playresult.html'">出題結果を見る</button>
             </div>
 
             <div class="play-overlay" id="loadingOverlay">
@@ -350,6 +379,45 @@
           try { localStorage.setItem(BEST_SCORE_KEY, String(v)); } catch (e) {}
       }
 
+      // ===== ランキング登録状態（「登録済みのスコア」を自己ベストと比較して、登録済み／未登録を判定する） =====
+      const RANK_SUBMITTED_KEY = "medetyPlayRankSubmittedScore";
+      function getRankSubmittedScore() {
+          try { return parseInt(localStorage.getItem(RANK_SUBMITTED_KEY) || "0", 10) || 0; } catch (e) { return 0; }
+      }
+      function setRankSubmittedScore(v) {
+          try { localStorage.setItem(RANK_SUBMITTED_KEY, String(v)); } catch (e) {}
+      }
+
+      // 自己ベストが「登録済みのスコア」以上に更新されていたら、まだ未登録として扱う
+      // （未登録のときだけ登録フォームを見せ、登録済みのときは現在の順位を表示する）
+      async function updateRankStatusUI(currentBest) {
+          const statusLine = document.getElementById("rankStatusLine");
+          const rankingArea = document.getElementById("rankingSubmitArea");
+          const isRegistered = getRankSubmittedScore() >= currentBest && currentBest > 0;
+
+          if (!isRegistered) {
+              statusLine.textContent = "・未登録";
+              rankingArea.style.display = "block";
+              document.getElementById("rankingSubmitStatus").textContent = "";
+              document.getElementById("rankingSubmitBtn").disabled = false;
+              const nicknameInput = document.getElementById("rankingNicknameInput");
+              try { nicknameInput.value = localStorage.getItem("medetyPlayNickname") || ""; } catch (e) { nicknameInput.value = ""; }
+              return;
+          }
+
+          rankingArea.style.display = "none";
+          statusLine.textContent = "・順位確認中...";
+          let nickname = "";
+          try { nickname = localStorage.getItem("medetyPlayNickname") || ""; } catch (e) {}
+          const result = await fetchRanking();
+          if (result && Array.isArray(result.ranking)) {
+              const idx = result.ranking.findIndex(r => r.nickname === nickname && r.score === currentBest);
+              statusLine.textContent = idx >= 0 ? `・現在${idx + 1}位` : "・50位圏外";
+          } else {
+              statusLine.textContent = "・登録済み";
+          }
+      }
+
       // ===== ゲーム状態 =====
       let bird, obstacles, bonusCoins, quizCoins, heartPickup;
       let score, lives, frame, running, started, invulnFrames;
@@ -458,7 +526,7 @@
       // スタート／ゲームオーバーのオーバーレイがcanvasの真上に重なっているため、
       // canvas単体ではなく playWrap 全体でタップを拾う（ボタンやリンクの上は除く）。
       document.getElementById("playWrap").addEventListener("pointerdown", (e) => {
-          if (e.target.closest("button, a")) return; // ボタン・リンクのタップはそちらの処理に任せる
+          if (e.target.closest("button, a, input, textarea")) return; // ボタン・リンク・入力欄のタップはそちらの処理に任せる
           e.preventDefault();
           jump();
       });
@@ -507,18 +575,27 @@
 
       function endGame() {
           running = false;
+          // 出題中（バナー表示中・コイン出現中）にゲームオーバーになっても、問題が画面に残らないようにする
+          quizPhase = null;
+          quizCoins = [];
+          hideQuestionBanner();
           const best = getBestScore();
           const isNewBest = score > best;
           if (isNewBest) setBestScore(score);
+          const currentBest = isNewBest ? score : best;
           document.getElementById("finalScore").textContent = score;
-          const bestEl = document.getElementById("bestScoreLine");
-          bestEl.classList.toggle("is-new-best", isNewBest);
+          const bestTextEl = document.getElementById("bestScoreText");
+          bestTextEl.classList.toggle("is-new-best", isNewBest);
           if (isNewBest) {
-              bestEl.textContent = `🎉 自己ベスト更新！ ${score}点`;
+              bestTextEl.textContent = `🎉 自己ベスト更新！ ${score}点`;
               sfxNewBest();
           } else {
-              bestEl.textContent = `自己ベスト：${best}点`;
+              bestTextEl.textContent = `自己ベスト：${best}点`;
           }
+
+          // 登録済みのスコアと現在の自己ベストを比べて、未登録のときだけ登録フォームを見せる
+          updateRankStatusUI(currentBest);
+
           try {
               localStorage.setItem("medetyPlayLastResult", JSON.stringify({
                   score,
@@ -531,6 +608,39 @@
               }));
           } catch (e) {}
           document.getElementById("gameOverOverlay").style.display = "flex";
+      }
+
+      // ===== ランキング登録 =====
+      async function submitToRanking() {
+          const input = document.getElementById("rankingNicknameInput");
+          const statusEl = document.getElementById("rankingSubmitStatus");
+          const btn = document.getElementById("rankingSubmitBtn");
+          const nickname = (input.value || "").trim();
+          if (!nickname) {
+              statusEl.textContent = "ニックネームを入力してください";
+              return;
+          }
+          try { localStorage.setItem("medetyPlayNickname", nickname); } catch (e) {}
+
+          btn.disabled = true;
+          statusEl.textContent = "送信中...";
+
+          // 今回のスコアではなく、常に自己ベストを送信する
+          const best = getBestScore();
+          const result = await submitPlayScore({
+              nickname,
+              score: best,
+              difficulty: DIFF.label,
+              group: playGroup,
+          });
+
+          if (result && result.ok) {
+              setRankSubmittedScore(best);
+              await updateRankStatusUI(best);
+          } else {
+              statusEl.textContent = "送信に失敗しました。もう一度お試しください";
+              btn.disabled = false;
+          }
       }
 
       // ===== 更新 =====
@@ -549,6 +659,11 @@
               bird.vy = 0;
               loseLife();
           }
+          // ここでゲームオーバーになっていたら、この先の出題処理などは行わない
+          // （endGame()はrunningをfalseにするだけで関数を抜けないため、そのままにすると
+          // 「ちょうどこのフレームで問題を出すタイミングだった」場合に、ゲームオーバー直後に
+          // 新しい問題バナーが出てしまうことがあった）
+          if (!running) return;
           if (bird.y < BIRD_R) {
               bird.y = BIRD_R;
               bird.vy = 0;
@@ -581,6 +696,7 @@
                   loseLife();
               }
           });
+          if (!running) return; // 障害物との衝突でゲームオーバーになった場合も、この先の出題処理は行わない
 
           // ボーナスコイン（クイズ中は出現を止める。配置パターンはランダム）
           if (quizPhase === null && frame >= nextBonusFrame) {

@@ -332,6 +332,13 @@ main {
     color: var(--c-text) !important;
 }
 
+/* ただし bg-light とセットの「◯カテゴリ」バッジ等は、背景が常に明るい色なので
+   文字色もBootstrap既定の濃い色のまま固定する（上の上書きを打ち消さないと、
+   ナイトテーマで明るい背景に明るい文字が乗って読めなくなってしまうため） */
+.bg-light.text-dark {
+    color: #212529 !important;
+}
+
 /* text-muted / text-secondary もテーマの文字色を基準にした「薄さ」に変える */
 .text-muted,
 .text-secondary {

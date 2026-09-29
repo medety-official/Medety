@@ -39,3 +39,30 @@ function loadMedetyData() {
     }
     return medetyDataPromise;
 }
+
+// ===== 遊ぶモードのランキング =====
+// GAS側にdoPostを追加してもらう必要がある（詳細はGASスクリプトの追記案を参照）。
+// Content-Typeをtext/plainにしてpreflight(OPTIONS)を発生させないのがポイント。
+async function submitPlayScore(payload) {
+    try {
+        const res = await fetch(gasUrl, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(Object.assign({ action: "submitScore" }, payload)),
+        });
+        return await res.json();
+    } catch (error) {
+        console.error("スコア送信に失敗:", error);
+        return { ok: false, error: String(error) };
+    }
+}
+
+async function fetchRanking() {
+    try {
+        const res = await fetch(`${gasUrl}?action=ranking`);
+        return await res.json();
+    } catch (error) {
+        console.error("ランキング取得に失敗:", error);
+        return { ranking: [] };
+    }
+}

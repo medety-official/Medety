@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.112.5">
     <title>Medety</title>
 
-    <link rel="canonical" href="https://medety-official.github.io/Medety/setting.html">
+    <link rel="canonical" href="https://medety-official.github.io/Medety/ranking.html">
     <link rel="icon" href="logo2.jpeg">
     <link rel="apple-touch-icon" href="applelogo.png">
 
@@ -24,39 +24,37 @@
         -moz-user-select: none;
         user-select: none;
       }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+    </style>
+    <style>
+      .ranking-item {
+          border-radius: 1rem;
       }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
+      .ranking-rank {
+          font-weight: bold;
+          font-size: 1.1rem;
+          width: 2.5rem;
+          text-align: center;
+          flex-shrink: 0;
       }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
+      .ranking-rank.is-medal {
+          font-size: 1.4rem;
       }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+      .ranking-score {
+          font-weight: bold;
+          font-size: 1.1rem;
+          color: var(--c-primary);
+          white-space: nowrap;
       }
-
+      .ranking-diff-badge {
+          background-color: var(--c-sidebar);
+          border-radius: 999px;
+          padding: 2px 10px;
+          font-size: 0.75rem;
+          color: var(--c-text);
+          white-space: nowrap;
+      }
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="sidebars.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -98,7 +96,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="playsetting.html" class="nav-link py-3 border-bottom rounded-0">
+              <a href="playsetting.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Play"><use xlink:href="#play"/></svg>
               </a>
             </li>
@@ -108,113 +106,89 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="setting.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+              <a href="setting.html" class="nav-link py-3 border-bottom rounded-0">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Setting"><use xlink:href="#setting"/></svg>
               </a>
             </li>
           </ul>
         </div>
-
       </aside>
 
       <main class="flex-grow-1" style="overflow-y: auto;">
-        <div class = "p-4 d-flex flex-column" style="min-height: calc(100vh - 80px);">
+        <div class="p-3" style="max-width: 480px; margin: 0 auto;">
 
-          <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
-            <label class="small fw-bold text-muted mb-3 d-block">テーマカラー</label>
-            <div class="row g-2" id="themeSwatches">
-              <div class="col-6 col-md-3">
-                <button type="button" class="medety-theme-swatch" data-theme-id="wagashi" onclick="setTheme('wagashi')"
-                        style="background: linear-gradient(135deg, #fcfaf2 50%, #8db57a 50%); color: #4a4543;">
-                  わがし
-                </button>
-              </div>
-              <div class="col-6 col-md-3">
-                <button type="button" class="medety-theme-swatch" data-theme-id="clinical" onclick="setTheme('clinical')"
-                        style="background: linear-gradient(135deg, #f3f7f7 50%, #4d8b8f 50%); color: #2f4548;">
-                  クリニカル
-                </button>
-              </div>
-              <div class="col-6 col-md-3">
-                <button type="button" class="medety-theme-swatch" data-theme-id="night" onclick="setTheme('night')"
-                        style="background: linear-gradient(135deg, #1e2422 50%, #7fae72 50%); color: #e7ece7;">
-                  ナイト
-                </button>
-              </div>
-              <div class="col-6 col-md-3">
-                <button type="button" class="medety-theme-swatch" data-theme-id="mono" onclick="setTheme('mono')"
-                        style="background: linear-gradient(135deg, #f7f6f4 50%, #5b6ee1 50%); color: #333333;">
-                  モノトーン
-                </button>
-              </div>
-            </div>
-            <div class="text-muted mt-3" style="font-size: 0.75rem;">お好みの配色に切り替えられます（この端末だけに保存されます）</div>
+          <h5 class="fw-bold mb-1">🏆 ランキング</h5>
+          <div class="small text-muted mb-3">遊ぶモードの自己ベストスコアランキング（上位50件）</div>
+
+          <div id="rankingLoading" class="text-center text-muted py-5">
+            読み込み中...
           </div>
 
-          <div class="mt-1">
-            <div class="d-grid gap-2">
-              <a href="https://note.com/medety_official" target="_blank" rel="noopener noreferrer"
-                class="btn btn-outline-primary border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center" style="background-color: var(--c-surface);">
-                <span class="fs-4 me-2">📝</span> 使い方・開発ブログ (note)
-              </a>
-
-              <a href="https://x.com/MedetyOfficial" target="_blank" rel="noopener noreferrer"
-                class="btn border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                style="color: var(--c-warm); border-color: var(--c-warm); background-color: var(--c-surface); transition: all 0.3s;"
-                onmouseover="this.style.backgroundColor='var(--c-warm)'; this.style.color='white';"
-                onmouseout="this.style.backgroundColor='var(--c-surface)'; this.style.color='var(--c-warm)';">
-                <span class="fs-4 me-2">📢</span> 最新情報 (X)
-              </a>
-
-              <a href="https://forms.gle/ZCCdRVZefM8TzMkt9" target="_blank" rel="noopener noreferrer"
-                class="btn btn-outline-info border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                style="color: var(--c-quick); border-color: var(--c-quick); background-color: var(--c-surface); transition: all 0.3s;"
-                onmouseover="this.style.backgroundColor='var(--c-quick)'; this.style.color='white';"
-                onmouseout="this.style.backgroundColor='var(--c-surface)'; this.style.color='var(--c-quick)';">
-                <span class="fs-4 me-2">🌱</span> サービス向上のためのアンケート
-              </a>
-
-              <a href="terms.html"
-                class="btn btn-outline-secondary border-2 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center"
-                style="color: var(--c-text); border-color: var(--c-text); background-color: var(--c-surface); transition: all 0.3s; text-decoration: none;"
-                onmouseover="this.style.backgroundColor='var(--c-text)'; this.style.color='white';"
-                onmouseout="this.style.backgroundColor='var(--c-surface)'; this.style.color='var(--c-text)';">
-                <span class="fs-4 me-2">⚖️</span> 利用規約・免責事項
-              </a>
-
-
-            </div>
+          <div id="rankingEmpty" class="text-center text-muted py-5" style="display:none;">
+            まだ登録がありません。<br>
+            <a href="playsetting.html">遊ぶモードで自己ベストを目指そう！</a>
           </div>
 
-          <div class="text-center mt-auto mb-4 text-secondary" style="font-size: 0.8rem;">
-            Version 5.1.0<br>
-            © 2026 Medety
+          <div id="rankingError" class="text-center text-muted py-5" style="display:none;">
+            ランキングの取得に失敗しました。<br>
+            時間をおいて再度お試しください。
+          </div>
+
+          <div id="rankingList"></div>
+
+          <div class="mt-3 mb-2">
+            <button type="button" class="btn btn-primary rounded-pill px-4 w-100" onclick="location.href='playsetting.html'">遊ぶモードへ</button>
           </div>
 
         </div>
       </main>
     </div>
 
+    <script src="api.js"></script>
     <script>
-        function setTheme(themeId) {
-            document.documentElement.setAttribute('data-theme', themeId);
-            // Bootstrap標準のコンポーネント（text-muted、カードの背景など）は
-            // 独自のdata-theme属性ではなく、Bootstrap自身のdata-bs-theme属性に従うため、
-            // ナイトモードの時だけBootstrap側もダークモードにしておく
-            document.documentElement.setAttribute('data-bs-theme', themeId === 'night' ? 'dark' : 'light');
-            try { localStorage.setItem('medetyTheme', themeId); } catch (e) {}
-            highlightSelectedSwatch();
-        }
+      function escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text == null ? "" : String(text);
+          return div.innerHTML;
+      }
+      function medalForRank(rank) {
+          if (rank === 1) return "🥇";
+          if (rank === 2) return "🥈";
+          if (rank === 3) return "🥉";
+          return String(rank);
+      }
 
-        function highlightSelectedSwatch() {
-            let current = 'wagashi';
-            try { current = localStorage.getItem('medetyTheme') || 'wagashi'; } catch (e) {}
-            document.querySelectorAll('.medety-theme-swatch').forEach(btn => {
-                btn.classList.toggle('is-selected', btn.dataset.themeId === current);
-            });
-        }
+      (async function initRanking() {
+          const result = await fetchRanking();
+          document.getElementById("rankingLoading").style.display = "none";
 
-        highlightSelectedSwatch();
+          if (!result || !Array.isArray(result.ranking)) {
+              document.getElementById("rankingError").style.display = "block";
+              return;
+          }
+
+          const ranking = result.ranking;
+          if (ranking.length === 0) {
+              document.getElementById("rankingEmpty").style.display = "block";
+              return;
+          }
+
+          document.getElementById("rankingList").innerHTML = ranking.map((r, i) => {
+              const rank = i + 1;
+              return `
+                <div class="card border-0 shadow-sm ranking-item p-3 mb-2">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="ranking-rank${rank <= 3 ? " is-medal" : ""}">${medalForRank(rank)}</div>
+                    <div class="flex-grow-1">
+                      <div class="fw-bold">${escapeHtml(r.nickname)}</div>
+                      ${r.difficulty ? `<span class="ranking-diff-badge">${escapeHtml(r.difficulty)}</span>` : ""}
+                    </div>
+                    <div class="ranking-score">${escapeHtml(r.score)}点</div>
+                  </div>
+                </div>
+              `;
+          }).join("");
+      })();
     </script>
 
     <script src="bootstrap.bundle.min.js"></script>
