@@ -1,11 +1,19 @@
 
-let currentIndex = 0 //現在の問題番号
-let correctCount = 0 //現在の正解数
+let correctCount = 0 //初出で正解した数（＝これまでと同じ意味のスコア）
 let streak = 0 //現在の連続正解数
 let words = [];
 let etymology = [];
 let selectedWords = [];
 let currentWord; //現在出題中の単語
+
+// ✕にした問題を正解するまで繰り返し出題するためのキュー方式
+// studyQueue: まだ「一度も正解していない」単語（末尾に積み直される）
+// totalUniqueWords: 出題開始時点でのユニークな単語数（進捗表示の分母）
+// missedWordsSet: 一度でも✕にしたことがある単語（初出正解かどうかの判定用）
+let studyQueue = [];
+let totalUniqueWords = 0;
+let missedWordsSet = new Set();
+let quizHistoryLog = []; // 出題結果の振り返りページ用の履歴
 
 // コース学習は coursequiz.html + course.js が専用で担当するため、ここでは扱わない
 
@@ -46,6 +54,30 @@ function updateStreakBadge() {
     }
 }
 
+// ===== 音（Web Audio APIで簡易生成。追加ファイル不要） =====
+let quizAudioCtx = null;
+function ensureQuizAudio() {
+    if (!quizAudioCtx) {
+        try { quizAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { quizAudioCtx = null; }
+    } else if (quizAudioCtx.state === "suspended") {
+        quizAudioCtx.resume();
+    }
+}
+function playQuizTone(freq, duration, type, vol) {
+    if (!quizAudioCtx) return;
+    const osc = quizAudioCtx.createOscillator();
+    const gain = quizAudioCtx.createGain();
+    osc.type = type || "sine";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol || 0.16, quizAudioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, quizAudioCtx.currentTime + duration);
+    osc.connect(gain).connect(quizAudioCtx.destination);
+    osc.start();
+    osc.stop(quizAudioCtx.currentTime + duration);
+}
+function sfxQuizCorrect() { playQuizTone(880, 0.12, "triangle", 0.16); setTimeout(() => playQuizTone(1320, 0.14, "triangle", 0.16), 80); }
+function sfxQuizWrong() { playQuizTone(180, 0.28, "sawtooth", 0.15); }
+
 async function initMedety() {
     const data = await loadMedetyData();
     if (data) {
@@ -58,12 +90,12 @@ async function initMedety() {
 
 function startQuiz() {
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     console.log("Study Mode:", studyMode);
 
     // --- 語源そのものルート専用の処理 ---
     if (studyMode === "etymology") {
-        
+
         //  level と category を読み込む
         const targetLevel = (urlParams.get('level') || "").toLowerCase().trim();
         const targetCat = (urlParams.get('cat') || "").trim();
@@ -122,8 +154,15 @@ function startQuiz() {
         return;
     }
 
-    // startQuiz 関数の最後の方に追加
-    const total = selectedWords.length;
+    // ✕にした問題を正解するまで繰り返し出題するためのキューを準備する
+    studyQueue = selectedWords.slice();
+    totalUniqueWords = studyQueue.length;
+    missedWordsSet = new Set();
+    quizHistoryLog = [];
+    correctCount = 0;
+    streak = 0;
+
+    const total = totalUniqueWords;
 
     // 1. 残り問題数の初期値をセット（全問題数）
     const countElem = document.getElementById('remainingCount');
@@ -145,7 +184,7 @@ function startQuiz() {
 
 //現在の出題を管理
 function renderQuestion() {
-    currentWord = selectedWords[currentIndex];
+    currentWord = studyQueue[0];
 
     // 新しい問題が来たことがわかるように、問題文をふわっと表示
     playCardAnim(document.querySelector(".question-section"), "medety-anim-pop");
@@ -215,7 +254,7 @@ function showHint() {
                     document.getElementById("hint").textContent = "";
                 return;
                 }
-                
+
                 // ランダムに1つ選ぶ
                 randomTag = otherTags[Math.floor(Math.random() * otherTags.length)];
 
@@ -249,51 +288,78 @@ function showHint() {
             }
 
     }
-    
+
 }
 
 
 
 
 // 正解数を逐次数える、次に進むか終了する関数
+// isOk が false（✕）の問題は、正解するまでキューの末尾に積み直して繰り返し出題する
 function nextQuestion(isOk) {
     const card = document.getElementById("studyCard");
+    ensureQuizAudio();
+
+    const finishedWord = studyQueue.shift();
+    const promptText = document.getElementById("question").textContent;
+    const answerText = document.getElementById("answer").textContent;
 
     if (isOk) {
-        correctCount++;
+        // 一度も✕になっていない単語だけ、初出正解としてスコアに数える
+        // （これまでの「correctCount / total」の意味をそのまま維持するため）
+        if (!missedWordsSet.has(finishedWord)) {
+            correctCount++;
+        }
         streak++;
         playCardAnim(card, "medety-feedback-correct");
         spawnCheerText(cheerMessages[Math.floor(Math.random() * cheerMessages.length)]);
+        sfxQuizCorrect();
     } else {
+        missedWordsSet.add(finishedWord);
+        studyQueue.push(finishedWord); // 正解するまで繰り返し出題する
         streak = 0;
         playCardAnim(card, "medety-feedback-wrong");
+        sfxQuizWrong();
     }
     updateStreakBadge();
 
-    currentIndex++;
+    quizHistoryLog.push({ prompt: promptText, answer: answerText, isCorrect: isOk });
 
     // --- ここで表示を更新する ---
-    const total = selectedWords.length;
-    const remaining = total - currentIndex;
-    
-    // 1. 残り問題数の数字を更新（0未満にならないようMath.maxを使用）
+    const remaining = studyQueue.length; // ✕は末尾に戻るだけなので、これで「未マスター数」を正しく表せる
+
+    // 1. 残り問題数の数字を更新
     const countElem = document.getElementById('remainingCount');
     if (countElem) {
-        countElem.innerText = Math.max(0, remaining);
+        countElem.innerText = remaining;
     }
 
-    // 2. プログレスバーの伸びを更新
+    // 2. プログレスバーの伸びを更新（マスターした単語の割合）
     const progressElem = document.getElementById('studyProgress');
     if (progressElem) {
-        const percentage = (currentIndex / total) * 100; // 回答済みの割合
+        const mastered = totalUniqueWords - remaining;
+        const percentage = totalUniqueWords > 0 ? (mastered / totalUniqueWords) * 100 : 100;
         progressElem.style.width = `${percentage}%`;
     }
     // ----------------------------
 
-    if (currentIndex < total) {
+    if (studyQueue.length > 0) {
         renderQuestion();
     } else {
-        const resultUrl = `studyresult.html?set=${setName}&result=${correctCount}&total=${currentIndex}`;
-        location.href = resultUrl;
+        finishQuiz();
     }
+}
+
+function finishQuiz() {
+    try {
+        localStorage.setItem("medetyStudyLastResult", JSON.stringify({
+            setLabel: setName,
+            score: correctCount,
+            total: totalUniqueWords,
+            history: quizHistoryLog,
+            savedAt: Date.now(),
+        }));
+    } catch (e) {}
+    const resultUrl = `studyresult.html?set=${encodeURIComponent(setName)}&result=${correctCount}&total=${totalUniqueWords}`;
+    location.href = resultUrl;
 }

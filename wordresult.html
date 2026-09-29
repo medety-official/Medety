@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.112.5">
     <title>Medety</title>
 
-    <link rel="canonical" href="https://medety-official.github.io/Medety/courselesson.html">
+    <link rel="canonical" href="https://medety-official.github.io/Medety/wordresult.html">
     <link rel="icon" href="logo2.jpeg">
     <link rel="apple-touch-icon" href="applelogo.png">
 
@@ -26,45 +26,20 @@
       }
     </style>
     <style>
-      .clesson-word-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          padding: 14px 18px;
-          margin-bottom: 10px;
-          border-radius: 1rem;
-          background-color: var(--c-surface);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      .wresult-summary-chip {
+          border-radius: 999px;
+          padding: 6px 16px;
+          font-weight: bold;
+          font-size: 0.9rem;
       }
-      .clesson-word-en {
-          font-weight: 800;
-          font-size: 1.15rem;
-          color: var(--c-text);
+      .wresult-item { border-radius: 1rem; }
+      .wresult-badge {
+          border-radius: 999px;
+          padding: 4px 12px;
+          font-size: 0.8rem;
+          font-weight: bold;
+          white-space: nowrap;
       }
-      .clesson-word-jp {
-          font-size: 0.85rem;
-          color: var(--c-text);
-          opacity: 0.65;
-          margin-top: 2px;
-      }
-      .clesson-speak-btn {
-          border: 2px solid var(--c-border);
-          background-color: var(--c-surface);
-          color: var(--c-primary);
-          border-radius: 50%;
-          width: 42px;
-          height: 42px;
-          min-width: 42px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.15rem;
-          transition: transform 0.15s ease, background-color 0.15s ease;
-          flex-shrink: 0;
-      }
-      .clesson-speak-btn:hover { background-color: var(--c-sidebar); transform: scale(1.05); }
-      .clesson-speak-btn:active { transform: scale(0.95); }
     </style>
 
     <!-- Custom styles for this template -->
@@ -93,7 +68,6 @@
         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
       </symbol>
     </svg>
-
     <div class="d-flex flex-nowrap">
       <aside class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem; height: 100vh; position: sticky; top: 0;">
         <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
@@ -128,85 +102,85 @@
       </aside>
 
       <main class="flex-grow-1" style="overflow-y: auto;">
-        <div class="p-3" style="max-width: 520px; margin: 0 auto;">
+        <div class="p-3" style="max-width: 480px; margin: 0 auto;">
 
-          <h5 class="fw-bold mb-1" id="clessonTitle">レッスン</h5>
-          <div class="small text-muted mb-3">これから出題される単語です。タップして発音を確認しましょう</div>
+          <h5 class="fw-bold mb-1">📝 出題結果</h5>
+          <div class="small text-muted mb-3" id="wresultMeta"></div>
 
-          <div id="clessonList"></div>
+          <div id="wresultEmpty" class="text-center text-muted py-5" style="display:none;">
+            結果が見つかりませんでした。<br>
+            <a href="study.html">学習選択画面に戻る</a>
+          </div>
 
-          <div id="clessonLoading" class="text-center text-muted py-5">データを読み込み中...</div>
+          <div id="wresultBody" style="display:none;">
+            <div class="d-flex gap-2 mb-3 flex-wrap">
+              <span class="wresult-summary-chip" style="background-color: var(--c-primary); color:#fff;">✅ 正解 <span id="wcountCorrect">0</span></span>
+              <span class="wresult-summary-chip" style="background-color: var(--c-quick); color:#fff;">❌ 不正解 <span id="wcountWrong">0</span></span>
+            </div>
 
-          <div id="clessonActions" style="display:none;" class="mt-3 mb-2">
-            <button type="button" class="btn btn-primary rounded-pill w-100 py-3 fw-bold shadow-sm" id="clessonStartBtn">レッスンを始める ➔</button>
-            <a href="index.html" class="d-block text-center small text-muted mt-3">やめる</a>
+            <div id="wresultList"></div>
+
+            <div class="d-flex gap-2 mt-3 mb-2">
+              <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="wresultBackBtn">結果ページに戻る</button>
+            </div>
           </div>
 
         </div>
       </main>
     </div>
 
-    <script src="api.js"></script>
-    <script src="course.js"></script>
-    <script src="speech.js"></script>
     <script>
-      const clParams = new URLSearchParams(window.location.search);
-      const clGroup = clParams.get("group") || "";
-      const clUnit = parseInt(clParams.get("unit"), 10) || 0;
-      const clSetLabel = clParams.get("set") || "";
-      const clQuizHref = `coursequiz.html?group=${encodeURIComponent(clGroup)}&unit=${clUnit}&set=${encodeURIComponent(clSetLabel)}`;
-
-      function escapeHtml(str) {
-          return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      function escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text == null ? "" : String(text);
+          return div.innerHTML;
+      }
+      function outcomeStyle(isCorrect) {
+          return isCorrect
+              ? "background-color: var(--c-primary); color:#fff;"
+              : "background-color: var(--c-quick); color:#fff;";
+      }
+      function outcomeLabel(isCorrect) {
+          return isCorrect ? "✅ 正解" : "❌ 不正解";
       }
 
-      async function init() {
-          try {
-              const data = await loadMedetyData();
-              if (!data || !data.words) throw new Error("no data");
+      // 直前にいた結果ページ（studyresult.html）のクエリを渡してもらい、
+      // 「結果ページに戻る」でホームではなくその画面に戻れるようにする
+      const wrParams = new URLSearchParams(window.location.search);
+      const wrBack = wrParams.get("back");
+      document.getElementById("wresultBackBtn").addEventListener("click", () => {
+          location.href = wrBack ? `studyresult.html${wrBack}` : "study.html";
+      });
 
-              const plan = medetyBuildCoursePlan(data.words, clGroup);
-              const item = plan[clUnit];
+      let resultData = null;
+      try { resultData = JSON.parse(localStorage.getItem("medetyStudyLastResult") || "null"); } catch (e) { resultData = null; }
 
-              // レッスン以外（復習・テスト）は一覧プレビュー対象外なので、そのまま出題画面へ
-              if (!item || item.type !== "lesson") {
-                  location.replace(clQuizHref);
-                  return;
-              }
+      if (!resultData || !Array.isArray(resultData.history) || resultData.history.length === 0) {
+          document.getElementById("wresultEmpty").style.display = "block";
+      } else {
+          document.getElementById("wresultBody").style.display = "block";
 
-              document.getElementById("clessonTitle").textContent = clSetLabel || "レッスン";
+          document.getElementById("wresultMeta").textContent =
+              `${resultData.setLabel || "-"}　スコア：${resultData.score ?? 0} / ${resultData.total ?? resultData.history.length}`;
 
-              document.getElementById("clessonList").innerHTML = item.words.map((w, i) => {
-                  const note = w.note ? String(w.note).trim() : "";
-                  return `
-                  <div class="clesson-word-row">
-                    <div>
-                      <div class="clesson-word-en">${escapeHtml(w.word)}</div>
-                      <div class="clesson-word-jp">${escapeHtml(w.meaning)}</div>
-                      ${note ? `<div class="medety-note">💡 ${escapeHtml(note)}</div>` : ""}
-                    </div>
-                    <button type="button" class="clesson-speak-btn" data-index="${i}" aria-label="発音を聞く">🔊</button>
+          const counts = { correct: 0, wrong: 0 };
+          resultData.history.forEach(h => { h.isCorrect ? counts.correct++ : counts.wrong++; });
+          document.getElementById("wcountCorrect").textContent = counts.correct;
+          document.getElementById("wcountWrong").textContent = counts.wrong;
+
+          document.getElementById("wresultList").innerHTML = resultData.history.map((h, i) => `
+              <div class="card border-0 shadow-sm wresult-item p-3 mb-2">
+                <div class="d-flex justify-content-between align-items-start gap-2">
+                  <div>
+                    <div class="small text-muted">Q${i + 1}</div>
+                    <div class="fw-bold">${escapeHtml(h.prompt)}</div>
+                    <div class="small mt-1">答え：<span class="fw-bold">${escapeHtml(h.answer)}</span></div>
                   </div>
-              `;
-              }).join("");
-
-              document.querySelectorAll(".clesson-speak-btn").forEach(btn => {
-                  btn.addEventListener("click", () => {
-                      const w = item.words[parseInt(btn.dataset.index, 10)];
-                      if (w) medetySpeak(w.word);
-                  });
-              });
-
-              document.getElementById("clessonLoading").style.display = "none";
-              document.getElementById("clessonActions").style.display = "block";
-              document.getElementById("clessonStartBtn").addEventListener("click", () => { location.href = clQuizHref; });
-          } catch (e) {
-              console.error("レッスン単語一覧の読み込みに失敗:", e);
-              document.getElementById("clessonLoading").innerHTML = '読み込みに失敗しました。<a href="index.html">ホームに戻る</a>';
-          }
+                  <span class="wresult-badge" style="${outcomeStyle(h.isCorrect)}">${outcomeLabel(h.isCorrect)}</span>
+                </div>
+              </div>
+          `).join("");
       }
-
-      init();
     </script>
 
     <script src="bootstrap.bundle.min.js"></script>

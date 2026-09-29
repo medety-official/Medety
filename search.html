@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.112.5">
     <title>Medety</title>
 
-    <link rel="canonical" href="https://medety-official.github.io/Medety/courselesson.html">
+    <link rel="canonical" href="https://medety-official.github.io/Medety/search.html">
     <link rel="icon" href="logo2.jpeg">
     <link rel="apple-touch-icon" href="applelogo.png">
 
@@ -26,9 +26,13 @@
       }
     </style>
     <style>
-      .clesson-word-row {
+      #searchInput {
+          font-size: 1.05rem;
+          padding: 10px 18px;
+      }
+      .search-result-row {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: space-between;
           gap: 12px;
           padding: 14px 18px;
@@ -37,18 +41,37 @@
           background-color: var(--c-surface);
           box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       }
-      .clesson-word-en {
+      .search-result-en {
           font-weight: 800;
-          font-size: 1.15rem;
+          font-size: 1.1rem;
           color: var(--c-text);
       }
-      .clesson-word-jp {
-          font-size: 0.85rem;
+      .search-result-jp {
+          font-size: 0.9rem;
           color: var(--c-text);
-          opacity: 0.65;
+          opacity: 0.75;
           margin-top: 2px;
       }
-      .clesson-speak-btn {
+      .search-result-meta {
+          font-size: 0.75rem;
+          color: var(--c-text);
+          opacity: 0.55;
+          margin-top: 4px;
+      }
+      .search-result-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 6px;
+      }
+      .search-tag-pill {
+          background-color: var(--c-sidebar);
+          border-radius: 999px;
+          padding: 2px 10px;
+          font-size: 0.75rem;
+          color: var(--c-text);
+      }
+      .search-speak-btn {
           border: 2px solid var(--c-border);
           background-color: var(--c-surface);
           color: var(--c-primary);
@@ -63,8 +86,16 @@
           transition: transform 0.15s ease, background-color 0.15s ease;
           flex-shrink: 0;
       }
-      .clesson-speak-btn:hover { background-color: var(--c-sidebar); transform: scale(1.05); }
-      .clesson-speak-btn:active { transform: scale(0.95); }
+      .search-speak-btn:hover { background-color: var(--c-sidebar); transform: scale(1.05); }
+      .search-speak-btn:active { transform: scale(0.95); }
+
+      /* 検索結果は選択・コピー・右クリックメニューを無効化する
+         （※あくまで気軽なコピペを防ぐためのもので、データそのものの流出を防ぐ手段ではない） */
+      #searchResults {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+      }
     </style>
 
     <!-- Custom styles for this template -->
@@ -104,7 +135,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="study.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
+              <a href="study.html" class="nav-link py-3 border-bottom rounded-0">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Study"><use xlink:href="#study"/></svg>
               </a>
             </li>
@@ -114,7 +145,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="search.html" class="nav-link py-3 border-bottom rounded-0">
+              <a href="search.html" class="nav-link active py-3 border-bottom rounded-0" aria-current="page">
                 <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Search"><use xlink:href="#search"/></svg>
               </a>
             </li>
@@ -128,19 +159,21 @@
       </aside>
 
       <main class="flex-grow-1" style="overflow-y: auto;">
-        <div class="p-3" style="max-width: 520px; margin: 0 auto;">
+        <div class="p-3" style="max-width: 560px; margin: 0 auto;">
 
-          <h5 class="fw-bold mb-1" id="clessonTitle">レッスン</h5>
-          <div class="small text-muted mb-3">これから出題される単語です。タップして発音を確認しましょう</div>
+          <h5 class="fw-bold mb-1">🔍 単語を検索</h5>
+          <div class="small text-muted mb-3">英単語・日本語訳・語源タグのどれからでも検索できます</div>
 
-          <div id="clessonList"></div>
-
-          <div id="clessonLoading" class="text-center text-muted py-5">データを読み込み中...</div>
-
-          <div id="clessonActions" style="display:none;" class="mt-3 mb-2">
-            <button type="button" class="btn btn-primary rounded-pill w-100 py-3 fw-bold shadow-sm" id="clessonStartBtn">レッスンを始める ➔</button>
-            <a href="index.html" class="d-block text-center small text-muted mt-3">やめる</a>
+          <div class="mb-3">
+            <input type="search" id="searchInput" class="form-control rounded-pill" autocomplete="off"
+                   placeholder="例：cranium / 頭蓋 / crani">
           </div>
+
+          <div class="small text-muted mb-2" id="searchStatus"></div>
+
+          <div id="searchResults"></div>
+
+          <div id="searchLoading" class="text-center text-muted py-5">データを読み込み中...</div>
 
         </div>
       </main>
@@ -150,61 +183,99 @@
     <script src="course.js"></script>
     <script src="speech.js"></script>
     <script>
-      const clParams = new URLSearchParams(window.location.search);
-      const clGroup = clParams.get("group") || "";
-      const clUnit = parseInt(clParams.get("unit"), 10) || 0;
-      const clSetLabel = clParams.get("set") || "";
-      const clQuizHref = `coursequiz.html?group=${encodeURIComponent(clGroup)}&unit=${clUnit}&set=${encodeURIComponent(clSetLabel)}`;
+      function escapeHtml(text) {
+          return String(text == null ? "" : text).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
 
-      function escapeHtml(str) {
-          return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      const SEARCH_RESULT_LIMIT = 80;
+      let searchAllWords = [];
+      let searchTagToMeaning = {};
+
+      function matchesQuery(w, rawQuery, lowerQuery) {
+          if (w.word && w.word.toLowerCase().includes(lowerQuery)) return true;
+          if (w.meaning && w.meaning.includes(rawQuery)) return true;
+          if (w.note && w.note.includes(rawQuery)) return true;
+          if (Array.isArray(w.etymology_tags)) {
+              for (const tag of w.etymology_tags) {
+                  if (tag && tag.toLowerCase().includes(lowerQuery)) return true;
+                  const tagMeaning = searchTagToMeaning[tag];
+                  if (tagMeaning && tagMeaning.includes(rawQuery)) return true;
+              }
+          }
+          return false;
+      }
+
+      function renderResultCard(w) {
+          const note = w.note ? String(w.note).trim() : "";
+          const levelLabel = COURSE_LEVEL_LABELS[medetyWordLevelKey(w)] || "";
+          const tags = Array.isArray(w.etymology_tags) ? w.etymology_tags.filter(Boolean) : [];
+          return `
+              <div class="search-result-row">
+                <div style="min-width:0;">
+                  <div class="search-result-en">${escapeHtml(w.word)}</div>
+                  <div class="search-result-jp">${escapeHtml(w.meaning)}</div>
+                  ${tags.length ? `<div class="search-result-tags">${tags.map(t => `<span class="search-tag-pill">${escapeHtml(t)}${searchTagToMeaning[t] ? "（" + escapeHtml(searchTagToMeaning[t]) + "）" : ""}</span>`).join("")}</div>` : ""}
+                  ${note ? `<div class="medety-note">💡 ${escapeHtml(note)}</div>` : ""}
+                  <div class="search-result-meta">${escapeHtml(w.field || "")}${w.field && levelLabel ? " ・ " : ""}${escapeHtml(levelLabel)}</div>
+                </div>
+                <button type="button" class="search-speak-btn" data-word="${escapeHtml(w.word)}" aria-label="発音を聞く">🔊</button>
+              </div>
+          `;
+      }
+
+      function runSearch() {
+          const rawQuery = document.getElementById("searchInput").value.trim();
+          const statusEl = document.getElementById("searchStatus");
+          const resultsEl = document.getElementById("searchResults");
+
+          if (!rawQuery) {
+              statusEl.textContent = "";
+              resultsEl.innerHTML = "";
+              return;
+          }
+
+          const lowerQuery = rawQuery.toLowerCase();
+          const matches = searchAllWords.filter(w => matchesQuery(w, rawQuery, lowerQuery));
+
+          if (matches.length === 0) {
+              statusEl.textContent = "見つかりませんでした";
+              resultsEl.innerHTML = "";
+              return;
+          }
+
+          statusEl.textContent = matches.length > SEARCH_RESULT_LIMIT
+              ? `${matches.length}件見つかりました（先頭${SEARCH_RESULT_LIMIT}件を表示）`
+              : `${matches.length}件見つかりました`;
+
+          resultsEl.innerHTML = matches.slice(0, SEARCH_RESULT_LIMIT).map(renderResultCard).join("");
+
+          resultsEl.querySelectorAll(".search-speak-btn").forEach(btn => {
+              btn.addEventListener("click", () => medetySpeak(btn.dataset.word));
+          });
       }
 
       async function init() {
           try {
               const data = await loadMedetyData();
               if (!data || !data.words) throw new Error("no data");
+              searchAllWords = data.words;
+              (data.etymology || []).forEach(e => { if (e.tag) searchTagToMeaning[e.tag] = e.meaning; });
 
-              const plan = medetyBuildCoursePlan(data.words, clGroup);
-              const item = plan[clUnit];
-
-              // レッスン以外（復習・テスト）は一覧プレビュー対象外なので、そのまま出題画面へ
-              if (!item || item.type !== "lesson") {
-                  location.replace(clQuizHref);
-                  return;
-              }
-
-              document.getElementById("clessonTitle").textContent = clSetLabel || "レッスン";
-
-              document.getElementById("clessonList").innerHTML = item.words.map((w, i) => {
-                  const note = w.note ? String(w.note).trim() : "";
-                  return `
-                  <div class="clesson-word-row">
-                    <div>
-                      <div class="clesson-word-en">${escapeHtml(w.word)}</div>
-                      <div class="clesson-word-jp">${escapeHtml(w.meaning)}</div>
-                      ${note ? `<div class="medety-note">💡 ${escapeHtml(note)}</div>` : ""}
-                    </div>
-                    <button type="button" class="clesson-speak-btn" data-index="${i}" aria-label="発音を聞く">🔊</button>
-                  </div>
-              `;
-              }).join("");
-
-              document.querySelectorAll(".clesson-speak-btn").forEach(btn => {
-                  btn.addEventListener("click", () => {
-                      const w = item.words[parseInt(btn.dataset.index, 10)];
-                      if (w) medetySpeak(w.word);
-                  });
-              });
-
-              document.getElementById("clessonLoading").style.display = "none";
-              document.getElementById("clessonActions").style.display = "block";
-              document.getElementById("clessonStartBtn").addEventListener("click", () => { location.href = clQuizHref; });
+              document.getElementById("searchLoading").style.display = "none";
+              document.getElementById("searchInput").addEventListener("input", runSearch);
+              document.getElementById("searchInput").focus();
           } catch (e) {
-              console.error("レッスン単語一覧の読み込みに失敗:", e);
-              document.getElementById("clessonLoading").innerHTML = '読み込みに失敗しました。<a href="index.html">ホームに戻る</a>';
+              console.error("検索データの読み込みに失敗:", e);
+              document.getElementById("searchLoading").textContent = "読み込みに失敗しました。時間をおいて再度お試しください。";
           }
       }
+
+      // 検索結果のコピー・右クリックメニュー・ドラッグ選択を無効化する
+      // （気軽なコピペを防ぐための簡易的な対策。データ自体の保護にはならない点に注意）
+      const searchResultsEl = document.getElementById("searchResults");
+      searchResultsEl.addEventListener("copy", (e) => e.preventDefault());
+      searchResultsEl.addEventListener("contextmenu", (e) => e.preventDefault());
+      searchResultsEl.addEventListener("dragstart", (e) => e.preventDefault());
 
       init();
     </script>
