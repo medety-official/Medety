@@ -192,8 +192,25 @@
           </div>
 
           <script src="progress.js"></script>
+          <script src="api.js"></script>
           <script src="course.js"></script>
           <script>
+              // 「次のユニットへ」のリンク先タイトルを、"◯◯ 続き" ではなく
+              // index.html の「コースの続き」と同じ「◯◯ レッスンN」等の表記に揃える。
+              // レッスン番号の算出には実際の単語データ（分野・レベルごとの件数）が必要なので、非同期で後から差し替える。
+              async function updateNextUnitLabel(groupId, nextUnitIdx, groupLabel, linkEl) {
+                  try {
+                      const data = await loadMedetyData();
+                      if (!data || !data.words) return;
+                      const plan = medetyApplyCourseLocks(medetyBuildCoursePlan(data.words, groupId), groupId);
+                      const target = plan[nextUnitIdx];
+                      if (!target) return; // コース修了直後など、次のユニットが存在しない場合は「続き」のままにしておく
+                      const lessonNumber = plan.slice(0, nextUnitIdx + 1).filter(it => it.type === "lesson").length;
+                      const label = target.type === "test" ? "レベルアップテスト" : target.type === "review" ? "復習" : `レッスン${lessonNumber}`;
+                      linkEl.href = `coursequiz.html?group=${encodeURIComponent(groupId)}&unit=${nextUnitIdx}&set=${encodeURIComponent(groupLabel + " " + label)}`;
+                  } catch (e) {}
+              }
+
               const params = new URLSearchParams(window.location.search);
               const setName = params.get("set");
               const result = params.get("result");
@@ -292,6 +309,7 @@
                               nextLink.textContent = "次のレベルへ ➔";
                               nextLink.href = `coursequiz.html?group=${encodeURIComponent(groupParam)}&unit=${nextUnit}&set=${encodeURIComponent(groupLabel + " 続き")}`;
                               nextArea.style.display = "block";
+                              updateNextUnitLabel(groupParam, nextUnit, groupLabel, nextLink);
                           } else {
                               // 不合格の場合は、同じテストをやり直せるようにする
                               nextLink.textContent = "もう一度挑戦する ➔";
@@ -304,6 +322,7 @@
                           nextLink.textContent = "次のユニットへ ➔";
                           nextLink.href = `coursequiz.html?group=${encodeURIComponent(groupParam)}&unit=${nextUnit}&set=${encodeURIComponent(groupLabel + " 続き")}`;
                           nextArea.style.display = "block";
+                          updateNextUnitLabel(groupParam, nextUnit, groupLabel, nextLink);
                       }
                       backLink.textContent = "コース一覧に戻る";
                       backLink.href = "index.html"; // コース学習はホーム画面に移動したため

@@ -667,7 +667,9 @@
           if (bird.y < BIRD_R) {
               bird.y = BIRD_R;
               bird.vy = 0;
+              loseLife();
           }
+          if (!running) return; // 天井に当たってゲームオーバーになった場合も、この先の出題処理は行わない
 
           // 障害物（クイズ中は出現を止めて、コインと重ならないようにする）
           if (quizPhase === null && frame >= nextObstacleFrame) {
