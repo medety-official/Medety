@@ -313,8 +313,19 @@
       // ===== キャンバス・定数 =====
       const canvas = document.getElementById("gameCanvas");
       const ctx = canvas.getContext("2d");
-      const CANVAS_W = canvas.width;
+      const CANVAS_W = canvas.width;  // ゲームロジックが使う論理サイズ（360×600）。これは変えない
       const CANVAS_H = canvas.height;
+
+      // iPad・iPhoneのような高DPI端末では、canvasの実解像度が表示サイズより低いままだと
+      // ブラウザが引き伸ばして描画するため、動いている輪郭が滲む・チラつく（今回の「ガクガク」の原因）。
+      // 端末のdevicePixelRatio分だけ実解像度を上げ、ctx.scale()で帳尻を合わせることで、
+      // これまで通り論理座標（0〜360, 0〜600）のままコードを書けるようにする。
+      const dpr = window.devicePixelRatio || 1;
+      if (dpr > 1) {
+          canvas.width = CANVAS_W * dpr;
+          canvas.height = CANVAS_H * dpr;
+          ctx.scale(dpr, dpr);
+      }
       const GROUND_Y = CANVAS_H - 36;
       const GRAVITY = 0.45;
       const JUMP_V = -7.6;
@@ -632,6 +643,7 @@
               score: best,
               difficulty: DIFF.label,
               group: playGroup,
+              level: playLevel,
           });
 
           if (result && result.ok) {
@@ -868,12 +880,21 @@
           ctx.fill();
       }
 
+      // 空のグラデーションは色が変わらない限り同じなので、毎フレーム作り直さず使い回す
+      // （地味だが、毎フレームのcreateLinearGradient呼び出しはコマ落ちの一因になりうるため）
+      let skyGradCache = null;
+      function getSkyGradient() {
+          if (!skyGradCache) {
+              skyGradCache = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+              skyGradCache.addColorStop(0, COLORS.sky);
+              skyGradCache.addColorStop(1, COLORS.bg);
+          }
+          return skyGradCache;
+      }
+
       function drawBackground() {
           // 空（グラデーション）
-          const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-          skyGrad.addColorStop(0, COLORS.sky);
-          skyGrad.addColorStop(1, COLORS.bg);
-          ctx.fillStyle = skyGrad;
+          ctx.fillStyle = getSkyGradient();
           ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
           const offset = ((bgScrollX % BG_TILE_W) + BG_TILE_W) % BG_TILE_W;

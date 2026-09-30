@@ -52,6 +52,27 @@
           font-size: 0.75rem;
           color: var(--c-text);
           white-space: nowrap;
+          display: inline-block;
+          margin-top: 2px;
+          margin-right: 4px;
+      }
+      /* レベルはあくまで参考情報なので、難易度バッジより控えめな見た目にする */
+      .ranking-level-badge {
+          background-color: transparent;
+          border: 1px solid var(--c-border);
+          opacity: 0.75;
+      }
+      .ranking-tabs {
+          display: flex;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          gap: 8px;
+          padding-bottom: 4px;
+          margin-bottom: 14px;
+      }
+      .ranking-tab-btn {
+          flex-shrink: 0;
+          white-space: nowrap;
       }
     </style>
 
@@ -120,6 +141,8 @@
           <h5 class="fw-bold mb-1">🏆 ランキング</h5>
           <div class="small text-muted mb-3">遊ぶモードの自己ベストスコアランキング（上位50件）</div>
 
+          <div id="rankingTabs" class="ranking-tabs" style="display:none;"></div>
+
           <div id="rankingLoading" class="text-center text-muted py-5">
             読み込み中...
           </div>
@@ -145,7 +168,10 @@
     </div>
 
     <script src="api.js"></script>
+    <script src="course.js"></script>
     <script>
+      const RANKING_TOP_N = 50; // 分野ごとに絞り込んだ後、表示するのは上位何件まで
+
       function escapeHtml(text) {
           const div = document.createElement("div");
           div.textContent = text == null ? "" : String(text);
@@ -158,6 +184,54 @@
           return String(rank);
       }
 
+      let fullRanking = [];
+      let selectedGroupId = "all";
+
+      // 分野タブ（「すべて」＋COURSE_GROUP_ORDERの各分野）を描画する
+      function renderRankingTabs() {
+          const tabs = [{ id: "all", emoji: "🏆", label: "すべて" }]
+              .concat(COURSE_GROUP_ORDER.map(gid => ({ id: gid, emoji: COURSE_GROUPS[gid].emoji, label: COURSE_GROUPS[gid].label })));
+
+          document.getElementById("rankingTabs").innerHTML = tabs.map(t => `
+              <button type="button"
+                      class="btn btn-sm rounded-pill ranking-tab-btn ${t.id === selectedGroupId ? "btn-primary" : "btn-outline-primary"}"
+                      onclick="selectRankingTab('${t.id}')">
+                ${t.emoji} ${escapeHtml(t.label)}
+              </button>
+          `).join("");
+      }
+
+      function selectRankingTab(groupId) {
+          selectedGroupId = groupId;
+          renderRankingTabs();
+          renderRankingList();
+      }
+
+      // 現在選択中の分野タブに合わせて一覧を絞り込み、上位N件を描画する
+      // 「すべて」タブは全件ではなく、プレイ時に「すべての分野」を選んだ人（group === "all"）だけを表示する
+      function renderRankingList() {
+          const filtered = fullRanking.filter(r => r.group === selectedGroupId);
+          const top = filtered.slice(0, RANKING_TOP_N);
+
+          document.getElementById("rankingEmpty").style.display = top.length === 0 ? "block" : "none";
+          document.getElementById("rankingList").innerHTML = top.map((r, i) => {
+              const rank = i + 1;
+              return `
+                <div class="card border-0 shadow-sm ranking-item p-3 mb-2">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="ranking-rank${rank <= 3 ? " is-medal" : ""}">${medalForRank(rank)}</div>
+                    <div class="flex-grow-1">
+                      <div class="fw-bold">${escapeHtml(r.nickname)}</div>
+                      ${r.difficulty ? `<span class="ranking-diff-badge">${escapeHtml(r.difficulty)}</span>` : ""}
+                      ${(r.level && r.level !== "all") ? `<span class="ranking-diff-badge ranking-level-badge">${escapeHtml(COURSE_LEVEL_LABELS[r.level] || r.level)}</span>` : ""}
+                    </div>
+                    <div class="ranking-score">${escapeHtml(r.score)}点</div>
+                  </div>
+                </div>
+              `;
+          }).join("");
+      }
+
       (async function initRanking() {
           const result = await fetchRanking();
           document.getElementById("rankingLoading").style.display = "none";
@@ -167,27 +241,12 @@
               return;
           }
 
-          const ranking = result.ranking;
-          if (ranking.length === 0) {
-              document.getElementById("rankingEmpty").style.display = "block";
-              return;
-          }
+          // スコアの降順はGAS側でも行っているが、念のためここでも揃えておく
+          fullRanking = result.ranking.slice().sort((a, b) => b.score - a.score);
 
-          document.getElementById("rankingList").innerHTML = ranking.map((r, i) => {
-              const rank = i + 1;
-              return `
-                <div class="card border-0 shadow-sm ranking-item p-3 mb-2">
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="ranking-rank${rank <= 3 ? " is-medal" : ""}">${medalForRank(rank)}</div>
-                    <div class="flex-grow-1">
-                      <div class="fw-bold">${escapeHtml(r.nickname)}</div>
-                      ${r.difficulty ? `<span class="ranking-diff-badge">${escapeHtml(r.difficulty)}</span>` : ""}
-                    </div>
-                    <div class="ranking-score">${escapeHtml(r.score)}点</div>
-                  </div>
-                </div>
-              `;
-          }).join("");
+          document.getElementById("rankingTabs").style.display = "flex";
+          renderRankingTabs();
+          renderRankingList();
       })();
     </script>
 
